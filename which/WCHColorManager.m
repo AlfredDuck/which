@@ -79,5 +79,10 @@
 + (UIColor *)lightYellowBackground {
     return [UIColor colorWithRed:259/255.0 green:236/255.0 blue:215/255.0 alpha:1];
 }
+//============
++ (UIColor *)commonPink {
+    return [UIColor colorWithRed:244/255.0 green:96/255.0 blue:123/255.0 alpha:1];
+}
+
 
 @end

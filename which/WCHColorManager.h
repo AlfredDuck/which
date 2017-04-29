@@ -31,4 +31,6 @@
 + (UIColor *)yellowBackground;
 + (UIColor *)yellowText;
 + (UIColor *)lightYellowBackground;
+//=============
++ (UIColor *)commonPink;
 @end

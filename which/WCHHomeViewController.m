@@ -138,7 +138,9 @@
     if ( voteCell == nil) {
         voteCell = [[WCHVoteCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellWithIdentifier];
     }
-    
+    [voteCell rewriteTitle:@"复杂的编译器优化几乎都没什么价值，即使能得到更快的代码。它们会大大降低编译速度而且很可能产生难以处理的bug，使性能问题的处理更加困难"];
+    NSArray *a = @[@"http://img.cnu.cc/uploads/images/920/1606/23/814db05f0d893229944b409df1d4065b.jpg",@"http://img.cnu.cc/uploads/images/920/1606/23/26322393dcf73e43bd7b2fa7a66fe775.jpg"];
+    [voteCell rewritePics:a];
     voteCell.selectionStyle = UITableViewCellSelectionStyleNone;  // 取消选中的背景色
     return voteCell;
 }
@@ -147,7 +149,8 @@
 // 改变 cell 高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    WCHVoteCell *cell = (WCHVoteCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+    return cell.cellHeight;
 }
 
 
