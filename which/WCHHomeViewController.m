@@ -82,7 +82,7 @@
     [_oneTableView registerClass:[WCHVoteCell class] forCellReuseIdentifier:CellWithIdentifier];
     _oneTableView.backgroundColor = [WCHColorManager lightGrayBackground];
     _oneTableView.separatorStyle = UITableViewCellSeparatorStyleNone; // 去掉分割线
-    _oneTableView.contentInset = UIEdgeInsetsMake(15, 0, 0, 0); // 设置距离顶部的一段偏移，继承自scrollview
+    // _oneTableView.contentInset = UIEdgeInsetsMake(15, 0, 0, 0); // 设置距离顶部的一段偏移，继承自scrollview
     // 响应点击状态栏的事件
     _oneTableView.scrollsToTop = YES;
     [self.view addSubview:_oneTableView];
@@ -138,8 +138,8 @@
     if ( voteCell == nil) {
         voteCell = [[WCHVoteCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellWithIdentifier];
     }
-    [voteCell rewriteTitle:@"复杂的编译器优化几乎都没什么价值，即使能得到更快的代码"];
-    NSArray *a = @[@"http://img.cnu.cc/uploads/images/920/1606/23/814db05f0d893229944b409df1d4065b.jpg",@"http://img.cnu.cc/uploads/images/920/1606/23/26322393dcf73e43bd7b2fa7a66fe775.jpg"];
+    [voteCell rewriteTitle:@"你们更喜欢哪种风格？"];
+    NSArray *a = @[@"http://img.cnu.cc/uploads/images/920/1612/22/c311366beda63779a590acf08e917016.jpg",@"http://img.cnu.cc/uploads/images/920/1606/23/26322393dcf73e43bd7b2fa7a66fe775.jpg"];
     [voteCell rewritePics:a];
     voteCell.selectionStyle = UITableViewCellSelectionStyleNone;  // 取消选中的背景色
     return voteCell;

@@ -37,8 +37,8 @@
         // 一些初始化的值
         _title = @"新程序员还没有弄懂分解问题和将解决方法变成代码之前，就给他们介绍面向对象是大错特错";
         _portraitURL = @"https://img5.doubanio.com/view/photo/albumicon/public/p2411938386.jpg";
-        _voteNum = @"23人投票";
-        _commentNum = @"123456789人留言";
+        _voteNum = @"0人投票";
+        _commentNum = @"0人留言";
         
         
         /* 头像 */
@@ -156,7 +156,7 @@
     //设置行距
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.lineSpacing = 0;  //行距
-    style.alignment = NSTextAlignmentCenter;
+    style.alignment = NSTextAlignmentCenter;  //居中
     [text addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, text.length)];
     _titleLabel.attributedText = text;
     
@@ -166,8 +166,8 @@
     CGSize labelSize = [str sizeWithFont:[UIFont fontWithName:@"PingFangSC-Thin" size:20]
                        constrainedToSize:maxSize
                            lineBreakMode:_titleLabel.lineBreakMode];   // str是要显示的字符串
-    unsigned long height = labelSize.height/20.0*20.0;
-    _titleLabel.frame = CGRectMake(30, 78, labelSize.width, height);  // 因为行距增加了，所以要用参数修正height
+    unsigned long height = labelSize.height/20.0*20.0;  // 因为行距增加了，所以要用参数修正height
+    _titleLabel.frame = CGRectMake(30, 78, _screenWidth-60, height);
     _titleLabel.numberOfLines = 0;  // 不可少Label属性之一
     //_postTextLabel.lineBreakMode = UILineBreakModeCharacterWrap;  // 不可少Label属性之二
     

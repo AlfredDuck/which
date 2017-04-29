@@ -26,6 +26,11 @@
 		BB6867C21EB4162900AB1D98 /* WCHMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6867C11EB4162900AB1D98 /* WCHMineViewController.m */; };
 		BB6867C41EB423FC00AB1D98 /* publish.png in Resources */ = {isa = PBXBuildFile; fileRef = BB6867C31EB423FC00AB1D98 /* publish.png */; };
 		BB6867C81EB42A0F00AB1D98 /* WCHVoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6867C71EB42A0F00AB1D98 /* WCHVoteCell.m */; };
+		BB6867CD1EB4D26C00AB1D98 /* WCHVoteListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6867CC1EB4D26C00AB1D98 /* WCHVoteListViewController.m */; };
+		BB6867D01EB4D35100AB1D98 /* WCHCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6867CF1EB4D35100AB1D98 /* WCHCommentViewController.m */; };
+		BB6867D31EB4D36D00AB1D98 /* WCHWriteCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6867D21EB4D36D00AB1D98 /* WCHWriteCommentViewController.m */; };
+		BB6867D61EB4D52500AB1D98 /* WCHCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6867D51EB4D52500AB1D98 /* WCHCommentCell.m */; };
+		BB6867D91EB4D54600AB1D98 /* WCHVoteListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6867D81EB4D54600AB1D98 /* WCHVoteListCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +83,16 @@
 		BB6867C31EB423FC00AB1D98 /* publish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = publish.png; path = "../../../coding/salt-App效果图/publish.png"; sourceTree = "<group>"; };
 		BB6867C61EB42A0F00AB1D98 /* WCHVoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHVoteCell.h; sourceTree = "<group>"; };
 		BB6867C71EB42A0F00AB1D98 /* WCHVoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHVoteCell.m; sourceTree = "<group>"; };
+		BB6867CB1EB4D26C00AB1D98 /* WCHVoteListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHVoteListViewController.h; sourceTree = "<group>"; };
+		BB6867CC1EB4D26C00AB1D98 /* WCHVoteListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHVoteListViewController.m; sourceTree = "<group>"; };
+		BB6867CE1EB4D35100AB1D98 /* WCHCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHCommentViewController.h; sourceTree = "<group>"; };
+		BB6867CF1EB4D35100AB1D98 /* WCHCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHCommentViewController.m; sourceTree = "<group>"; };
+		BB6867D11EB4D36D00AB1D98 /* WCHWriteCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHWriteCommentViewController.h; sourceTree = "<group>"; };
+		BB6867D21EB4D36D00AB1D98 /* WCHWriteCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHWriteCommentViewController.m; sourceTree = "<group>"; };
+		BB6867D41EB4D52500AB1D98 /* WCHCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHCommentCell.h; sourceTree = "<group>"; };
+		BB6867D51EB4D52500AB1D98 /* WCHCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHCommentCell.m; sourceTree = "<group>"; };
+		BB6867D71EB4D54600AB1D98 /* WCHVoteListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHVoteListCell.h; sourceTree = "<group>"; };
+		BB6867D81EB4D54600AB1D98 /* WCHVoteListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHVoteListCell.m; sourceTree = "<group>"; };
 		DD78C9D0906585AE40E73FDD /* Pods-which.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-which.release.xcconfig"; path = "Pods/Target Support Files/Pods-which/Pods-which.release.xcconfig"; sourceTree = "<group>"; };
 		F89ADBF6F9572E9159A789C0 /* libPods-which.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-which.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -144,6 +159,8 @@
 				BB6867B41EB414A700AB1D98 /* pics */,
 				BB6867AB1EB40FF500AB1D98 /* color manager */,
 				BB6867C51EB429C000AB1D98 /* cells */,
+				BB6867CA1EB4D21800AB1D98 /* comment list */,
+				BB6867C91EB4D21000AB1D98 /* vote list */,
 				BB6867AF1EB4107100AB1D98 /* first layer */,
 				BB6867A71EB40E6300AB1D98 /* root */,
 				BB6867741EB40CA200AB1D98 /* AppDelegate.h */,
@@ -239,8 +256,32 @@
 			children = (
 				BB6867C61EB42A0F00AB1D98 /* WCHVoteCell.h */,
 				BB6867C71EB42A0F00AB1D98 /* WCHVoteCell.m */,
+				BB6867D41EB4D52500AB1D98 /* WCHCommentCell.h */,
+				BB6867D51EB4D52500AB1D98 /* WCHCommentCell.m */,
+				BB6867D71EB4D54600AB1D98 /* WCHVoteListCell.h */,
+				BB6867D81EB4D54600AB1D98 /* WCHVoteListCell.m */,
 			);
 			name = cells;
+			sourceTree = "<group>";
+		};
+		BB6867C91EB4D21000AB1D98 /* vote list */ = {
+			isa = PBXGroup;
+			children = (
+				BB6867CB1EB4D26C00AB1D98 /* WCHVoteListViewController.h */,
+				BB6867CC1EB4D26C00AB1D98 /* WCHVoteListViewController.m */,
+			);
+			name = "vote list";
+			sourceTree = "<group>";
+		};
+		BB6867CA1EB4D21800AB1D98 /* comment list */ = {
+			isa = PBXGroup;
+			children = (
+				BB6867CE1EB4D35100AB1D98 /* WCHCommentViewController.h */,
+				BB6867CF1EB4D35100AB1D98 /* WCHCommentViewController.m */,
+				BB6867D11EB4D36D00AB1D98 /* WCHWriteCommentViewController.h */,
+				BB6867D21EB4D36D00AB1D98 /* WCHWriteCommentViewController.m */,
+			);
+			name = "comment list";
 			sourceTree = "<group>";
 		};
 		DEA6B097A396543B2F0FA6B6 /* Pods */ = {
@@ -443,13 +484,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB6867D01EB4D35100AB1D98 /* WCHCommentViewController.m in Sources */,
+				BB6867D31EB4D36D00AB1D98 /* WCHWriteCommentViewController.m in Sources */,
+				BB6867D91EB4D54600AB1D98 /* WCHVoteListCell.m in Sources */,
 				BB68677F1EB40CA200AB1D98 /* which.xcdatamodeld in Sources */,
 				BB6867AE1EB4102100AB1D98 /* WCHColorManager.m in Sources */,
 				BB6867C81EB42A0F00AB1D98 /* WCHVoteCell.m in Sources */,
 				BB6867761EB40CA200AB1D98 /* AppDelegate.m in Sources */,
 				BB6867BF1EB4161100AB1D98 /* WCHHomeViewController.m in Sources */,
+				BB6867D61EB4D52500AB1D98 /* WCHCommentCell.m in Sources */,
 				BB6867C21EB4162900AB1D98 /* WCHMineViewController.m in Sources */,
 				BB6867AA1EB40EBF00AB1D98 /* WCHRootViewController.m in Sources */,
+				BB6867CD1EB4D26C00AB1D98 /* WCHVoteListViewController.m in Sources */,
 				BB6867731EB40CA200AB1D98 /* main.m in Sources */,
 				BB6867B31EB410D800AB1D98 /* WCHBasedTabViewController.m in Sources */,
 			);
@@ -685,6 +731,7 @@
 				BB6867A01EB40CA200AB1D98 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BB6867A11EB40CA200AB1D98 /* Build configuration list for PBXNativeTarget "whichTests" */ = {
 			isa = XCConfigurationList;
@@ -693,6 +740,7 @@
 				BB6867A31EB40CA200AB1D98 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BB6867A41EB40CA200AB1D98 /* Build configuration list for PBXNativeTarget "whichUITests" */ = {
 			isa = XCConfigurationList;
@@ -701,6 +749,7 @@
 				BB6867A61EB40CA200AB1D98 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

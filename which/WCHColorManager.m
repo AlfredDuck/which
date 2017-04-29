@@ -19,7 +19,7 @@
 }
 + (UIColor *)mainTextColor
 {
-    return [UIColor colorWithRed:(66/255.0) green:(72/255.0) blue:(78/255.0) alpha:1];
+    return [UIColor colorWithRed:(46/255.0) green:(46/255.0) blue:(46/255.0) alpha:1];
 }
 + (UIColor *)secondTextColor
 {
