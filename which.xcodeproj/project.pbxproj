@@ -9,13 +9,21 @@
 /* Begin PBXBuildFile section */
 		BB6867731EB40CA200AB1D98 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6867721EB40CA200AB1D98 /* main.m */; };
 		BB6867761EB40CA200AB1D98 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6867751EB40CA200AB1D98 /* AppDelegate.m */; };
-		BB6867791EB40CA200AB1D98 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6867781EB40CA200AB1D98 /* ViewController.m */; };
-		BB68677C1EB40CA200AB1D98 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB68677A1EB40CA200AB1D98 /* Main.storyboard */; };
 		BB68677F1EB40CA200AB1D98 /* which.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB68677D1EB40CA200AB1D98 /* which.xcdatamodeld */; };
 		BB6867811EB40CA200AB1D98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB6867801EB40CA200AB1D98 /* Assets.xcassets */; };
 		BB6867841EB40CA200AB1D98 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB6867821EB40CA200AB1D98 /* LaunchScreen.storyboard */; };
 		BB68678F1EB40CA200AB1D98 /* whichTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB68678E1EB40CA200AB1D98 /* whichTests.m */; };
 		BB68679A1EB40CA200AB1D98 /* whichUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6867991EB40CA200AB1D98 /* whichUITests.m */; };
+		BB6867AA1EB40EBF00AB1D98 /* WCHRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6867A91EB40EBF00AB1D98 /* WCHRootViewController.m */; };
+		BB6867AE1EB4102100AB1D98 /* WCHColorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6867AD1EB4102100AB1D98 /* WCHColorManager.m */; };
+		BB6867B31EB410D800AB1D98 /* WCHBasedTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6867B21EB410D800AB1D98 /* WCHBasedTabViewController.m */; };
+		BB6867B61EB4151000AB1D98 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = BB6867B51EB4151000AB1D98 /* home.png */; };
+		BB6867B81EB4151C00AB1D98 /* mine.png in Resources */ = {isa = PBXBuildFile; fileRef = BB6867B71EB4151C00AB1D98 /* mine.png */; };
+		BB6867BA1EB4155400AB1D98 /* home_focus.png in Resources */ = {isa = PBXBuildFile; fileRef = BB6867B91EB4155400AB1D98 /* home_focus.png */; };
+		BB6867BC1EB4155B00AB1D98 /* mine_focus.png in Resources */ = {isa = PBXBuildFile; fileRef = BB6867BB1EB4155B00AB1D98 /* mine_focus.png */; };
+		BB6867BF1EB4161100AB1D98 /* WCHHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6867BE1EB4161100AB1D98 /* WCHHomeViewController.m */; };
+		BB6867C21EB4162900AB1D98 /* WCHMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6867C11EB4162900AB1D98 /* WCHMineViewController.m */; };
+		BB6867C41EB423FC00AB1D98 /* publish.png in Resources */ = {isa = PBXBuildFile; fileRef = BB6867C31EB423FC00AB1D98 /* publish.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,9 +48,6 @@
 		BB6867721EB40CA200AB1D98 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BB6867741EB40CA200AB1D98 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BB6867751EB40CA200AB1D98 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		BB6867771EB40CA200AB1D98 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		BB6867781EB40CA200AB1D98 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		BB68677B1EB40CA200AB1D98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BB68677E1EB40CA200AB1D98 /* which.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = which.xcdatamodel; sourceTree = "<group>"; };
 		BB6867801EB40CA200AB1D98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB6867831EB40CA200AB1D98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -53,6 +58,21 @@
 		BB6867951EB40CA200AB1D98 /* whichUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = whichUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB6867991EB40CA200AB1D98 /* whichUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = whichUITests.m; sourceTree = "<group>"; };
 		BB68679B1EB40CA200AB1D98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BB6867A81EB40EBF00AB1D98 /* WCHRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHRootViewController.h; sourceTree = "<group>"; };
+		BB6867A91EB40EBF00AB1D98 /* WCHRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHRootViewController.m; sourceTree = "<group>"; };
+		BB6867AC1EB4102100AB1D98 /* WCHColorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHColorManager.h; sourceTree = "<group>"; };
+		BB6867AD1EB4102100AB1D98 /* WCHColorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHColorManager.m; sourceTree = "<group>"; };
+		BB6867B11EB410D800AB1D98 /* WCHBasedTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHBasedTabViewController.h; sourceTree = "<group>"; };
+		BB6867B21EB410D800AB1D98 /* WCHBasedTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHBasedTabViewController.m; sourceTree = "<group>"; };
+		BB6867B51EB4151000AB1D98 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = home.png; path = "../../../coding/salt-App效果图/home.png"; sourceTree = "<group>"; };
+		BB6867B71EB4151C00AB1D98 /* mine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mine.png; path = "../../../coding/salt-App效果图/mine.png"; sourceTree = "<group>"; };
+		BB6867B91EB4155400AB1D98 /* home_focus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = home_focus.png; path = "../../../coding/salt-App效果图/home_focus.png"; sourceTree = "<group>"; };
+		BB6867BB1EB4155B00AB1D98 /* mine_focus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mine_focus.png; path = "../../../coding/salt-App效果图/mine_focus.png"; sourceTree = "<group>"; };
+		BB6867BD1EB4161100AB1D98 /* WCHHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHHomeViewController.h; sourceTree = "<group>"; };
+		BB6867BE1EB4161100AB1D98 /* WCHHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHHomeViewController.m; sourceTree = "<group>"; };
+		BB6867C01EB4162900AB1D98 /* WCHMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHMineViewController.h; sourceTree = "<group>"; };
+		BB6867C11EB4162900AB1D98 /* WCHMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHMineViewController.m; sourceTree = "<group>"; };
+		BB6867C31EB423FC00AB1D98 /* publish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = publish.png; path = "../../../coding/salt-App效果图/publish.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,11 +123,12 @@
 		BB6867701EB40CA200AB1D98 /* which */ = {
 			isa = PBXGroup;
 			children = (
+				BB6867B41EB414A700AB1D98 /* pics */,
+				BB6867AB1EB40FF500AB1D98 /* color manager */,
+				BB6867AF1EB4107100AB1D98 /* first layer */,
+				BB6867A71EB40E6300AB1D98 /* root */,
 				BB6867741EB40CA200AB1D98 /* AppDelegate.h */,
 				BB6867751EB40CA200AB1D98 /* AppDelegate.m */,
-				BB6867771EB40CA200AB1D98 /* ViewController.h */,
-				BB6867781EB40CA200AB1D98 /* ViewController.m */,
-				BB68677A1EB40CA200AB1D98 /* Main.storyboard */,
 				BB6867801EB40CA200AB1D98 /* Assets.xcassets */,
 				BB6867821EB40CA200AB1D98 /* LaunchScreen.storyboard */,
 				BB6867851EB40CA200AB1D98 /* Info.plist */,
@@ -141,6 +162,57 @@
 				BB68679B1EB40CA200AB1D98 /* Info.plist */,
 			);
 			path = whichUITests;
+			sourceTree = "<group>";
+		};
+		BB6867A71EB40E6300AB1D98 /* root */ = {
+			isa = PBXGroup;
+			children = (
+				BB6867A81EB40EBF00AB1D98 /* WCHRootViewController.h */,
+				BB6867A91EB40EBF00AB1D98 /* WCHRootViewController.m */,
+			);
+			name = root;
+			sourceTree = "<group>";
+		};
+		BB6867AB1EB40FF500AB1D98 /* color manager */ = {
+			isa = PBXGroup;
+			children = (
+				BB6867AC1EB4102100AB1D98 /* WCHColorManager.h */,
+				BB6867AD1EB4102100AB1D98 /* WCHColorManager.m */,
+			);
+			name = "color manager";
+			sourceTree = "<group>";
+		};
+		BB6867AF1EB4107100AB1D98 /* first layer */ = {
+			isa = PBXGroup;
+			children = (
+				BB6867B01EB4109F00AB1D98 /* based */,
+				BB6867BD1EB4161100AB1D98 /* WCHHomeViewController.h */,
+				BB6867BE1EB4161100AB1D98 /* WCHHomeViewController.m */,
+				BB6867C01EB4162900AB1D98 /* WCHMineViewController.h */,
+				BB6867C11EB4162900AB1D98 /* WCHMineViewController.m */,
+			);
+			name = "first layer";
+			sourceTree = "<group>";
+		};
+		BB6867B01EB4109F00AB1D98 /* based */ = {
+			isa = PBXGroup;
+			children = (
+				BB6867B11EB410D800AB1D98 /* WCHBasedTabViewController.h */,
+				BB6867B21EB410D800AB1D98 /* WCHBasedTabViewController.m */,
+			);
+			name = based;
+			sourceTree = "<group>";
+		};
+		BB6867B41EB414A700AB1D98 /* pics */ = {
+			isa = PBXGroup;
+			children = (
+				BB6867B51EB4151000AB1D98 /* home.png */,
+				BB6867B91EB4155400AB1D98 /* home_focus.png */,
+				BB6867B71EB4151C00AB1D98 /* mine.png */,
+				BB6867BB1EB4155B00AB1D98 /* mine_focus.png */,
+				BB6867C31EB423FC00AB1D98 /* publish.png */,
+			);
+			name = pics;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,9 +324,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB6867B81EB4151C00AB1D98 /* mine.png in Resources */,
 				BB6867841EB40CA200AB1D98 /* LaunchScreen.storyboard in Resources */,
 				BB6867811EB40CA200AB1D98 /* Assets.xcassets in Resources */,
-				BB68677C1EB40CA200AB1D98 /* Main.storyboard in Resources */,
+				BB6867BC1EB4155B00AB1D98 /* mine_focus.png in Resources */,
+				BB6867BA1EB4155400AB1D98 /* home_focus.png in Resources */,
+				BB6867C41EB423FC00AB1D98 /* publish.png in Resources */,
+				BB6867B61EB4151000AB1D98 /* home.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,10 +355,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB6867791EB40CA200AB1D98 /* ViewController.m in Sources */,
 				BB68677F1EB40CA200AB1D98 /* which.xcdatamodeld in Sources */,
+				BB6867AE1EB4102100AB1D98 /* WCHColorManager.m in Sources */,
 				BB6867761EB40CA200AB1D98 /* AppDelegate.m in Sources */,
+				BB6867BF1EB4161100AB1D98 /* WCHHomeViewController.m in Sources */,
+				BB6867C21EB4162900AB1D98 /* WCHMineViewController.m in Sources */,
+				BB6867AA1EB40EBF00AB1D98 /* WCHRootViewController.m in Sources */,
 				BB6867731EB40CA200AB1D98 /* main.m in Sources */,
+				BB6867B31EB410D800AB1D98 /* WCHBasedTabViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,14 +398,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		BB68677A1EB40CA200AB1D98 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BB68677B1EB40CA200AB1D98 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		BB6867821EB40CA200AB1D98 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -431,9 +503,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 3HCQXUYMF8;
 				INFOPLIST_FILE = which/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Alfred.com.which;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -443,9 +517,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 3HCQXUYMF8;
 				INFOPLIST_FILE = which/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Alfred.com.which;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

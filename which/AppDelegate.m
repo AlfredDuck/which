@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "WCHRootViewController.h"
 
 @interface AppDelegate ()
 
@@ -14,9 +15,57 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    //Override point for customization after application launch.
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    
+    //    [NSThread sleepForTimeInterval:1.0];  //   启动等待时间
+    // [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;  // 状态栏小菊花
+    
+//    // weibo SDK
+//    [WeiboSDK enableDebugMode:YES];
+//    [WeiboSDK registerApp:kAPPKey];
+//    // weixin SDK 向微信注册
+//    [WXApi registerApp:WXKey];
+//    // 启动GrowingIO
+//    [Growing startWithAccountId:@"bc1b144ace9e4e5c"];  // coco项目
+//    //    // 设置YY图片缓存的最大内存上限
+//    //    YYImageCache *YYcache = [YYWebImageManager sharedManager].cache;
+//    //    YYcache.memoryCache.costLimit = 100 * 1024 * 1024;
+//    //    YYcache.diskCache.costLimit = 500 * 1024 * 1024;
+//    
+    
+    // 设置 RootViewController
+    WCHRootViewController *rootVC = [[WCHRootViewController alloc] init];
+    //    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:rootVC];
+    //    [navVC setNavigationBarHidden:YES];
+    self.window.rootViewController = rootVC;
+    
+    
+    /** token推送相关 begin */
+    //    // 允许推送，暂时不懂
+    //    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+    //     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    //
+    //    // app开启后清除badge(图标上的小红点)
+    //    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
+    //
+    //    //根据系统版本不同，调用不同方法获取 device token
+    //    if ([[UIDevice currentDevice].systemVersion floatValue]>=8.0) {
+    //#ifdef __IPHONE_8_0
+    //        //Right, that is the point
+    //        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeAlert) categories:nil];
+    //        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    //#else
+    //        //register to receive notifications
+    //        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+    //        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
+    //#endif
+    //    }
+    /** token推送相关 end */
+    
     return YES;
 }
 
