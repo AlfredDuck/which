@@ -14,7 +14,7 @@
 
 /** 头像 */
 @property (nonnull, copy) NSString *portraitURL;
-@property (nonnull, copy) UIImageView *portraitView;
+@property (nonnull, copy) UIImageView *portraitImageView;
 /** 标题 */
 @property (nonnull, copy) NSString *title;
 @property (nonnull, copy) UILabel *titleLabel;

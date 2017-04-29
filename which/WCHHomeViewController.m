@@ -61,9 +61,9 @@
     
     /* title */
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((_screenWidth-200)/2, 20, 200, 44)];
-    titleLabel.text = @"朋友们";
+    titleLabel.text = @"· which ·";
     titleLabel.textColor = [WCHColorManager mainTextColor];
-    titleLabel.font = [UIFont fontWithName:@"Helvetica" size: 17.5];
+    titleLabel.font = [UIFont fontWithName:@"PingFangSC-Thin" size: 22.0];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [titleBarBackground addSubview:titleLabel];
 }
