@@ -9,6 +9,7 @@
 #import "WCHHomeViewController.h"
 #import "WCHColorManager.h"
 #import "WCHVoteCell.h"
+#import "WCHVoteListViewController.h"
 
 @interface WCHHomeViewController ()
 
@@ -158,6 +159,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSUInteger row = [indexPath row];
+    if (row == 0){
+        WCHVoteListViewController *voteList = [[WCHVoteListViewController alloc] init];
+        [self.navigationController pushViewController:voteList animated:YES];
+        //开启iOS7的滑动返回效果
+        if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+            self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+        }
+    }
 }
 
 

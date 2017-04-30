@@ -8,6 +8,7 @@
 
 #import "WCHBasedTabViewController.h"
 #import "WCHColorManager.h"
+#import "WCHPublishViewController.h"
 
 @interface WCHBasedTabViewController ()
 
@@ -142,6 +143,8 @@
 - (void)clickPublishTab
 {
     NSLog(@"clickPublishTab");
+    WCHPublishViewController *publishPage = [[WCHPublishViewController alloc] init];
+    [self.navigationController presentViewController:publishPage animated:YES completion:nil];
 }
 
 

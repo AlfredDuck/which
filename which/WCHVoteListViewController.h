@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WCHVoteListViewController : UIViewController
+@interface WCHVoteListViewController : UIViewController <UITableViewDelegate,UITableViewDataSource>
+@property (nonatomic) NSInteger screenWidth;
+@property (nonatomic) NSInteger screenHeight;
 
+/* uitableview */
+@property (nonatomic, strong) UITableView *oneTableView;
+/* tableview data */
+@property (nonatomic, strong) NSMutableArray *voteData;
 @end
