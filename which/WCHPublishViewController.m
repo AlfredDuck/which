@@ -33,6 +33,7 @@
     _screenWidth = [UIScreen mainScreen].bounds.size.width;
     [self createUIParts];
     [self createTextView];
+    [self createPicHolder];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,10 +82,23 @@
     [backView addGestureRecognizer:singleTap]; // 给图片添加手势
     [titleBarBackground addSubview:backView];
     
+    
+    // “发送” 按钮
+    _sendButton = [[UIButton alloc] initWithFrame:CGRectMake(_screenWidth - 49-8, 28.5, 49, 27)];
+    [_sendButton setTitle:@"发送" forState:UIControlStateNormal];
+    _sendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [_sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _sendButton.backgroundColor = [WCHColorManager commonPink];
+    _sendButton.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
+    _sendButton.layer.cornerRadius = 3;
+    [_sendButton addTarget:self action:@selector(clickSendButton) forControlEvents:UIControlEventTouchUpInside];
+    [titleBarBackground addSubview:_sendButton];
+    
 }
 
 
 
+#pragma mark - 构建输入框
 /** 构建输入框 */
 - (void)createTextView
 {
@@ -111,8 +125,6 @@
     _placeholder.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_placeholder];
 }
-
-
 
 
 
@@ -166,10 +178,56 @@
 
 
 
+
+#pragma mark - 裁切图片(all here)
+
+/** 两张图片容器 */
+- (void)createPicHolder
+{
+    unsigned long ww = _screenWidth/2.0 - 1;
+    unsigned long hh = ww/3.0*4.0;
+    UIView *picAView = [[UIView alloc] initWithFrame:CGRectMake(0, 200+64, ww, hh)];
+    UIView *picBView = [[UIView alloc] initWithFrame:CGRectMake(ww+2, 200+64, ww, hh)];
+    picAView.backgroundColor = [WCHColorManager lightGrayBackground];
+    picBView.backgroundColor = [WCHColorManager lightGrayBackground];
+    [self.view addSubview: picAView];
+    [self.view addSubview: picBView];
+    
+    UIImageView *iconA = [[UIImageView alloc] initWithFrame:CGRectMake((ww-61)/2.0, (hh-61)/2.0, 61, 61)];
+    iconA.image = [UIImage imageNamed:@"a_icon.png"];
+    [picAView addSubview: iconA];
+    UIImageView *iconB = [[UIImageView alloc] initWithFrame:CGRectMake((ww-61)/2.0, (hh-61)/2.0, 61, 61)];
+    iconB.image = [UIImage imageNamed:@"b_icon.png"];
+    [picBView addSubview: iconB];
+    
+    // 为UIView添加点击事件
+    UITapGestureRecognizer *singleTapA = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPicHolder:)]; // 设置手势
+    UITapGestureRecognizer *singleTapB = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPicHolder:)]; // 设置手势
+    picAView.userInteractionEnabled = YES; // 设置图片可以交互
+    picBView.userInteractionEnabled = YES; // 设置图片可以交互
+    [picAView addGestureRecognizer:singleTapA]; // 给图片添加手势
+    [picBView addGestureRecognizer:singleTapB]; // 给图片添加手势
+    
+}
+
+
+
+
+
 #pragma mark - IBAction
 - (void)clickCloseButton
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)clickSendButton
+{
+    
+}
+
+- (void)clickPicHolder:(UIGestureRecognizer *)sender
+{
+    NSLog(@"clickPicHolder");
 }
 
 

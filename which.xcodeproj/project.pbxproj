@@ -34,6 +34,9 @@
 		BB6867DB1EB4DD1700AB1D98 /* back_black.png in Resources */ = {isa = PBXBuildFile; fileRef = BB6867DA1EB4DD1700AB1D98 /* back_black.png */; };
 		BB6C975C1EB5750B00381467 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = BB6C975B1EB5750B00381467 /* close.png */; };
 		BB6C97601EB5758E00381467 /* WCHPublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6C975F1EB5758E00381467 /* WCHPublishViewController.m */; };
+		BB6C97641EB5F67400381467 /* VPImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6C97631EB5F67400381467 /* VPImageCropperViewController.m */; };
+		BB6C97661EB6020700381467 /* b_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BB6C97651EB6020700381467 /* b_icon.png */; };
+		BB6C97681EB6031C00381467 /* a_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BB6C97671EB6031C00381467 /* a_icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +103,10 @@
 		BB6C975B1EB5750B00381467 /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close.png; path = "../../../coding/salt-App效果图/close.png"; sourceTree = "<group>"; };
 		BB6C975E1EB5758E00381467 /* WCHPublishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHPublishViewController.h; sourceTree = "<group>"; };
 		BB6C975F1EB5758E00381467 /* WCHPublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHPublishViewController.m; sourceTree = "<group>"; };
+		BB6C97621EB5F67400381467 /* VPImageCropperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPImageCropperViewController.h; sourceTree = "<group>"; };
+		BB6C97631EB5F67400381467 /* VPImageCropperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPImageCropperViewController.m; sourceTree = "<group>"; };
+		BB6C97651EB6020700381467 /* b_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = b_icon.png; path = "../../../coding/salt-App效果图/b_icon.png"; sourceTree = "<group>"; };
+		BB6C97671EB6031C00381467 /* a_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = a_icon.png; path = "../../../coding/salt-App效果图/a_icon.png"; sourceTree = "<group>"; };
 		DD78C9D0906585AE40E73FDD /* Pods-which.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-which.release.xcconfig"; path = "Pods/Target Support Files/Pods-which/Pods-which.release.xcconfig"; sourceTree = "<group>"; };
 		F89ADBF6F9572E9159A789C0 /* libPods-which.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-which.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -163,6 +170,7 @@
 		BB6867701EB40CA200AB1D98 /* which */ = {
 			isa = PBXGroup;
 			children = (
+				BB6C97611EB5F64800381467 /* 图片裁切工具-第三方 */,
 				BB6867B41EB414A700AB1D98 /* pics */,
 				BB6867AB1EB40FF500AB1D98 /* color manager */,
 				BB6867C51EB429C000AB1D98 /* cells */,
@@ -257,6 +265,8 @@
 				BB6867C31EB423FC00AB1D98 /* publish.png */,
 				BB6867DA1EB4DD1700AB1D98 /* back_black.png */,
 				BB6C975B1EB5750B00381467 /* close.png */,
+				BB6C97671EB6031C00381467 /* a_icon.png */,
+				BB6C97651EB6020700381467 /* b_icon.png */,
 			);
 			name = pics;
 			sourceTree = "<group>";
@@ -301,6 +311,15 @@
 				BB6C975F1EB5758E00381467 /* WCHPublishViewController.m */,
 			);
 			name = "publish page";
+			sourceTree = "<group>";
+		};
+		BB6C97611EB5F64800381467 /* 图片裁切工具-第三方 */ = {
+			isa = PBXGroup;
+			children = (
+				BB6C97621EB5F67400381467 /* VPImageCropperViewController.h */,
+				BB6C97631EB5F67400381467 /* VPImageCropperViewController.m */,
+			);
+			name = "图片裁切工具-第三方";
 			sourceTree = "<group>";
 		};
 		DEA6B097A396543B2F0FA6B6 /* Pods */ = {
@@ -425,12 +444,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB6C975C1EB5750B00381467 /* close.png in Resources */,
+				BB6C97681EB6031C00381467 /* a_icon.png in Resources */,
 				BB6867B81EB4151C00AB1D98 /* mine.png in Resources */,
 				BB6867841EB40CA200AB1D98 /* LaunchScreen.storyboard in Resources */,
 				BB6867811EB40CA200AB1D98 /* Assets.xcassets in Resources */,
 				BB6867BC1EB4155B00AB1D98 /* mine_focus.png in Resources */,
 				BB6867BA1EB4155400AB1D98 /* home_focus.png in Resources */,
 				BB6867C41EB423FC00AB1D98 /* publish.png in Resources */,
+				BB6C97661EB6020700381467 /* b_icon.png in Resources */,
 				BB6867DB1EB4DD1700AB1D98 /* back_black.png in Resources */,
 				BB6867B61EB4151000AB1D98 /* home.png in Resources */,
 			);
@@ -517,6 +538,7 @@
 				BB6867C21EB4162900AB1D98 /* WCHMineViewController.m in Sources */,
 				BB6867AA1EB40EBF00AB1D98 /* WCHRootViewController.m in Sources */,
 				BB6867CD1EB4D26C00AB1D98 /* WCHVoteListViewController.m in Sources */,
+				BB6C97641EB5F67400381467 /* VPImageCropperViewController.m in Sources */,
 				BB6867731EB40CA200AB1D98 /* main.m in Sources */,
 				BB6867B31EB410D800AB1D98 /* WCHBasedTabViewController.m in Sources */,
 				BB6C97601EB5758E00381467 /* WCHPublishViewController.m in Sources */,
