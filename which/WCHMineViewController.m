@@ -163,7 +163,7 @@
     // ======================================================================
     
     
-    /* 修改昵称 */
+    /* 我发起的投票 */
     UIView *myPublishedVoteView = [[UIView alloc] initWithFrame:CGRectMake(0, 15+168, _screenWidth, 44)];
     myPublishedVoteView.backgroundColor = [UIColor whiteColor];
     // 为UIView添加点击事件

@@ -40,6 +40,11 @@
 		BB6C976C1EB6C7F400381467 /* WCHUserDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6C976B1EB6C7F400381467 /* WCHUserDefault.m */; };
 		BB6C976E1EB6C9DA00381467 /* direct.png in Resources */ = {isa = PBXBuildFile; fileRef = BB6C976D1EB6C9DA00381467 /* direct.png */; };
 		BB6C97731EB6CC1500381467 /* WCHPersonalCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6C97721EB6CC1500381467 /* WCHPersonalCenterViewController.m */; };
+		BB6C97771EB745C100381467 /* WCHWelcomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6C97761EB745C100381467 /* WCHWelcomeVC.m */; };
+		BB6C977A1EB7460300381467 /* WCHMobilLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6C97791EB7460300381467 /* WCHMobilLoginVC.m */; };
+		BB6C977D1EB7462D00381467 /* WCHThirdLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6C977C1EB7462D00381467 /* WCHThirdLoginVC.m */; };
+		BB6C97811EB74D9100381467 /* WCHUrlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6C97801EB74D9100381467 /* WCHUrlManager.m */; };
+		BB6C97851EB74E5E00381467 /* WCHToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6C97841EB74E5E00381467 /* WCHToastView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +120,16 @@
 		BB6C976D1EB6C9DA00381467 /* direct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = direct.png; path = "../../../coding/salt-App效果图/direct.png"; sourceTree = "<group>"; };
 		BB6C97711EB6CC1500381467 /* WCHPersonalCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHPersonalCenterViewController.h; sourceTree = "<group>"; };
 		BB6C97721EB6CC1500381467 /* WCHPersonalCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHPersonalCenterViewController.m; sourceTree = "<group>"; };
+		BB6C97751EB745C100381467 /* WCHWelcomeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHWelcomeVC.h; sourceTree = "<group>"; };
+		BB6C97761EB745C100381467 /* WCHWelcomeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHWelcomeVC.m; sourceTree = "<group>"; };
+		BB6C97781EB7460300381467 /* WCHMobilLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHMobilLoginVC.h; sourceTree = "<group>"; };
+		BB6C97791EB7460300381467 /* WCHMobilLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHMobilLoginVC.m; sourceTree = "<group>"; };
+		BB6C977B1EB7462D00381467 /* WCHThirdLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHThirdLoginVC.h; sourceTree = "<group>"; };
+		BB6C977C1EB7462D00381467 /* WCHThirdLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHThirdLoginVC.m; sourceTree = "<group>"; };
+		BB6C977F1EB74D9100381467 /* WCHUrlManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHUrlManager.h; sourceTree = "<group>"; };
+		BB6C97801EB74D9100381467 /* WCHUrlManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHUrlManager.m; sourceTree = "<group>"; };
+		BB6C97831EB74E5E00381467 /* WCHToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHToastView.h; sourceTree = "<group>"; };
+		BB6C97841EB74E5E00381467 /* WCHToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHToastView.m; sourceTree = "<group>"; };
 		DD78C9D0906585AE40E73FDD /* Pods-which.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-which.release.xcconfig"; path = "Pods/Target Support Files/Pods-which/Pods-which.release.xcconfig"; sourceTree = "<group>"; };
 		F89ADBF6F9572E9159A789C0 /* libPods-which.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-which.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -178,9 +193,12 @@
 		BB6867701EB40CA200AB1D98 /* which */ = {
 			isa = PBXGroup;
 			children = (
+				BB6C97821EB74E2F00381467 /* toast */,
+				BB6C977E1EB74D6C00381467 /* url manager */,
+				BB6C97741EB744F200381467 /* 登录/注册 */,
 				BB6C97691EB6C7AC00381467 /* user default */,
 				BB6C97611EB5F64800381467 /* 图片裁切工具-第三方 */,
-				BB6867B41EB414A700AB1D98 /* pics */,
+				BB6867B41EB414A700AB1D98 /* 图片资源 */,
 				BB6867AB1EB40FF500AB1D98 /* color manager */,
 				BB6867C51EB429C000AB1D98 /* cells */,
 				BB6867CA1EB4D21800AB1D98 /* comment list */,
@@ -265,7 +283,7 @@
 			name = based;
 			sourceTree = "<group>";
 		};
-		BB6867B41EB414A700AB1D98 /* pics */ = {
+		BB6867B41EB414A700AB1D98 /* 图片资源 */ = {
 			isa = PBXGroup;
 			children = (
 				BB6867B51EB4151000AB1D98 /* home.png */,
@@ -279,7 +297,7 @@
 				BB6C97651EB6020700381467 /* b_icon.png */,
 				BB6C976D1EB6C9DA00381467 /* direct.png */,
 			);
-			name = pics;
+			name = "图片资源";
 			sourceTree = "<group>";
 		};
 		BB6867C51EB429C000AB1D98 /* cells */ = {
@@ -349,6 +367,37 @@
 				BB6C97721EB6CC1500381467 /* WCHPersonalCenterViewController.m */,
 			);
 			name = "personal center";
+			sourceTree = "<group>";
+		};
+		BB6C97741EB744F200381467 /* 登录/注册 */ = {
+			isa = PBXGroup;
+			children = (
+				BB6C97751EB745C100381467 /* WCHWelcomeVC.h */,
+				BB6C97761EB745C100381467 /* WCHWelcomeVC.m */,
+				BB6C97781EB7460300381467 /* WCHMobilLoginVC.h */,
+				BB6C97791EB7460300381467 /* WCHMobilLoginVC.m */,
+				BB6C977B1EB7462D00381467 /* WCHThirdLoginVC.h */,
+				BB6C977C1EB7462D00381467 /* WCHThirdLoginVC.m */,
+			);
+			name = "登录/注册";
+			sourceTree = "<group>";
+		};
+		BB6C977E1EB74D6C00381467 /* url manager */ = {
+			isa = PBXGroup;
+			children = (
+				BB6C977F1EB74D9100381467 /* WCHUrlManager.h */,
+				BB6C97801EB74D9100381467 /* WCHUrlManager.m */,
+			);
+			name = "url manager";
+			sourceTree = "<group>";
+		};
+		BB6C97821EB74E2F00381467 /* toast */ = {
+			isa = PBXGroup;
+			children = (
+				BB6C97831EB74E5E00381467 /* WCHToastView.h */,
+				BB6C97841EB74E5E00381467 /* WCHToastView.m */,
+			);
+			name = toast;
 			sourceTree = "<group>";
 		};
 		DEA6B097A396543B2F0FA6B6 /* Pods */ = {
@@ -561,12 +610,17 @@
 				BB6867D91EB4D54600AB1D98 /* WCHVoteListCell.m in Sources */,
 				BB68677F1EB40CA200AB1D98 /* which.xcdatamodeld in Sources */,
 				BB6867AE1EB4102100AB1D98 /* WCHColorManager.m in Sources */,
+				BB6C97771EB745C100381467 /* WCHWelcomeVC.m in Sources */,
 				BB6867C81EB42A0F00AB1D98 /* WCHVoteCell.m in Sources */,
 				BB6867761EB40CA200AB1D98 /* AppDelegate.m in Sources */,
+				BB6C977D1EB7462D00381467 /* WCHThirdLoginVC.m in Sources */,
 				BB6867BF1EB4161100AB1D98 /* WCHHomeViewController.m in Sources */,
+				BB6C977A1EB7460300381467 /* WCHMobilLoginVC.m in Sources */,
 				BB6867D61EB4D52500AB1D98 /* WCHCommentCell.m in Sources */,
+				BB6C97851EB74E5E00381467 /* WCHToastView.m in Sources */,
 				BB6867C21EB4162900AB1D98 /* WCHMineViewController.m in Sources */,
 				BB6C97731EB6CC1500381467 /* WCHPersonalCenterViewController.m in Sources */,
+				BB6C97811EB74D9100381467 /* WCHUrlManager.m in Sources */,
 				BB6867AA1EB40EBF00AB1D98 /* WCHRootViewController.m in Sources */,
 				BB6867CD1EB4D26C00AB1D98 /* WCHVoteListViewController.m in Sources */,
 				BB6C97641EB5F67400381467 /* VPImageCropperViewController.m in Sources */,

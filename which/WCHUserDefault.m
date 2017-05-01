@@ -68,6 +68,7 @@
 }
 
 
+#pragma mark - 登录/账户相关
 /* 登录注册or退出登录 */
 + (BOOL)recordLoginInfo:(NSDictionary *)loginInfo
 {
@@ -144,6 +145,8 @@
 
 
 
+
+#pragma mark - 微博互粉
 /* 微博互粉 */
 + (BOOL)recordWeiboFriends:(NSArray *)weiboFriendsArr
 {
