@@ -20,7 +20,9 @@
 @property (nonatomic, strong) UIView *picBView;  // B选项容器
 @property (nonatomic, strong) UIImage *imgA;  // A选项的图片
 @property (nonatomic, strong) UIImage *imgB;  // B选项的图片
-@property (nonatomic, strong) UIImageView *imgViewA;
+@property (nonatomic, strong) UIImageView *imgViewA;  // A选项的UIImageView
+@property (nonatomic, strong) UIImageView *imgViewB;  // B选项的UIImageView
+@property (nonatomic) int aOrB;  // 指明当前在选择哪个图片，取值1或2
 @end
 
 @implementation WCHPublishViewController
@@ -207,6 +209,8 @@
     _picBView.backgroundColor = [WCHColorManager lightGrayBackground];
     [self.view addSubview: _picAView];
     [self.view addSubview: _picBView];
+    _picAView.tag = 1;
+    _picBView.tag = 2;
     
     UIImageView *iconA = [[UIImageView alloc] initWithFrame:CGRectMake((ww-61)/2.0, (hh-61)/2.0, 61, 61)];
     iconA.image = [UIImage imageNamed:@"a_icon.png"];
@@ -226,16 +230,27 @@
 }
 
 /** 展示裁切后的图片 */
-- (void)showCutPic
+- (void)showCutPic:(UIImage *)img
 {
     unsigned long ww = _screenWidth/2.0 - 1;
     unsigned long hh = ww/3.0*4.0;
-    _imgViewA = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ww, hh)];
-    // uiimageview居中裁剪
-    _imgViewA.contentMode = UIViewContentModeScaleAspectFill;
-    _imgViewA.clipsToBounds  = YES;
-    _imgViewA.image = _imgA;
-    [_picAView addSubview:_imgViewA];
+    
+    if (_aOrB == 1) {
+        _imgViewA = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ww, hh)];
+        // uiimageview居中裁剪
+        _imgViewA.contentMode = UIViewContentModeScaleAspectFill;
+        _imgViewA.clipsToBounds  = YES;
+        _imgViewA.image = img;
+        [_picAView addSubview:_imgViewA];
+
+    } else {
+        _imgViewB = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ww, hh)];
+        // uiimageview居中裁剪
+        _imgViewB.contentMode = UIViewContentModeScaleAspectFill;
+        _imgViewB.clipsToBounds  = YES;
+        _imgViewB.image = img;
+        [_picBView addSubview:_imgViewB];
+    }
 }
 
 
@@ -255,6 +270,7 @@
 - (void)clickPicHolder:(UIGestureRecognizer *)sender
 {
     NSLog(@"clickPicHolder");
+    _aOrB = (int)sender.view.tag;
     // 从相册中选取
     if ([self isPhotoLibraryAvailable]) {
         UIImagePickerController *controller = [[UIImagePickerController alloc] init];
@@ -295,10 +311,10 @@
 
 #pragma mark - VPImageCropperDelegate 图片裁切工具代理
 - (void)imageCropper:(VPImageCropperViewController *)cropperViewController didFinished:(UIImage *)editedImage {
-    _imgA = editedImage;
+    // _imgA = editedImage;
     [cropperViewController dismissViewControllerAnimated:YES completion:^{
         // 展示裁切后的图片
-        [self showCutPic];
+        [self showCutPic:editedImage];
     }];
 }
 
@@ -306,6 +322,13 @@
     [cropperViewController dismissViewControllerAnimated:YES completion:^{
     }];
 }
+
+
+
+
+
+
+
 
 
 
