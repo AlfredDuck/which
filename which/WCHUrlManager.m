@@ -11,9 +11,9 @@
 @implementation WCHUrlManager
 + (NSString *)urlHost
 {
-    //    return @"http://127.0.0.1:2000";  // 本地测试
-    //    return @"http://cocochat.online:2000";  // 阿里云测试
-    return @"http://cocochat.online:2020";  // 阿里云正式
+    return @"http://127.0.0.1:2000";  // 本地测试
+//    return @"http://cocochat.online:2000";  // 阿里云测试
+//    return @"http://cocochat.online:2020";  // 阿里云正式
 }
 
 + (BOOL)printToken

@@ -10,6 +10,7 @@
 #import "WCHColorManager.h"
 #import "WCHVoteCell.h"
 #import "WCHVoteListViewController.h"
+#import "WCHWelcomeVC.h"
 
 @interface WCHHomeViewController ()
 
@@ -166,6 +167,12 @@
         if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
             self.navigationController.interactivePopGestureRecognizer.delegate = nil;
         }
+    }
+    if (row == 1){
+        WCHWelcomeVC *welcome = [[WCHWelcomeVC alloc] init];
+        [self.navigationController presentViewController:welcome animated:YES completion:^{
+            // code
+        }];
     }
 }
 
