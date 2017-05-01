@@ -37,6 +37,9 @@
 		BB6C97641EB5F67400381467 /* VPImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6C97631EB5F67400381467 /* VPImageCropperViewController.m */; };
 		BB6C97661EB6020700381467 /* b_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BB6C97651EB6020700381467 /* b_icon.png */; };
 		BB6C97681EB6031C00381467 /* a_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BB6C97671EB6031C00381467 /* a_icon.png */; };
+		BB6C976C1EB6C7F400381467 /* WCHUserDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6C976B1EB6C7F400381467 /* WCHUserDefault.m */; };
+		BB6C976E1EB6C9DA00381467 /* direct.png in Resources */ = {isa = PBXBuildFile; fileRef = BB6C976D1EB6C9DA00381467 /* direct.png */; };
+		BB6C97731EB6CC1500381467 /* WCHPersonalCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6C97721EB6CC1500381467 /* WCHPersonalCenterViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +110,11 @@
 		BB6C97631EB5F67400381467 /* VPImageCropperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPImageCropperViewController.m; sourceTree = "<group>"; };
 		BB6C97651EB6020700381467 /* b_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = b_icon.png; path = "../../../coding/salt-App效果图/b_icon.png"; sourceTree = "<group>"; };
 		BB6C97671EB6031C00381467 /* a_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = a_icon.png; path = "../../../coding/salt-App效果图/a_icon.png"; sourceTree = "<group>"; };
+		BB6C976A1EB6C7F400381467 /* WCHUserDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHUserDefault.h; sourceTree = "<group>"; };
+		BB6C976B1EB6C7F400381467 /* WCHUserDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHUserDefault.m; sourceTree = "<group>"; };
+		BB6C976D1EB6C9DA00381467 /* direct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = direct.png; path = "../../../coding/salt-App效果图/direct.png"; sourceTree = "<group>"; };
+		BB6C97711EB6CC1500381467 /* WCHPersonalCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHPersonalCenterViewController.h; sourceTree = "<group>"; };
+		BB6C97721EB6CC1500381467 /* WCHPersonalCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHPersonalCenterViewController.m; sourceTree = "<group>"; };
 		DD78C9D0906585AE40E73FDD /* Pods-which.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-which.release.xcconfig"; path = "Pods/Target Support Files/Pods-which/Pods-which.release.xcconfig"; sourceTree = "<group>"; };
 		F89ADBF6F9572E9159A789C0 /* libPods-which.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-which.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -170,6 +178,7 @@
 		BB6867701EB40CA200AB1D98 /* which */ = {
 			isa = PBXGroup;
 			children = (
+				BB6C97691EB6C7AC00381467 /* user default */,
 				BB6C97611EB5F64800381467 /* 图片裁切工具-第三方 */,
 				BB6867B41EB414A700AB1D98 /* pics */,
 				BB6867AB1EB40FF500AB1D98 /* color manager */,
@@ -177,6 +186,7 @@
 				BB6867CA1EB4D21800AB1D98 /* comment list */,
 				BB6867C91EB4D21000AB1D98 /* vote list */,
 				BB6C975D1EB5752400381467 /* publish page */,
+				BB6C97701EB6CBE700381467 /* personal center */,
 				BB6867AF1EB4107100AB1D98 /* first layer */,
 				BB6867A71EB40E6300AB1D98 /* root */,
 				BB6867741EB40CA200AB1D98 /* AppDelegate.h */,
@@ -267,6 +277,7 @@
 				BB6C975B1EB5750B00381467 /* close.png */,
 				BB6C97671EB6031C00381467 /* a_icon.png */,
 				BB6C97651EB6020700381467 /* b_icon.png */,
+				BB6C976D1EB6C9DA00381467 /* direct.png */,
 			);
 			name = pics;
 			sourceTree = "<group>";
@@ -320,6 +331,24 @@
 				BB6C97631EB5F67400381467 /* VPImageCropperViewController.m */,
 			);
 			name = "图片裁切工具-第三方";
+			sourceTree = "<group>";
+		};
+		BB6C97691EB6C7AC00381467 /* user default */ = {
+			isa = PBXGroup;
+			children = (
+				BB6C976A1EB6C7F400381467 /* WCHUserDefault.h */,
+				BB6C976B1EB6C7F400381467 /* WCHUserDefault.m */,
+			);
+			name = "user default";
+			sourceTree = "<group>";
+		};
+		BB6C97701EB6CBE700381467 /* personal center */ = {
+			isa = PBXGroup;
+			children = (
+				BB6C97711EB6CC1500381467 /* WCHPersonalCenterViewController.h */,
+				BB6C97721EB6CC1500381467 /* WCHPersonalCenterViewController.m */,
+			);
+			name = "personal center";
 			sourceTree = "<group>";
 		};
 		DEA6B097A396543B2F0FA6B6 /* Pods */ = {
@@ -447,6 +476,7 @@
 				BB6C97681EB6031C00381467 /* a_icon.png in Resources */,
 				BB6867B81EB4151C00AB1D98 /* mine.png in Resources */,
 				BB6867841EB40CA200AB1D98 /* LaunchScreen.storyboard in Resources */,
+				BB6C976E1EB6C9DA00381467 /* direct.png in Resources */,
 				BB6867811EB40CA200AB1D98 /* Assets.xcassets in Resources */,
 				BB6867BC1EB4155B00AB1D98 /* mine_focus.png in Resources */,
 				BB6867BA1EB4155400AB1D98 /* home_focus.png in Resources */,
@@ -536,10 +566,12 @@
 				BB6867BF1EB4161100AB1D98 /* WCHHomeViewController.m in Sources */,
 				BB6867D61EB4D52500AB1D98 /* WCHCommentCell.m in Sources */,
 				BB6867C21EB4162900AB1D98 /* WCHMineViewController.m in Sources */,
+				BB6C97731EB6CC1500381467 /* WCHPersonalCenterViewController.m in Sources */,
 				BB6867AA1EB40EBF00AB1D98 /* WCHRootViewController.m in Sources */,
 				BB6867CD1EB4D26C00AB1D98 /* WCHVoteListViewController.m in Sources */,
 				BB6C97641EB5F67400381467 /* VPImageCropperViewController.m in Sources */,
 				BB6867731EB40CA200AB1D98 /* main.m in Sources */,
+				BB6C976C1EB6C7F400381467 /* WCHUserDefault.m in Sources */,
 				BB6867B31EB410D800AB1D98 /* WCHBasedTabViewController.m in Sources */,
 				BB6C97601EB5758E00381467 /* WCHPublishViewController.m in Sources */,
 			);
