@@ -296,11 +296,10 @@
                                  @"password": password,
                                  @"plantform": @"ios"
                                  };
-    // 创建 GET 请求
-    AFHTTPRequestOperationManager *connectManager = [AFHTTPRequestOperationManager manager];
-    connectManager.requestSerializer.timeoutInterval = 20.0;   //设置超时时间
-    [connectManager GET:urlString parameters: parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    // 创建 GET 请求（AF 3.0）
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    session.requestSerializer.timeoutInterval = 20.0;  // 设置超时时间
+    [session GET:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         // GET请求成功
         NSDictionary *data = responseObject[@"data"];
         unsigned long errcode = [responseObject[@"errcode"] intValue];
@@ -325,12 +324,14 @@
         // 储存登录账户
         [self loginSuccessWith:data];
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"失败");
         NSLog(@"Error: %@", error);
         _loginLabel.text = @"登录";
         _loginButton.backgroundColor = [WCHColorManager yellowBackground];
         [WCHToastView showToastWith:@"网络有点问题" isErr:NO duration:2.0 superView:self.view];
     }];
+
 }
 
 
@@ -350,10 +351,10 @@
                                  @"user_type": @"phone",
                                  @"plantform": @"ios"
                                  };
-    // 创建 GET 请求
-    AFHTTPRequestOperationManager *connectManager = [AFHTTPRequestOperationManager manager];
-    connectManager.requestSerializer.timeoutInterval = 20.0;   //设置超时时间
-    [connectManager GET:urlString parameters: parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    // 创建 GET 请求（AF 3.0）
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    session.requestSerializer.timeoutInterval = 20.0;  // 设置超时时间
+    [session GET:urlString parameters: parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         
         // GET请求成功
         NSDictionary *data = responseObject[@"data"];
@@ -377,7 +378,7 @@
         // 储存登录账户
         [self loginSuccessWith:data];
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Error: %@", error);
         _signupLabel.text = @"注册";
         _signupButton.backgroundColor = [WCHColorManager yellowBackground];
