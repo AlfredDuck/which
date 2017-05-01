@@ -16,8 +16,11 @@
 
 @interface WCHPublishViewController () <UINavigationControllerDelegate,UIImagePickerControllerDelegate,VPImageCropperDelegate>
 @property (nonatomic, strong) NSString *textMax;  // 最大输入字符串
+@property (nonatomic, strong) UIView *picAView;  // A选项容器
+@property (nonatomic, strong) UIView *picBView;  // B选项容器
 @property (nonatomic, strong) UIImage *imgA;  // A选项的图片
 @property (nonatomic, strong) UIImage *imgB;  // B选项的图片
+@property (nonatomic, strong) UIImageView *imgViewA;
 @end
 
 @implementation WCHPublishViewController
@@ -41,6 +44,10 @@
     [self createUIParts];
     [self createTextView];
     [self createPicHolder];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self keepCenter:_contentTextView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -193,30 +200,43 @@
 {
     unsigned long ww = _screenWidth/2.0 - 1;
     unsigned long hh = ww/3.0*4.0;
-    UIView *picAView = [[UIView alloc] initWithFrame:CGRectMake(0, 200+64, ww, hh)];
-    UIView *picBView = [[UIView alloc] initWithFrame:CGRectMake(ww+2, 200+64, ww, hh)];
-    picAView.backgroundColor = [WCHColorManager lightGrayBackground];
-    picBView.backgroundColor = [WCHColorManager lightGrayBackground];
-    [self.view addSubview: picAView];
-    [self.view addSubview: picBView];
+    
+    _picAView = [[UIView alloc] initWithFrame:CGRectMake(0, 200+64, ww, hh)];
+    _picBView = [[UIView alloc] initWithFrame:CGRectMake(ww+2, 200+64, ww, hh)];
+    _picAView.backgroundColor = [WCHColorManager lightGrayBackground];
+    _picBView.backgroundColor = [WCHColorManager lightGrayBackground];
+    [self.view addSubview: _picAView];
+    [self.view addSubview: _picBView];
     
     UIImageView *iconA = [[UIImageView alloc] initWithFrame:CGRectMake((ww-61)/2.0, (hh-61)/2.0, 61, 61)];
     iconA.image = [UIImage imageNamed:@"a_icon.png"];
-    [picAView addSubview: iconA];
+    [_picAView addSubview: iconA];
     UIImageView *iconB = [[UIImageView alloc] initWithFrame:CGRectMake((ww-61)/2.0, (hh-61)/2.0, 61, 61)];
     iconB.image = [UIImage imageNamed:@"b_icon.png"];
-    [picBView addSubview: iconB];
+    [_picBView addSubview: iconB];
     
     // 为UIView添加点击事件
     UITapGestureRecognizer *singleTapA = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPicHolder:)]; // 设置手势
     UITapGestureRecognizer *singleTapB = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPicHolder:)]; // 设置手势
-    picAView.userInteractionEnabled = YES; // 设置图片可以交互
-    picBView.userInteractionEnabled = YES; // 设置图片可以交互
-    [picAView addGestureRecognizer:singleTapA]; // 给图片添加手势
-    [picBView addGestureRecognizer:singleTapB]; // 给图片添加手势
+    _picAView.userInteractionEnabled = YES; // 设置图片可以交互
+    _picBView.userInteractionEnabled = YES; // 设置图片可以交互
+    [_picAView addGestureRecognizer:singleTapA]; // 给图片添加手势
+    [_picBView addGestureRecognizer:singleTapB]; // 给图片添加手势
     
 }
 
+/** 展示裁切后的图片 */
+- (void)showCutPic
+{
+    unsigned long ww = _screenWidth/2.0 - 1;
+    unsigned long hh = ww/3.0*4.0;
+    _imgViewA = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ww, hh)];
+    // uiimageview居中裁剪
+    _imgViewA.contentMode = UIViewContentModeScaleAspectFill;
+    _imgViewA.clipsToBounds  = YES;
+    _imgViewA.image = _imgA;
+    [_picAView addSubview:_imgViewA];
+}
 
 
 
@@ -253,13 +273,15 @@
 
 
 
-#pragma mark - UIImagePickerControllerDelegate
+
+#pragma mark - UIImagePickerControllerDelegate 相册访问代理
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [picker dismissViewControllerAnimated:YES completion:^() {
         UIImage *portraitImg = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
         portraitImg = [self imageByScalingToMaxSize:portraitImg];
         // 裁剪
-        VPImageCropperViewController *imgEditorVC = [[VPImageCropperViewController alloc] initWithImage:portraitImg cropFrame:CGRectMake(0, 100.0f, self.view.frame.size.width, self.view.frame.size.width) limitScaleRatio:3.0];
+        CGRect cutFrame = CGRectMake(30, (_screenHeight-(_screenWidth-60)/3.0*4)/2.0, _screenWidth-60, (_screenWidth-60)/3.0*4);
+        VPImageCropperViewController *imgEditorVC = [[VPImageCropperViewController alloc] initWithImage:portraitImg cropFrame:cutFrame limitScaleRatio:3.0];
         imgEditorVC.delegate = self;
         [self presentViewController:imgEditorVC animated:YES completion:^{
             // TO DO
@@ -268,11 +290,15 @@
 }
 
 
-#pragma mark VPImageCropperDelegate
+
+
+
+#pragma mark - VPImageCropperDelegate 图片裁切工具代理
 - (void)imageCropper:(VPImageCropperViewController *)cropperViewController didFinished:(UIImage *)editedImage {
     _imgA = editedImage;
     [cropperViewController dismissViewControllerAnimated:YES completion:^{
-        
+        // 展示裁切后的图片
+        [self showCutPic];
     }];
 }
 
@@ -282,7 +308,14 @@
 }
 
 
-#pragma mark - camera utility(不知道)
+
+
+
+
+
+
+
+#pragma mark - camera utility(下面这部分不知道为什么需要，是第三方图片裁切工具需要的)
 - (BOOL) isCameraAvailable{
     return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
 }

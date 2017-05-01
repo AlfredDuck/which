@@ -51,6 +51,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.view setBackgroundColor:[UIColor blackColor]];
     [self initView];
     [self initControlBtn];
 }
@@ -82,7 +83,7 @@
     [self.view addSubview:self.showImgView];
     
     self.overlayView = [[UIView alloc] initWithFrame:self.view.bounds];
-    self.overlayView.alpha = .5f;
+    self.overlayView.alpha = 0.6f;
     self.overlayView.backgroundColor = [UIColor blackColor];
     self.overlayView.userInteractionEnabled = NO;
     self.overlayView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -100,8 +101,9 @@
 - (void)initControlBtn {
     UIButton *cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 50.0f, 100, 50)];
     cancelBtn.backgroundColor = [UIColor blackColor];
-    cancelBtn.titleLabel.textColor = [UIColor whiteColor];
-    [cancelBtn setTitle:@"Cancel" forState:UIControlStateNormal];
+    cancelBtn.titleLabel.textColor = [UIColor grayColor];
+    [cancelBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [cancelBtn setTitle:@"放弃" forState:UIControlStateNormal];
     [cancelBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:18.0f]];
     [cancelBtn.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [cancelBtn.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
@@ -113,7 +115,7 @@
     UIButton *confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 100.0f, self.view.frame.size.height - 50.0f, 100, 50)];
     confirmBtn.backgroundColor = [UIColor blackColor];
     confirmBtn.titleLabel.textColor = [UIColor whiteColor];
-    [confirmBtn setTitle:@"OK" forState:UIControlStateNormal];
+    [confirmBtn setTitle:@"完成" forState:UIControlStateNormal];
     [confirmBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:18.0f]];
     [confirmBtn.titleLabel setTextAlignment:NSTextAlignmentCenter];
     confirmBtn.titleLabel.textColor = [UIColor whiteColor];
@@ -141,6 +143,8 @@
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
     CGMutablePathRef path = CGPathCreateMutable();
     // Left side of the ratio view
+//    NSLog(@"%@",self.ratioView);
+//    NSLog(@"%@",self.overlayView);
     CGPathAddRect(path, nil, CGRectMake(0, 0,
                                         self.ratioView.frame.origin.x,
                                         self.overlayView.frame.size.height));
@@ -257,7 +261,9 @@
     CGFloat x = (squareFrame.origin.x - self.latestFrame.origin.x) / scaleRatio;
     CGFloat y = (squareFrame.origin.y - self.latestFrame.origin.y) / scaleRatio;
     CGFloat w = squareFrame.size.width / scaleRatio;
-    CGFloat h = squareFrame.size.width / scaleRatio;
+    CGFloat h = squareFrame.size.height / scaleRatio;  // 握草，被坑惨了
+//    NSLog(@"???????%f,%f,%f,%f",self.cropFrame.origin.x,self.cropFrame.origin.y,self.cropFrame.size.width, self.cropFrame.size.height);
+//    NSLog(@"???????%f,%f,%f,%f",x,y,w,h);
     if (self.latestFrame.size.width < self.cropFrame.size.width) {
         CGFloat newW = self.originalImage.size.width;
         CGFloat newH = newW * (self.cropFrame.size.height / self.cropFrame.size.width);
@@ -281,6 +287,7 @@
     CGContextDrawImage(context, myImageRect, subImageRef);
     UIImage* smallImage = [UIImage imageWithCGImage:subImageRef];
     UIGraphicsEndImageContext();
+    NSLog(@"%@", smallImage);
     return smallImage;
 }
 
