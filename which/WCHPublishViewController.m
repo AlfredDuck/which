@@ -12,6 +12,8 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "uploadManager.h"
+#import "AFNetworking.h"
+#import "WCHUrlManager.h"
 
 #define ORIGINAL_MAX_WIDTH 640.0f
 
@@ -27,6 +29,7 @@
 @property (nonatomic, strong) UIView *loadingViewB;
 @property (nonatomic) int aOrB;  // 指明当前在选择哪个图片，取值1或2
 @property (nonatomic, strong) uploadManager *uploadMG;  // 图片上传模块
+@property (nonatomic, strong) NSMutableArray *twoPicURL;  // A和B的图片url
 @end
 
 @implementation WCHPublishViewController
@@ -50,6 +53,9 @@
     [self createUIParts];
     [self createTextView];
     [self createPicHolder];
+    
+    // 初始化图片url数组
+    _twoPicURL = [[NSMutableArray alloc] initWithObjects:@"",@"", nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -169,6 +175,7 @@
 }
 
 
+/** 垂直居中算法，多处调用 */
 - (void)keepCenter:(UITextView *)textView
 {
     //    NSLog(@"%f", [textView bounds].size.height);
@@ -195,6 +202,74 @@
 //    NSLog(@"隐藏键盘");
 //    [self.view endEditing:YES];
 //}
+
+
+
+#pragma mark - IBAction
+- (void)clickCloseButton
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)clickSendButton
+{
+    // 关闭键盘
+    [_contentTextView resignFirstResponder];
+    
+    // 检查是否“发送中...”状态
+    if ([_sendButton.titleLabel.text isEqualToString:@"..."]) {
+        NSLog(@"发送中...");
+        return;
+    }
+    
+    // 检查输入是否为空
+    if ([_contentTextView.text isEqualToString:@""]) {
+        NSLog(@"输入为空");
+        return;
+    }
+    
+    // 检查是否全是空格
+    // code...
+    
+    // 检查图片是否都已转为url
+    if ([_twoPicURL[0] isEqualToString:@""] || [_twoPicURL[1] isEqualToString:@""]) {
+        NSLog(@"任意张图片没有转为url");
+        return;
+    }
+    
+    // 显示“发送中...”状态
+    [_sendButton setTitle:@"..." forState:UIControlStateNormal];
+    _sendButton.backgroundColor = [WCHColorManager lightPortraitline];
+    
+    // 发起网络请求
+    [self connectForPublish];
+}
+
+
+
+/** 点击图片容器 */
+- (void)clickPicHolder:(UIGestureRecognizer *)sender
+{
+    NSLog(@"clickPicHolder");
+    _aOrB = (int)sender.view.tag;
+    // 从相册中选取
+    if ([self isPhotoLibraryAvailable]) {
+        UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+        controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
+        [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
+        controller.mediaTypes = mediaTypes;
+        controller.delegate = self;
+        [self presentViewController:controller
+                           animated:YES
+                         completion:^(void){
+                             NSLog(@"Picker View Controller is presented");
+                         }];
+    }
+}
+
+
+
 
 
 
@@ -296,46 +371,46 @@
 - (void)uploadDoneWithIndex:(int)index withPicURL:(NSString *)picURL
 {
     if (index == 1) {
+        // 删除loadingview
         [_loadingViewA removeFromSuperview];
     } else {
         [_loadingViewB removeFromSuperview];
     }
     NSLog(@"图片url：%@", picURL);
+    [_twoPicURL replaceObjectAtIndex:index-1 withObject:picURL];
+    NSLog(@"%@", _twoPicURL);
 }
 
 
 
 
-#pragma mark - IBAction
-- (void)clickCloseButton
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 
-- (void)clickSendButton
+#pragma mark - 网络请求
+/** 请求发布接口 */
+- (void)connectForPublish
 {
+    // prepare request parameters
+    NSString *host = [WCHUrlManager urlHost];
+    NSString *urlString = [host stringByAppendingString:@"/publish"];
     
+    NSDictionary *parameters = @{@"pics": _twoPicURL,
+                                 @"text": _contentTextView.text};
+    // 创建 GET 请求（AF 3.0）
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    session.requestSerializer.timeoutInterval = 20.0;  // 设置超时时间
+    [session GET:urlString parameters: parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        // GET请求成功
+        NSDictionary *data = responseObject[@"data"];
+        unsigned long errcode = [responseObject[@"errcode"] intValue];
+        NSLog(@"errcode：%lu", errcode);
+        NSLog(@"data:%@", data);
+
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
 }
 
-- (void)clickPicHolder:(UIGestureRecognizer *)sender
-{
-    NSLog(@"clickPicHolder");
-    _aOrB = (int)sender.view.tag;
-    // 从相册中选取
-    if ([self isPhotoLibraryAvailable]) {
-        UIImagePickerController *controller = [[UIImagePickerController alloc] init];
-        controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
-        [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
-        controller.mediaTypes = mediaTypes;
-        controller.delegate = self;
-        [self presentViewController:controller
-                           animated:YES
-                         completion:^(void){
-                             NSLog(@"Picker View Controller is presented");
-                         }];
-    }
-}
+
 
 
 
