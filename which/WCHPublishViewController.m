@@ -11,6 +11,7 @@
 #import "VPImageCropperViewController.h"  // 第三方图片裁切工具
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "uploadManager.h"
 
 #define ORIGINAL_MAX_WIDTH 640.0f
 
@@ -22,7 +23,10 @@
 @property (nonatomic, strong) UIImage *imgB;  // B选项的图片
 @property (nonatomic, strong) UIImageView *imgViewA;  // A选项的UIImageView
 @property (nonatomic, strong) UIImageView *imgViewB;  // B选项的UIImageView
+@property (nonatomic, strong) UIView *loadingViewA;  // 上传图片的loading
+@property (nonatomic, strong) UIView *loadingViewB;
 @property (nonatomic) int aOrB;  // 指明当前在选择哪个图片，取值1或2
+@property (nonatomic, strong) uploadManager *uploadMG;  // 图片上传模块
 @end
 
 @implementation WCHPublishViewController
@@ -229,12 +233,36 @@
     
 }
 
-/** 展示裁切后的图片 */
+/** 展示裁切后的图片，并上传图片 */
 - (void)showCutPic:(UIImage *)img
 {
     unsigned long ww = _screenWidth/2.0 - 1;
     unsigned long hh = ww/3.0*4.0;
     
+    // loading
+    UIActivityIndicatorView *loadingFlowerA = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    loadingFlowerA.frame = CGRectMake(0, 0, 26, 26);
+    [loadingFlowerA startAnimating];
+    //[_loadingFlower stopAnimating];
+    
+    _loadingViewA = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 26, 26)];
+    _loadingViewA.backgroundColor = [UIColor blackColor];
+    _loadingViewA.layer.cornerRadius = 3;
+    _loadingViewA.alpha = 0.7f;
+    [_loadingViewA addSubview:loadingFlowerA];
+    
+    UIActivityIndicatorView *loadingFlowerB = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    loadingFlowerB.frame = CGRectMake(0, 0, 26, 26);
+    [loadingFlowerB startAnimating];
+    //[_loadingFlower stopAnimating];
+    
+    _loadingViewB = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 26, 26)];
+    _loadingViewB.backgroundColor = [UIColor blackColor];
+    _loadingViewB.layer.cornerRadius = 3;
+    _loadingViewB.alpha = 0.7f;
+    [_loadingViewB addSubview:loadingFlowerB];
+    
+    // 展示图片
     if (_aOrB == 1) {
         _imgViewA = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ww, hh)];
         // uiimageview居中裁剪
@@ -242,6 +270,7 @@
         _imgViewA.clipsToBounds  = YES;
         _imgViewA.image = img;
         [_picAView addSubview:_imgViewA];
+        [_picAView addSubview:_loadingViewA];
 
     } else {
         _imgViewB = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ww, hh)];
@@ -250,7 +279,28 @@
         _imgViewB.clipsToBounds  = YES;
         _imgViewB.image = img;
         [_picBView addSubview:_imgViewB];
+        [_picBView addSubview:_loadingViewB];
     }
+    
+    // 图片上传
+    if (!_uploadMG) {
+        _uploadMG = [[uploadManager alloc] init];
+        _uploadMG.delegate = self;
+    }
+    [_uploadMG requestQiniuTokenFromServerWithImage:img withIndex:_aOrB];
+}
+
+
+
+#pragma mark - uploadManager 代理
+- (void)uploadDoneWithIndex:(int)index withPicURL:(NSString *)picURL
+{
+    if (index == 1) {
+        [_loadingViewA removeFromSuperview];
+    } else {
+        [_loadingViewB removeFromSuperview];
+    }
+    NSLog(@"图片url：%@", picURL);
 }
 
 
@@ -310,6 +360,7 @@
 
 
 #pragma mark - VPImageCropperDelegate 图片裁切工具代理
+/** 成功裁切 */
 - (void)imageCropper:(VPImageCropperViewController *)cropperViewController didFinished:(UIImage *)editedImage {
     // _imgA = editedImage;
     [cropperViewController dismissViewControllerAnimated:YES completion:^{
@@ -317,7 +368,7 @@
         [self showCutPic:editedImage];
     }];
 }
-
+/** 放弃裁切 */
 - (void)imageCropperDidCancel:(VPImageCropperViewController *)cropperViewController {
     [cropperViewController dismissViewControllerAnimated:YES completion:^{
     }];

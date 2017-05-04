@@ -141,7 +141,7 @@
         voteCell = [[WCHVoteCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellWithIdentifier];
     }
     [voteCell rewriteTitle:@"你们更喜欢哪种风格？"];
-    NSArray *a = @[@"http://img.cnu.cc/uploads/images/920/1612/22/c311366beda63779a590acf08e917016.jpg",@"http://img.cnu.cc/uploads/images/920/1606/23/26322393dcf73e43bd7b2fa7a66fe775.jpg"];
+    NSArray *a = @[@"http://opa3erxn5.bkt.clouddn.com/okeric",@"http://img.cnu.cc/uploads/images/920/1606/23/26322393dcf73e43bd7b2fa7a66fe775.jpg"];
     [voteCell rewritePics:a];
     voteCell.selectionStyle = UITableViewCellSelectionStyleNone;  // 取消选中的背景色
     return voteCell;

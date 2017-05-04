@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "uploadManager.h"
 
-@interface WCHPublishViewController : UIViewController <UITextViewDelegate>
+@interface WCHPublishViewController : UIViewController <UITextViewDelegate, uploadManagerDelegate>
 @property (nonatomic) NSInteger screenWidth;
 @property (nonatomic) NSInteger screenHeight;
 @property (nonatomic, strong) UIButton *sendButton;  // 发送按钮
