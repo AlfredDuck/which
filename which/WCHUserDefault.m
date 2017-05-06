@@ -92,18 +92,13 @@
 {
     // 取登录信息
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-//    NSDictionary *loginInfo = @{
-//                                @"uid": [ud stringForKey:@"uid"],
-//                                @"user_type": [ud stringForKey:@"user_type"],
-//                                @"nickname": [ud stringForKey:@"nickname"],
-//                                @"portrait": [ud stringForKey:@"portrait"]
-//                                };
     NSDictionary *loginInfo = @{
-                                @"uid": @"123456",
-                                @"user_type": @"weibo",
-                                @"nickname": @"阿瑶",
-                                @"portrait": @"https://img1.doubanio.com/view/status/median/public/0a9c994ac878318.jpg"
+                                @"uid": [ud stringForKey:@"uid"],
+                                @"user_type": [ud stringForKey:@"user_type"],
+                                @"nickname": [ud stringForKey:@"nickname"],
+                                @"portrait": [ud stringForKey:@"portrait"]
                                 };
+
     return loginInfo;
 }
 

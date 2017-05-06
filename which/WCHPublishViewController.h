@@ -15,5 +15,5 @@
 @property (nonatomic, strong) UIButton *sendButton;  // 发送按钮
 @property (nonatomic, strong) UITextView *contentTextView;  // 输入框
 @property (nonatomic, strong) UILabel *placeholder;  // 自定义 UITextView 的 placeholder
-
+@property (nonatomic ,strong) UIViewController *previousPage;  // 发布页面的前一页
 @end

@@ -14,6 +14,8 @@
 #import "uploadManager.h"
 #import "AFNetworking.h"
 #import "WCHUrlManager.h"
+#import "WCHToastView.h"
+#import "WCHUserDefault.h"
 
 #define ORIGINAL_MAX_WIDTH 640.0f
 
@@ -30,6 +32,7 @@
 @property (nonatomic) int aOrB;  // 指明当前在选择哪个图片，取值1或2
 @property (nonatomic, strong) uploadManager *uploadMG;  // 图片上传模块
 @property (nonatomic, strong) NSMutableArray *twoPicURL;  // A和B的图片url
+@property (nonatomic, strong) UIActivityIndicatorView *sendLoading;  // 发送按钮的loading
 @end
 
 @implementation WCHPublishViewController
@@ -120,6 +123,10 @@
     [_sendButton addTarget:self action:@selector(clickSendButton) forControlEvents:UIControlEventTouchUpInside];
     [titleBarBackground addSubview:_sendButton];
     
+    // "发送"的loading
+    _sendLoading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    _sendLoading.frame = CGRectMake(_screenWidth-49, 20, 44, 44);
+    [titleBarBackground addSubview:_sendLoading];
 }
 
 
@@ -217,7 +224,7 @@
     [_contentTextView resignFirstResponder];
     
     // 检查是否“发送中...”状态
-    if ([_sendButton.titleLabel.text isEqualToString:@"..."]) {
+    if ([_sendButton isHidden]) {
         NSLog(@"发送中...");
         return;
     }
@@ -225,6 +232,7 @@
     // 检查输入是否为空
     if ([_contentTextView.text isEqualToString:@""]) {
         NSLog(@"输入为空");
+        [WCHToastView showToastWith:@"不要空着嘛~" isErr:NO duration:2.5f superView:self.view];
         return;
     }
     
@@ -234,17 +242,17 @@
     // 检查图片是否都已转为url
     if ([_twoPicURL[0] isEqualToString:@""] || [_twoPicURL[1] isEqualToString:@""]) {
         NSLog(@"任意张图片没有转为url");
+        [WCHToastView showToastWith:@"要先选择图片哦" isErr:NO duration:2.5f superView:self.view];
         return;
     }
     
     // 显示“发送中...”状态
-    [_sendButton setTitle:@"..." forState:UIControlStateNormal];
-    _sendButton.backgroundColor = [WCHColorManager lightPortraitline];
+    _sendButton.hidden = YES;
+    [_sendLoading startAnimating];
     
     // 发起网络请求
     [self connectForPublish];
 }
-
 
 
 /** 点击图片容器 */
@@ -266,6 +274,62 @@
                              NSLog(@"Picker View Controller is presented");
                          }];
     }
+}
+
+
+
+
+
+
+
+#pragma mark - 网络请求
+/** 请求发布接口 */
+- (void)connectForPublish
+{
+    // 获取登录信息
+    NSDictionary *loginInfo = [WCHUserDefault readLoginInfo];
+    NSLog(@"%@", loginInfo);
+    
+    // prepare request parameters
+    NSString *host = [WCHUrlManager urlHost];
+    NSString *urlString = [host stringByAppendingString:@"/publish"];
+    
+    NSDictionary *parameters = @{@"pics": _twoPicURL,
+                                 @"text": _contentTextView.text,
+                                 @"uid": loginInfo[@"uid"]};
+    // 创建 GET 请求（AF 3.0）
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    session.requestSerializer.timeoutInterval = 20.0;  // 设置超时时间
+    [session GET:urlString parameters: parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        // GET请求成功
+        NSDictionary *data = responseObject[@"data"];
+        unsigned long errcode = [responseObject[@"errcode"] intValue];
+        NSLog(@"errcode：%lu", errcode);
+        NSLog(@"data:%@", data);
+        // 返回值报错
+        if (errcode == 1001 || errcode == 1002) {
+            NSString *txt;
+            if (errcode == 1001) {
+                txt = @"数据库君这会儿有点晕，请稍后再试";
+            } else {
+                txt = @"操作出错，请火速联系管理员";
+            }
+            [_sendButton setHidden:NO];
+            [_sendLoading stopAnimating];
+            [WCHToastView showToastWith:txt isErr:NO duration:3.0f superView:self.view];
+            return;
+        }
+        // 返回值正常
+        [self dismissViewControllerAnimated:YES completion:^{
+            [WCHToastView showToastWith:@"发送成功 Bingo!" isErr:YES duration:2.5f superView:_previousPage.view];
+        }];
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [_sendButton setHidden:NO];
+        [_sendLoading stopAnimating];
+        [WCHToastView showToastWith:@"发送出错啦，请稍后重试" isErr:NO duration:3.0f superView:self.view];
+    }];
 }
 
 
@@ -383,32 +447,6 @@
 
 
 
-
-
-#pragma mark - 网络请求
-/** 请求发布接口 */
-- (void)connectForPublish
-{
-    // prepare request parameters
-    NSString *host = [WCHUrlManager urlHost];
-    NSString *urlString = [host stringByAppendingString:@"/publish"];
-    
-    NSDictionary *parameters = @{@"pics": _twoPicURL,
-                                 @"text": _contentTextView.text};
-    // 创建 GET 请求（AF 3.0）
-    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-    session.requestSerializer.timeoutInterval = 20.0;  // 设置超时时间
-    [session GET:urlString parameters: parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-        // GET请求成功
-        NSDictionary *data = responseObject[@"data"];
-        unsigned long errcode = [responseObject[@"errcode"] intValue];
-        NSLog(@"errcode：%lu", errcode);
-        NSLog(@"data:%@", data);
-
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
-}
 
 
 

@@ -9,6 +9,8 @@
 #import "WCHBasedTabViewController.h"
 #import "WCHColorManager.h"
 #import "WCHPublishViewController.h"
+#import "WCHUserDefault.h"
+#import "WCHWelcomeVC.h"
 
 @interface WCHBasedTabViewController ()
 
@@ -142,9 +144,19 @@
 
 - (void)clickPublishTab
 {
-    NSLog(@"clickPublishTab");
-    WCHPublishViewController *publishPage = [[WCHPublishViewController alloc] init];
-    [self.navigationController presentViewController:publishPage animated:YES completion:nil];
+    NSLog(@"点击‘发布+’按钮");
+    // 检查是否登录
+    if ([WCHUserDefault isLogin]) {
+        WCHPublishViewController *publishPage = [[WCHPublishViewController alloc] init];
+        publishPage.previousPage = self;
+        [self.navigationController presentViewController:publishPage animated:YES completion:nil];
+    } else {
+        // 吊起登录
+        WCHWelcomeVC *welcome = [[WCHWelcomeVC alloc] init];
+        [self.navigationController presentViewController:welcome animated:YES completion:^{
+            // code
+        }];
+    }
 }
 
 
