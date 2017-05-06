@@ -157,7 +157,12 @@
     [voteCell rewritePortrait:_voteData[row][@"user"][@"portrait"]];
     [voteCell rewriteIfVoted:_voteData[row][@"votedStatus"]];
     
-    [voteCell rewriteNumWithVote:(NSUInteger)_voteData[row][@"commentNum"] withComment:(NSUInteger)_voteData[row][@"commentNum"]];
+    NSInteger commentNum = [_voteData[row][@"commentNum"] intValue];
+    NSInteger avote = [_voteData[row][@"voteNum"][0] intValue];
+    NSInteger bvote = [_voteData[row][@"voteNum"][1] intValue];
+    [voteCell rewriteNumWithVote:(avote+bvote) withComment:commentNum];
+    [voteCell rewriteVoteA:avote voteB:bvote];
+    
     voteCell.selectionStyle = UITableViewCellSelectionStyleNone;  // 取消选中的背景色
     return voteCell;
 }

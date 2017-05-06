@@ -47,8 +47,7 @@
         // uiimageview居中裁剪
         _portraitImageView.contentMode = UIViewContentModeScaleAspectFill;
         _portraitImageView.clipsToBounds  = YES;
-        // 圆角
-        _portraitImageView.layer.cornerRadius = 20;
+        _portraitImageView.layer.cornerRadius = 20;  // 圆角
         [_portraitImageView.layer setBorderWidth:0.5];   //边框宽度
         [_portraitImageView.layer setBorderColor:[WCHColorManager lightPortraitline].CGColor];
         // 普通加载网络图片 yy库
@@ -86,12 +85,13 @@
         [self.contentView addSubview:_picAImageView];
         
         // A 的投票人数
-        _voteLabelA = [[UILabel alloc] initWithFrame:CGRectMake(0, hh-34, ww, 34)];
+        _voteLabelA = [[UILabel alloc] initWithFrame:CGRectMake((ww-108)/2.0, hh-49, 108, 34)];
         _voteLabelA.text = @"297票";
         _voteLabelA.font = [UIFont fontWithName:@"PingFangSC-Light" size:18.0];
         _voteLabelA.textColor = [UIColor whiteColor];
-        _voteLabelA.backgroundColor = [WCHColorManager purple];
+        _voteLabelA.backgroundColor = [WCHColorManager commonPink];
         _voteLabelA.alpha = 0.85f;
+        _voteLabelA.layer.cornerRadius = 17;  // 圆角
         _voteLabelA.textAlignment = NSTextAlignmentCenter;
         [_picAImageView addSubview:_voteLabelA];
         
@@ -111,12 +111,13 @@
         [self.contentView addSubview:_picBImageView];
         
         // B 的投票人数
-        _voteLabelB = [[UILabel alloc] initWithFrame:CGRectMake(0, hh-34, ww, 34)];
+        _voteLabelB = [[UILabel alloc] initWithFrame:CGRectMake((ww-108)/2.0, hh-49, 108, 34)];
         _voteLabelB.text = @"0票";
         _voteLabelB.font = [UIFont fontWithName:@"PingFangSC-Light" size:18.0];
         _voteLabelB.textColor = [UIColor whiteColor];
         _voteLabelB.backgroundColor = [UIColor colorWithRed:30/255.0 green:30/255.0 blue:30/255.0 alpha:1.0];
         _voteLabelB.alpha = 0.85f;
+        _voteLabelB.layer.cornerRadius = 17;  // 圆角
         _voteLabelB.textAlignment = NSTextAlignmentCenter;
         [_picBImageView addSubview:_voteLabelB];
         
@@ -132,10 +133,10 @@
         //对按钮的外形做了设定，不喜可删~
         _voteNumButton.layer.masksToBounds = YES;
         _voteNumButton.layer.borderWidth = 0.5;
-        _voteNumButton.layer.borderColor = [[WCHColorManager purple] CGColor];
+        _voteNumButton.layer.borderColor = [[WCHColorManager commonPink] CGColor];
         _voteNumButton.layer.cornerRadius = 12;
         
-        [_voteNumButton setTitleColor:[WCHColorManager purple] forState:UIControlStateNormal];
+        [_voteNumButton setTitleColor:[WCHColorManager commonPink] forState:UIControlStateNormal];
         [_voteNumButton setBackgroundColor:[UIColor whiteColor]];
         [_voteNumButton setTitle:_voteNum forState:UIControlStateNormal];
         [_voteNumButton addTarget:self action:@selector(clickVoteNumButton) forControlEvents:UIControlEventTouchUpInside];
@@ -156,10 +157,10 @@
         //对按钮的外形做了设定，不喜可删~
         _commentNumButton.layer.masksToBounds = YES;
         _commentNumButton.layer.borderWidth = 0.5;
-        _commentNumButton.layer.borderColor = [[WCHColorManager purple] CGColor];
+        _commentNumButton.layer.borderColor = [[WCHColorManager commonPink] CGColor];
         _commentNumButton.layer.cornerRadius = 12;
         
-        [_commentNumButton setTitleColor:[WCHColorManager purple] forState:UIControlStateNormal];
+        [_commentNumButton setTitleColor:[WCHColorManager commonPink] forState:UIControlStateNormal];
         [_commentNumButton setBackgroundColor:[UIColor whiteColor]];
         [_commentNumButton setTitle:_commentNum forState:UIControlStateNormal];
         [_commentNumButton addTarget:self action:@selector(clickCommentNumButton) forControlEvents:UIControlEventTouchUpInside];
@@ -271,6 +272,14 @@
         _voteLabelA.hidden = YES;
         _voteLabelB.hidden = YES;
     }
+}
+
+
+/** 重写图片上的投票数字 */
+- (void)rewriteVoteA:(NSInteger)voteA voteB:(NSInteger)voteB
+{
+    _voteLabelA.text = [NSString stringWithFormat:@"%ld票", (long)voteA];
+    _voteLabelB.text = [NSString stringWithFormat:@"%ld票", (long)voteB];
 }
 
 

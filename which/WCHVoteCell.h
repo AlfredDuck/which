@@ -60,4 +60,5 @@
 - (void)rewritePortrait:(NSString *)newPortraitURL;
 - (void)rewriteNumWithVote:(NSInteger)newVoteNum withComment:(NSInteger)newCommentNum;
 - (void)rewriteIfVoted:(NSString *)votedStatus;
+- (void)rewriteVoteA:(NSInteger)voteA voteB:(NSInteger)voteB;
 @end
