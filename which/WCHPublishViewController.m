@@ -117,7 +117,7 @@
     [_sendButton setTitle:@"发送" forState:UIControlStateNormal];
     _sendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [_sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _sendButton.backgroundColor = [WCHColorManager commonPink];
+    _sendButton.backgroundColor = [WCHColorManager purple];
     _sendButton.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
     _sendButton.layer.cornerRadius = 3;
     [_sendButton addTarget:self action:@selector(clickSendButton) forControlEvents:UIControlEventTouchUpInside];

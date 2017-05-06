@@ -11,6 +11,11 @@
 #import "WCHVoteCell.h"
 #import "WCHVoteListViewController.h"
 #import "WCHWelcomeVC.h"
+#import "MJRefresh.h"
+#import "AFNetworking.h"
+#import "WCHUrlManager.h"
+#import "WCHUserDefault.h"
+#import "WCHToastView.h"
 
 @interface WCHHomeViewController ()
 
@@ -40,6 +45,12 @@
     [super createTabBarWith:0];  // 调用父类方法，构建tabbar
     [self createUIParts];
     [self createTableView];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [_oneTableView.mj_header beginRefreshing];  // 触发下拉刷新
 }
 
 - (void)didReceiveMemoryWarning {
@@ -90,16 +101,15 @@
     [self.view addSubview:_oneTableView];
     
     // 下拉刷新 MJRefresh
-    //    _oneTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-    //        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
-    //        //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    //        //            // 结束刷新动作
-    //        //            [_oneTableView.mj_header endRefreshing];
-    //        //            NSLog(@"下拉刷新成功，结束刷新");
-    //        //        });
-    //        [self connectForHot:_oneTableView];
-    //        [self connectForFollowedArticles:_oneTableView];
-    //    }];
+    _oneTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
+        //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //            // 结束刷新动作
+        //            [_oneTableView.mj_header endRefreshing];
+        //            NSLog(@"下拉刷新成功，结束刷新");
+        //        });
+        [self connectForPublishList];
+    }];
     
     // 上拉刷新 MJRefresh (等到页面有数据后再使用)
     //    _oneTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -125,7 +135,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 20;
+    return [_voteData count];
 }
 
 
@@ -137,12 +147,17 @@
     
     NSUInteger row = [indexPath row];
     
-    if ( voteCell == nil) {
+    if ( voteCell == nil) {  // 这里if的条件如果用yes，代表不使用复用池
         voteCell = [[WCHVoteCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellWithIdentifier];
     }
-    [voteCell rewriteTitle:@"你们更喜欢哪种风格？"];
-    NSArray *a = @[@"http://opa3erxn5.bkt.clouddn.com/okeric",@"http://img.cnu.cc/uploads/images/920/1606/23/26322393dcf73e43bd7b2fa7a66fe775.jpg"];
-    [voteCell rewritePics:a];
+    voteCell.delegate = self;
+    [voteCell setCellIndex:(unsigned long)row];
+    [voteCell rewriteTitle:_voteData[row][@"text"]];
+    [voteCell rewritePics:_voteData[row][@"pics"]];
+    [voteCell rewritePortrait:_voteData[row][@"user"][@"portrait"]];
+    [voteCell rewriteIfVoted:_voteData[row][@"votedStatus"]];
+    
+    [voteCell rewriteNumWithVote:(NSUInteger)_voteData[row][@"commentNum"] withComment:(NSUInteger)_voteData[row][@"commentNum"]];
     voteCell.selectionStyle = UITableViewCellSelectionStyleNone;  // 取消选中的背景色
     return voteCell;
 }
@@ -161,19 +176,143 @@
 {
     NSUInteger row = [indexPath row];
     if (row == 0){
-        WCHVoteListViewController *voteList = [[WCHVoteListViewController alloc] init];
-        [self.navigationController pushViewController:voteList animated:YES];
-        //开启iOS7的滑动返回效果
-        if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-            self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-        }
-    }
-    if (row == 1){
         WCHWelcomeVC *welcome = [[WCHWelcomeVC alloc] init];
         [self.navigationController presentViewController:welcome animated:YES completion:^{
             // code
         }];
     }
+}
+
+
+
+
+
+#pragma mark - voteCell 代理
+- (void)clickVoteButtonWithIndex:(unsigned long)index
+{
+    WCHVoteListViewController *voteList = [[WCHVoteListViewController alloc] init];
+    [self.navigationController pushViewController:voteList animated:YES];
+    //开启iOS7的滑动返回效果
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
+}
+
+- (void)clickCommentButtonWithIndex:(unsigned long)index
+{
+    
+}
+
+- (void)clickPicWithIndex:(unsigned long)index withWhichPic:(unsigned long)which
+{
+    NSLog(@"?????");
+    // 获取登录信息
+    NSDictionary *loginInfo = [WCHUserDefault readLoginInfo];
+    NSLog(@"%@", loginInfo);
+    
+    NSNumber *whichPic = [NSNumber numberWithInt:(int)which];
+    
+    // prepare request parameters
+    NSString *host = [WCHUrlManager urlHost];
+    NSString *urlString = [host stringByAppendingString:@"/do_vote"];
+    
+    NSDictionary *parameters = @{@"uid": loginInfo[@"uid"],
+                                 @"publish_id": _voteData[index][@"_id"],
+                                 @"which": whichPic};
+    
+    // 创建 GET 请求（AF 3.0）
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    session.requestSerializer.timeoutInterval = 20.0;  // 设置超时时间
+    [session GET:urlString parameters: parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        // GET请求成功
+        NSDictionary *data = responseObject[@"data"];
+        unsigned long errcode = [responseObject[@"errcode"] intValue];
+        NSLog(@"errcode：%lu", errcode);
+        NSLog(@"data:%@", data);
+        // 返回值报错s
+        if (errcode == 1001 || errcode == 1002) {
+            NSString *txt;
+            if (errcode == 1001) {
+                txt = @"数据库君这会儿有点晕，请稍后再试";
+            } else {
+                txt = @"操作出错，请火速联系管理员";
+            }
+            [WCHToastView showToastWith:txt isErr:NO duration:3.0f superView:self.view];
+            return;
+        }
+        // 返回值正常
+        
+//        NSLog(@"%@", [[_followedArticlesData objectAtIndex:index] objectForKey:@"title"]);
+//        NSMutableDictionary *cellData = [[_followedArticlesData objectAtIndex:index] mutableCopy];
+//        [cellData setValue:[data objectForKey:@"status"] forKey:@"likeStatus"];
+//        [cellData setValue:[data objectForKey:@"likeNum"] forKey:@"likeNum"];
+//        [_followedArticlesData replaceObjectAtIndex:index withObject:cellData];
+//
+        // 1.修改内存中的数据
+        NSMutableDictionary *cellData = [[_voteData objectAtIndex:index] mutableCopy];
+        [cellData setValue:@"yes" forKey:@"votedStatus"];
+        [_voteData replaceObjectAtIndex:index withObject:cellData];
+        
+        // 2.刷新特定的cell
+        NSIndexPath *indexPath=[NSIndexPath indexPathForRow:index inSection:0];
+        [_oneTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [WCHToastView showToastWith:@"请检查网络" isErr:NO duration:3.0f superView:self.view];
+        [_oneTableView.mj_header endRefreshing];
+    }];
+}
+
+
+
+
+
+#pragma mark - 网络请求
+
+/** 请求 publish list 第一页数据 */
+- (void)connectForPublishList
+{
+    // 获取登录信息
+    NSDictionary *loginInfo = [WCHUserDefault readLoginInfo];
+    NSLog(@"%@", loginInfo);
+    
+    // prepare request parameters
+    NSString *host = [WCHUrlManager urlHost];
+    NSString *urlString = [host stringByAppendingString:@"/publish_list"];
+    
+    NSDictionary *parameters = @{@"uid": loginInfo[@"uid"]};
+    
+    // 创建 GET 请求（AF 3.0）
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    session.requestSerializer.timeoutInterval = 20.0;  // 设置超时时间
+    [session GET:urlString parameters: parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        // GET请求成功
+        NSDictionary *data = responseObject[@"data"];
+        unsigned long errcode = [responseObject[@"errcode"] intValue];
+        NSLog(@"errcode：%lu", errcode);
+        NSLog(@"data:%@", data);
+        // 返回值报错s
+        if (errcode == 1001 || errcode == 1002) {
+            NSString *txt;
+            if (errcode == 1001) {
+                txt = @"数据库君这会儿有点晕，请稍后再试";
+            } else {
+                txt = @"操作出错，请火速联系管理员";
+            }
+            [WCHToastView showToastWith:txt isErr:NO duration:3.0f superView:self.view];
+            return;
+        }
+        // 返回值正常
+        _voteData = [data mutableCopy];
+        [_oneTableView reloadData];
+        [_oneTableView.mj_header endRefreshing];
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [WCHToastView showToastWith:@"请检查网络" isErr:NO duration:3.0f superView:self.view];
+        [_oneTableView.mj_header endRefreshing];
+    }];
 }
 
 

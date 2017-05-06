@@ -64,10 +64,14 @@
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:_titleLabel];
         
-        /* 图片组 */
+        
+        
+        /******************************* 图片组 ************************************/
+        
         unsigned long ww = _screenWidth/2.0 - 1;
         unsigned long hh = ceil(ww/3.0*4.0);
         
+        // A
         _picAImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ww, hh)];
         _picAImageView.backgroundColor = [WCHColorManager lightGrayBackground];
         // uiimageview居中裁剪
@@ -75,8 +79,24 @@
         _picAImageView.clipsToBounds  = YES;
         // 普通加载网络图片 yy库
         _picAImageView.yy_imageURL = [NSURL URLWithString:@""];
+        _picAImageView.userInteractionEnabled = YES; // 设置图片可以交互
+        UITapGestureRecognizer *singleTapA = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPicWithWhich:)]; // 设置手势
+        [_picAImageView addGestureRecognizer:singleTapA]; // 给图片添加手势
+        _picAImageView.tag = 1;
         [self.contentView addSubview:_picAImageView];
         
+        // A 的投票人数
+        _voteLabelA = [[UILabel alloc] initWithFrame:CGRectMake(0, hh-34, ww, 34)];
+        _voteLabelA.text = @"297票";
+        _voteLabelA.font = [UIFont fontWithName:@"PingFangSC-Light" size:18.0];
+        _voteLabelA.textColor = [UIColor whiteColor];
+        _voteLabelA.backgroundColor = [WCHColorManager purple];
+        _voteLabelA.alpha = 0.85f;
+        _voteLabelA.textAlignment = NSTextAlignmentCenter;
+        [_picAImageView addSubview:_voteLabelA];
+        
+        
+        // B
         _picBImageView = [[UIImageView alloc] initWithFrame:CGRectMake(ww+2, 0, ww, hh)];
         _picBImageView.backgroundColor = [WCHColorManager lightGrayBackground];
         // uiimageview居中裁剪
@@ -84,7 +104,25 @@
         _picBImageView.clipsToBounds  = YES;
         // 普通加载网络图片 yy库
         _picBImageView.yy_imageURL = [NSURL URLWithString:@""];
+        _picBImageView.userInteractionEnabled = YES; // 设置图片可以交互
+        UITapGestureRecognizer *singleTapB = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPicWithWhich:)]; // 设置手势
+        [_picBImageView addGestureRecognizer:singleTapB]; // 给图片添加手势
+        _picBImageView.tag = 2;
         [self.contentView addSubview:_picBImageView];
+        
+        // B 的投票人数
+        _voteLabelB = [[UILabel alloc] initWithFrame:CGRectMake(0, hh-34, ww, 34)];
+        _voteLabelB.text = @"0票";
+        _voteLabelB.font = [UIFont fontWithName:@"PingFangSC-Light" size:18.0];
+        _voteLabelB.textColor = [UIColor whiteColor];
+        _voteLabelB.backgroundColor = [UIColor colorWithRed:30/255.0 green:30/255.0 blue:30/255.0 alpha:1.0];
+        _voteLabelB.alpha = 0.85f;
+        _voteLabelB.textAlignment = NSTextAlignmentCenter;
+        [_picBImageView addSubview:_voteLabelB];
+        
+        
+        
+        
         
         
         /* 投票人数 */
@@ -94,10 +132,10 @@
         //对按钮的外形做了设定，不喜可删~
         _voteNumButton.layer.masksToBounds = YES;
         _voteNumButton.layer.borderWidth = 0.5;
-        _voteNumButton.layer.borderColor = [[WCHColorManager commonPink] CGColor];
+        _voteNumButton.layer.borderColor = [[WCHColorManager purple] CGColor];
         _voteNumButton.layer.cornerRadius = 12;
         
-        [_voteNumButton setTitleColor:[WCHColorManager commonPink] forState:UIControlStateNormal];
+        [_voteNumButton setTitleColor:[WCHColorManager purple] forState:UIControlStateNormal];
         [_voteNumButton setBackgroundColor:[UIColor whiteColor]];
         [_voteNumButton setTitle:_voteNum forState:UIControlStateNormal];
         [_voteNumButton addTarget:self action:@selector(clickVoteNumButton) forControlEvents:UIControlEventTouchUpInside];
@@ -118,10 +156,10 @@
         //对按钮的外形做了设定，不喜可删~
         _commentNumButton.layer.masksToBounds = YES;
         _commentNumButton.layer.borderWidth = 0.5;
-        _commentNumButton.layer.borderColor = [[WCHColorManager commonPink] CGColor];
+        _commentNumButton.layer.borderColor = [[WCHColorManager purple] CGColor];
         _commentNumButton.layer.cornerRadius = 12;
         
-        [_commentNumButton setTitleColor:[WCHColorManager commonPink] forState:UIControlStateNormal];
+        [_commentNumButton setTitleColor:[WCHColorManager purple] forState:UIControlStateNormal];
         [_commentNumButton setBackgroundColor:[UIColor whiteColor]];
         [_commentNumButton setTitle:_commentNum forState:UIControlStateNormal];
         [_commentNumButton addTarget:self action:@selector(clickCommentNumButton) forControlEvents:UIControlEventTouchUpInside];
@@ -136,7 +174,7 @@
         
         
         /* 背景、分割线 */
-        _partLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _screenWidth, 20)];
+        _partLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _screenWidth, 15)];
         _partLine.backgroundColor = [WCHColorManager lightGrayBackground];
         [self.contentView addSubview:_partLine];
         self.contentView.backgroundColor = [UIColor whiteColor];
@@ -185,9 +223,9 @@
     _picAImageView.frame = CGRectMake(0, _cellHeight, ww, hh);
     _picBImageView.frame = CGRectMake(ww+2, _cellHeight, ww, hh);
     // 修改partline位置
-    _partLine.frame = CGRectMake(0, _cellHeight+hh, _screenWidth, 20);
+    _partLine.frame = CGRectMake(0, _cellHeight+hh, _screenWidth, 15);
     
-    _cellHeight += (hh+20);
+    _cellHeight += (hh+15);
     
 }
 
@@ -204,17 +242,57 @@
 }
 
 
+/** 重写头像 */
+- (void)rewritePortrait:(NSString *)newPortraitURL
+{
+    _portraitURL = newPortraitURL;
+    _portraitImageView.yy_imageURL = [NSURL URLWithString:_portraitURL];
+}
+
+
+/** 重写投票&留言数量 */
+- (void)rewriteNumWithVote:(NSInteger)newVoteNum withComment:(NSInteger)newCommentNum
+{
+    _voteNum = [NSString stringWithFormat:@"%ld人投票", (long)newVoteNum];
+    [_voteNumButton setTitle:_voteNum forState:UIControlStateNormal];
+    
+    _commentNum = [NSString stringWithFormat:@"%ld人留言", (long)newCommentNum];
+    [_commentNumButton setTitle:_commentNum forState:UIControlStateNormal];
+}
+
+
+/** 重写是否已投票 */
+- (void)rewriteIfVoted:(NSString *)votedStatus
+{
+    if ([votedStatus isEqualToString:@"yes"]) {
+        _voteLabelA.hidden = NO;
+        _voteLabelB.hidden = NO;
+    } else {
+        _voteLabelA.hidden = YES;
+        _voteLabelB.hidden = YES;
+    }
+}
+
+
+
 #pragma mark - IBAction
 - (void)clickVoteNumButton
 {
-    NSLog(@"clickVoteNumButton");
+    NSLog(@"clickVoteNumButton:%lu", _cellIndex);
+    [self.delegate clickVoteButtonWithIndex:_cellIndex];
 }
 
 - (void)clickCommentNumButton
 {
-    NSLog(@"clickCommentNumButton");
+    NSLog(@"clickCommentNumButton:%lu", _cellIndex);
+    [self.delegate clickCommentButtonWithIndex:_cellIndex];
 }
 
+- (void)clickPicWithWhich:(UIGestureRecognizer *)sender
+{
+    NSLog(@"clickCommentNumButton:%lu,%lu", _cellIndex, sender.view.tag-1);
+    [self.delegate clickPicWithIndex:_cellIndex withWhichPic:sender.view.tag - 1];
+}
 
 
 
