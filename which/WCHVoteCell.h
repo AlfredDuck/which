@@ -42,7 +42,9 @@
 @property (nonatomic, copy) NSString *picURLB;
 @property (nonatomic, copy) UIImageView *picBImageView;
 @property (nonatomic, copy) UILabel *voteLabelB;
-
+/** “我”投的标志 */
+@property (nonatomic, copy) UIImageView *myVoteA;
+@property (nonatomic, copy) UIImageView *myVoteB;
 /** 分割线 */
 @property (nonatomic, copy) UIView *partLine;
 /** cell高度 */

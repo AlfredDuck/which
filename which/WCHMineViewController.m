@@ -93,7 +93,7 @@
 {
     // 基础scrollview
     _basedScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, _screenWidth, _screenHeight-64-49)];
-    _basedScrollView.backgroundColor = [WCHColorManager lightGrayBackground];
+    _basedScrollView.backgroundColor = [WCHColorManager commonBackground];
     [self.view addSubview:_basedScrollView];
     
     //这个属性很重要，它可以决定是横向还是纵向滚动，一般来说也是其中的 View 的总宽度，和总的高度

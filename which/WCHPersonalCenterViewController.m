@@ -25,7 +25,7 @@
     if (self) {
         // Custom initialization
         self.title = @"test";
-        self.view.backgroundColor = [WCHColorManager lightGrayBackground];
+        self.view.backgroundColor = [WCHColorManager commonBackground];
         self.navigationController.navigationBar.hidden = YES;
     }
     return self;

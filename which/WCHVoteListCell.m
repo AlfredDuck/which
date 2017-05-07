@@ -73,4 +73,20 @@
 }
 
 
+/** 重写头像 */
+- (void)rewritePortrait:(NSString *)newPortraitURL
+{
+    _portraitURL = newPortraitURL;
+    _portraitImageView.yy_imageURL = [NSURL URLWithString:_portraitURL];
+}
+
+/** 重写昵称 */
+- (void)rewriteNickname:(NSString *)newNickname andVoteWhich:(NSString *)which
+{
+    NSString *ab = [which isEqualToString:@"0"] ? @" 投给了A": @" 投给了B";
+    _txt = [newNickname stringByAppendingString: ab];
+    _txtLabel.text =_txt;
+}
+
+
 @end

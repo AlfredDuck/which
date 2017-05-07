@@ -84,16 +84,23 @@
         _picAImageView.tag = 1;
         [self.contentView addSubview:_picAImageView];
         
+        // A 的遮黑
+        UIView *blackA = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ww, hh)];
+        blackA.backgroundColor = [UIColor blackColor];
+        blackA.alpha = 0.20f;
+        [_picAImageView addSubview:blackA];
+        
+        // A 的myvote
+        _myVoteA = [[UIImageView alloc] initWithFrame:CGRectMake((ww-31)/2.0, hh-31-15, 31, 31)];
+        _myVoteA.image = [UIImage imageNamed:@"my_vote.png"];
+        [_picAImageView addSubview:_myVoteA];
+        
         // A 的投票人数
-        _voteLabelA = [[UILabel alloc] initWithFrame:CGRectMake((ww-108)/2.0, hh-49, 108, 34)];
-        _voteLabelA.text = @"297票";
-        _voteLabelA.font = [UIFont fontWithName:@"PingFangSC-Light" size:18.0];
+        _voteLabelA = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ww, hh)];
+        _voteLabelA.text = @"49";
+        _voteLabelA.font = [UIFont fontWithName:@"PingFangSC-Semibold" size:48.0];
         _voteLabelA.textColor = [UIColor whiteColor];
-        _voteLabelA.backgroundColor = [WCHColorManager commonPink];
         _voteLabelA.textAlignment = NSTextAlignmentCenter;
-        _voteLabelA.layer.cornerRadius = 17;  // 圆角
-        _voteLabelA.layer.masksToBounds = YES;  // round corner
-        _voteLabelA.alpha = 0.85f;
         [_picAImageView addSubview:_voteLabelA];
         
         
@@ -111,15 +118,17 @@
         _picBImageView.tag = 2;
         [self.contentView addSubview:_picBImageView];
         
+        // B 的遮黑
+        UIView *blackB = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ww, hh)];
+        blackB.backgroundColor = [UIColor blackColor];
+        blackB.alpha = 0.20f;
+        [_picBImageView addSubview:blackB];
+        
         // B 的投票人数
-        _voteLabelB = [[UILabel alloc] initWithFrame:CGRectMake((ww-108)/2.0, hh-49, 108, 34)];
-        _voteLabelB.text = @"0票";
-        _voteLabelB.font = [UIFont fontWithName:@"PingFangSC-Light" size:18.0];
+        _voteLabelB = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ww, hh)];
+        _voteLabelB.text = @"278";
+        _voteLabelB.font = [UIFont fontWithName:@"PingFangSC-Semibold" size:48.0];
         _voteLabelB.textColor = [UIColor whiteColor];
-        _voteLabelB.backgroundColor = [UIColor colorWithRed:30/255.0 green:30/255.0 blue:30/255.0 alpha:1.0];
-        _voteLabelB.alpha = 0.85f;
-        _voteLabelB.layer.cornerRadius = 17;  // 圆角
-        _voteLabelB.layer.masksToBounds = YES;  // round corner
         _voteLabelB.textAlignment = NSTextAlignmentCenter;
         [_picBImageView addSubview:_voteLabelB];
         
@@ -134,12 +143,10 @@
         _voteNumButton.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size: 12];
         //对按钮的外形做了设定，不喜可删~
         _voteNumButton.layer.masksToBounds = YES;
-        _voteNumButton.layer.borderWidth = 0.5;
-        _voteNumButton.layer.borderColor = [[WCHColorManager commonPink] CGColor];
         _voteNumButton.layer.cornerRadius = 12;
         
         [_voteNumButton setTitleColor:[WCHColorManager commonPink] forState:UIControlStateNormal];
-        [_voteNumButton setBackgroundColor:[UIColor whiteColor]];
+        [_voteNumButton setBackgroundColor:[UIColor colorWithRed:255/255.0 green:228/255.0 blue:234/255.0 alpha:1.0]];
         [_voteNumButton setTitle:_voteNum forState:UIControlStateNormal];
         [_voteNumButton addTarget:self action:@selector(clickVoteNumButton) forControlEvents:UIControlEventTouchUpInside];
         
@@ -158,12 +165,10 @@
         _commentNumButton.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size: 12];
         //对按钮的外形做了设定，不喜可删~
         _commentNumButton.layer.masksToBounds = YES;
-        _commentNumButton.layer.borderWidth = 0.5;
-        _commentNumButton.layer.borderColor = [[WCHColorManager commonPink] CGColor];
         _commentNumButton.layer.cornerRadius = 12;
         
         [_commentNumButton setTitleColor:[WCHColorManager commonPink] forState:UIControlStateNormal];
-        [_commentNumButton setBackgroundColor:[UIColor whiteColor]];
+        [_commentNumButton setBackgroundColor:[UIColor colorWithRed:255/255.0 green:228/255.0 blue:234/255.0 alpha:1.0]];
         [_commentNumButton setTitle:_commentNum forState:UIControlStateNormal];
         [_commentNumButton addTarget:self action:@selector(clickCommentNumButton) forControlEvents:UIControlEventTouchUpInside];
         
@@ -178,7 +183,7 @@
         
         /* 背景、分割线 */
         _partLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _screenWidth, 15)];
-        _partLine.backgroundColor = [WCHColorManager lightGrayBackground];
+        _partLine.backgroundColor = [WCHColorManager commonBackground];
         [self.contentView addSubview:_partLine];
         self.contentView.backgroundColor = [UIColor whiteColor];
         
@@ -280,8 +285,8 @@
 /** 重写图片上的投票数字 */
 - (void)rewriteVoteA:(NSInteger)voteA voteB:(NSInteger)voteB
 {
-    _voteLabelA.text = [NSString stringWithFormat:@"%ld票", (long)voteA];
-    _voteLabelB.text = [NSString stringWithFormat:@"%ld票", (long)voteB];
+    _voteLabelA.text = [NSString stringWithFormat:@"%ld", (long)voteA];
+    _voteLabelB.text = [NSString stringWithFormat:@"%ld", (long)voteB];
 }
 
 

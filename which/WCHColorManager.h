@@ -33,4 +33,5 @@
 + (UIColor *)lightYellowBackground;
 //=============
 + (UIColor *)commonPink;
++ (UIColor *)commonBackground;
 @end

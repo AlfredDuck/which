@@ -9,6 +9,10 @@
 #import "WCHVoteListViewController.h"
 #import "WCHColorManager.h"
 #import "WCHVoteListCell.h"
+#import "AFNetworking.h"
+#import "WCHUrlManager.h"
+#import "WCHToastView.h"
+#import "WCHUserDefault.h"
 
 @interface WCHVoteListViewController ()
 
@@ -22,7 +26,7 @@
     if (self) {
         // Custom initialization
         self.title = @"test";
-        self.view.backgroundColor = [WCHColorManager lightGrayBackground];
+        self.view.backgroundColor = [WCHColorManager commonBackground];
         self.navigationController.navigationBar.hidden = YES;
     }
     return self;
@@ -34,6 +38,11 @@
     _screenWidth = [UIScreen mainScreen].bounds.size.width;
     [self createUIParts];
     [self createTableView];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self connectForVoteRecordList];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -94,7 +103,7 @@
     [_oneTableView setDataSource:self];
     
     [_oneTableView registerClass:[WCHVoteListCell class] forCellReuseIdentifier:CellWithIdentifier];
-    _oneTableView.backgroundColor = [WCHColorManager lightGrayBackground];
+    _oneTableView.backgroundColor = [WCHColorManager commonBackground];
     _oneTableView.separatorStyle = UITableViewCellSeparatorStyleNone; // 去掉分割线
     // _oneTableView.contentInset = UIEdgeInsetsMake(15, 0, 0, 0); // 设置距离顶部的一段偏移，继承自scrollview
     // 响应点击状态栏的事件
@@ -136,7 +145,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 20;
+    return [_voteData count];
 }
 
 
@@ -151,8 +160,8 @@
     if ( voteListCell == nil) {
         voteListCell = [[WCHVoteListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellWithIdentifier];
     }
-//    [voteListCell rewriteText:@"你们更喜欢哪种风格？"];
-//    [voteListCell rewritePortrait:@""];
+    [voteListCell rewriteNickname: _voteData[row][@"user"][@"nickname"] andVoteWhich:_voteData[row][@"which"]];
+    [voteListCell rewritePortrait: _voteData[row][@"user"][@"portrait"]];
     voteListCell.selectionStyle = UITableViewCellSelectionStyleNone;  // 取消选中的背景色
     return voteListCell;
 }
@@ -168,7 +177,7 @@
 // tableView 点击事件
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSUInteger row = [indexPath row];
+    
 }
 
 
@@ -178,6 +187,48 @@
 - (void)clickBackButton
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+
+
+#pragma mark - 网络请求
+- (void)connectForVoteRecordList
+{
+    // prepare request parameters
+    NSString *host = [WCHUrlManager urlHost];
+    NSString *urlString = [host stringByAppendingString:@"/vote_record_list"];
+    
+    NSDictionary *parameters = @{@"publish_id": _publishID};
+    
+    // 创建 GET 请求（AF 3.0）
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    session.requestSerializer.timeoutInterval = 20.0;  // 设置超时时间
+    [session GET:urlString parameters: parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        // GET请求成功
+        NSDictionary *data = responseObject[@"data"];
+        unsigned long errcode = [responseObject[@"errcode"] intValue];
+        NSLog(@"errcode：%lu", errcode);
+        NSLog(@"data:%@", data);
+        // 返回值报错s
+        if (errcode == 1001 || errcode == 1002) {
+            NSString *txt;
+            if (errcode == 1001) {
+                txt = @"数据库君这会儿有点晕，请稍后再试";
+            } else {
+                txt = @"操作出错，请火速联系管理员";
+            }
+            [WCHToastView showToastWith:txt isErr:NO duration:3.0f superView:self.view];
+            return;
+        }
+        // 返回值正常
+        _voteData = [data mutableCopy];
+        [_oneTableView reloadData];
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [WCHToastView showToastWith:@"请检查网络" isErr:NO duration:3.0f superView:self.view];
+    }];
 }
 
 @end

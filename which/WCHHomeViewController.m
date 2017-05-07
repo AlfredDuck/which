@@ -93,9 +93,9 @@
     [_oneTableView setDataSource:self];
     
     [_oneTableView registerClass:[WCHVoteCell class] forCellReuseIdentifier:CellWithIdentifier];
-    _oneTableView.backgroundColor = [WCHColorManager lightGrayBackground];
+    _oneTableView.backgroundColor = [WCHColorManager commonBackground];
     _oneTableView.separatorStyle = UITableViewCellSeparatorStyleNone; // 去掉分割线
-    // _oneTableView.contentInset = UIEdgeInsetsMake(15, 0, 0, 0); // 设置距离顶部的一段偏移，继承自scrollview
+    _oneTableView.contentInset = UIEdgeInsetsMake(15, 0, 0, 0); // 设置距离顶部的一段偏移，继承自scrollview
     // 响应点击状态栏的事件
     _oneTableView.scrollsToTop = YES;
     [self.view addSubview:_oneTableView];
@@ -117,7 +117,7 @@
     //    }];
     
     // 这个碉堡了，要珍藏！！
-    // _oneTableView.mj_header.ignoredScrollViewContentInsetTop = 100.0;
+    _oneTableView.mj_header.ignoredScrollViewContentInsetTop = 15.0;
     
     // 禁用 mjRefresh
     // contentTableView.mj_footer = nil;
@@ -161,7 +161,7 @@
     NSInteger avote = [_voteData[row][@"voteNum"][0] intValue];
     NSInteger bvote = [_voteData[row][@"voteNum"][1] intValue];
     [voteCell rewriteNumWithVote:(avote+bvote) withComment:commentNum];
-    [voteCell rewriteVoteA:avote voteB:bvote];
+    // [voteCell rewriteVoteA:avote voteB:bvote];
     
     voteCell.selectionStyle = UITableViewCellSelectionStyleNone;  // 取消选中的背景色
     return voteCell;
@@ -196,6 +196,7 @@
 - (void)clickVoteButtonWithIndex:(unsigned long)index
 {
     WCHVoteListViewController *voteList = [[WCHVoteListViewController alloc] init];
+    voteList.publishID = _voteData[index][@"_id"];
     [self.navigationController pushViewController:voteList animated:YES];
     //开启iOS7的滑动返回效果
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {

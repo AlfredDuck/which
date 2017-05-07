@@ -16,4 +16,5 @@
 @property (nonatomic, strong) UITableView *oneTableView;
 /* tableview data */
 @property (nonatomic, strong) NSMutableArray *voteData;
+@property (nonatomic, strong) NSString *publishID;
 @end

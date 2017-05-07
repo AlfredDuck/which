@@ -83,6 +83,9 @@
 + (UIColor *)commonPink {
     return [UIColor colorWithRed:244/255.0 green:96/255.0 blue:123/255.0 alpha:1];
 }
++ (UIColor *)commonBackground {
+    return [UIColor colorWithRed:244/255.0 green:244/255.0 blue:244/255.0 alpha:1];
+}
 
 
 @end

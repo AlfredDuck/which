@@ -23,4 +23,7 @@
 @property (nonatomic) NSInteger screenWidth;
 @property (nonatomic) NSInteger screenHeight;
 
+- (void)rewritePortrait:(NSString *)newPortraitURL;
+- (void)rewriteNickname:(NSString *)newNickname andVoteWhich:(NSString *)which;
+
 @end
