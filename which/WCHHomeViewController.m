@@ -278,15 +278,19 @@
 /** 请求 publish list 第一页数据 */
 - (void)connectForPublishList
 {
-    // 获取登录信息
-    NSDictionary *loginInfo = [WCHUserDefault readLoginInfo];
-    NSLog(@"%@", loginInfo);
-    
     // prepare request parameters
     NSString *host = [WCHUrlManager urlHost];
     NSString *urlString = [host stringByAppendingString:@"/publish_list"];
     
-    NSDictionary *parameters = @{@"uid": loginInfo[@"uid"]};
+    NSDictionary *parameters;
+    if ([WCHUserDefault isLogin]) {
+        // 获取登录信息
+        NSDictionary *loginInfo = [WCHUserDefault readLoginInfo];
+        NSLog(@"%@", loginInfo);
+        parameters = @{@"uid": loginInfo[@"uid"]};
+    } else {
+        parameters = @{};
+    }
     
     // 创建 GET 请求（AF 3.0）
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];

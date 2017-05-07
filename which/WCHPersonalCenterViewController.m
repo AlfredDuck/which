@@ -9,8 +9,11 @@
 #import "WCHPersonalCenterViewController.h"
 #import "WCHColorManager.h"
 #import "WCHUserDefault.h"
+#import "WCHUrlManager.h"
+#import "AFNetworking.h"
+#import "WCHToastView.h"
 
-@interface WCHPersonalCenterViewController ()
+@interface WCHPersonalCenterViewController () <UIAlertViewDelegate>
 
 @end
 
@@ -157,8 +160,69 @@
 
 - (void)clickLogout
 {
-    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"退出登录后将收不到朋友的消息" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"退出登录", nil];
+    alert.tag = 11;
+    [alert show];
 }
+
+
+
+
+#pragma mark - Alertview 代理
+- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 11) {
+        if (buttonIndex == 1) {
+            NSLog(@"退出登录");
+            NSDictionary *loginInfo = [WCHUserDefault readLoginInfo];
+            [self connectForLogout: loginInfo[@"uid"]];  // 发起退登请求
+        }
+    }
+}
+
+
+
+
+#pragma mark - 网络请求
+- (void)connectForLogout:(NSString *)uid
+{
+    // prepare request parameters
+    NSString *host = [WCHUrlManager urlHost];
+    NSString *urlString = [host stringByAppendingString:@"/user/logout"];
+    
+    NSDictionary *parameters = @{@"uid": uid};
+    
+    // 创建 GET 请求（AF 3.0）
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    session.requestSerializer.timeoutInterval = 20.0;  // 设置超时时间
+    [session GET:urlString parameters: parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        // GET请求成功
+        NSDictionary *data = responseObject[@"data"];
+        unsigned long errcode = [responseObject[@"errcode"] intValue];
+        NSLog(@"errcode：%lu", errcode);
+        NSLog(@"data:%@", data);
+        // 返回值报错s
+        if (errcode == 1001 || errcode == 1002) {
+            NSString *txt;
+            if (errcode == 1001) {
+                txt = @"数据库君这会儿有点晕，请稍后再试";
+            } else {
+                txt = @"Logout Failed";
+            }
+            [WCHToastView showToastWith:txt isErr:NO duration:3.0f superView:self.view];
+            return;
+        }
+        // 返回值正常
+        // 清理登录信息
+        [WCHUserDefault cleanLoginInfo];
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [WCHToastView showToastWith:@"请检查网络" isErr:NO duration:3.0f superView:self.view];
+    }];
+
+}
+
 
 
 

@@ -11,6 +11,7 @@
 #import "YYWebImage.h"
 #import "WCHUserDefault.h"
 #import "WCHPersonalCenterViewController.h"
+#import "WCHWelcomeVC.h"
 
 @interface WCHMineViewController ()
 @property (nonatomic, strong) UIScrollView *basedScrollView;
@@ -117,12 +118,18 @@
 /** 创建滚动部分 */
 - (void)createScrollUI
 {
-    // 获取登录信息
-    NSDictionary *loginInfo = [WCHUserDefault readLoginInfo];
-    
     UIView *portraitBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 15, _screenWidth, 168)];
     portraitBackground.backgroundColor = [UIColor whiteColor];
     [_basedScrollView addSubview: portraitBackground];
+    
+    // =======================================================
+    
+    NSString *url;
+    if ([WCHUserDefault isLogin]) {
+        url = [[WCHUserDefault readLoginInfo] objectForKey:@"portrait"];
+    } else {
+        url = @"";
+    }
     
     /* 头像 */
     _portraitImageView = [[UIImageView alloc] initWithFrame:CGRectMake((_screenWidth-88)/2.0, 22, 88, 88)]; // 原来36
@@ -133,21 +140,29 @@
     _portraitImageView.layer.cornerRadius = 44;
     [_portraitImageView.layer setBorderWidth:0.5];   //边框宽度
     [_portraitImageView.layer setBorderColor:[WCHColorManager lightPortraitline].CGColor];
+    
     // 普通加载网络图片 yy库
-    _portraitImageView.yy_imageURL = [NSURL URLWithString: loginInfo[@"portrait"]];
+    _portraitImageView.yy_imageURL = [NSURL URLWithString: url];
     // 为UIView添加点击事件
     _portraitImageView.userInteractionEnabled = YES; // 设置图片可以交互
     UITapGestureRecognizer *singleTapPortrait = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPortrait)]; // 设置手势
     [_portraitImageView addGestureRecognizer:singleTapPortrait]; // 给图片添加手势
     [portraitBackground addSubview:_portraitImageView];
     
+    
+    
     /* 微博id or 邮箱账号 */
     UILabel *idLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 122, _screenWidth-60, 17)];
     NSString *oneID = @"";
-    if ([loginInfo[@"user_type"] isEqualToString:@"weibo"]) {
-        oneID = [@"微博id：" stringByAppendingString:loginInfo[@"uid"]];
+    if ([WCHUserDefault isLogin]) {
+        NSDictionary *loginInfo = [WCHUserDefault readLoginInfo];
+        if ([loginInfo[@"user_type"] isEqualToString:@"weibo"]) {
+            oneID = [@"微博id：" stringByAppendingString:loginInfo[@"uid"]];
+        } else {
+            oneID = loginInfo[@"uid"];
+        }
     } else {
-        oneID = loginInfo[@"uid"];
+        oneID = @"点击登录/注册";
     }
     idLabel.text = oneID;
     idLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size:12];
@@ -274,6 +289,14 @@
 /** 点击头像 */
 - (void)clickPortrait
 {
+    if (![WCHUserDefault isLogin]) {
+        WCHWelcomeVC *welcome = [[WCHWelcomeVC alloc] init];
+        [self.navigationController presentViewController:welcome animated:YES completion:^{
+            // code
+        }];
+        return;
+    }
+    
     WCHPersonalCenterViewController *pcenter = [[WCHPersonalCenterViewController alloc] init];
     [self.navigationController pushViewController:pcenter animated:YES];
     //开启iOS7的滑动返回效果

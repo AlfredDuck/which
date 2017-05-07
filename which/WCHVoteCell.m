@@ -90,9 +90,10 @@
         _voteLabelA.font = [UIFont fontWithName:@"PingFangSC-Light" size:18.0];
         _voteLabelA.textColor = [UIColor whiteColor];
         _voteLabelA.backgroundColor = [WCHColorManager commonPink];
-        _voteLabelA.alpha = 0.85f;
-        _voteLabelA.layer.cornerRadius = 17;  // 圆角
         _voteLabelA.textAlignment = NSTextAlignmentCenter;
+        _voteLabelA.layer.cornerRadius = 17;  // 圆角
+        _voteLabelA.layer.masksToBounds = YES;  // round corner
+        _voteLabelA.alpha = 0.85f;
         [_picAImageView addSubview:_voteLabelA];
         
         
@@ -118,6 +119,7 @@
         _voteLabelB.backgroundColor = [UIColor colorWithRed:30/255.0 green:30/255.0 blue:30/255.0 alpha:1.0];
         _voteLabelB.alpha = 0.85f;
         _voteLabelB.layer.cornerRadius = 17;  // 圆角
+        _voteLabelB.layer.masksToBounds = YES;  // round corner
         _voteLabelB.textAlignment = NSTextAlignmentCenter;
         [_picBImageView addSubview:_voteLabelB];
         
