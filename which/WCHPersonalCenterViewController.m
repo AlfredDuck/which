@@ -12,6 +12,7 @@
 #import "WCHUrlManager.h"
 #import "AFNetworking.h"
 #import "WCHToastView.h"
+#import "WCHNicknameVC.h"
 
 @interface WCHPersonalCenterViewController () <UIAlertViewDelegate>
 
@@ -103,14 +104,14 @@
     
     UILabel *oneLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 11, 200, 22)];
     oneLabel.text = @"修改昵称";
-    oneLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+    oneLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size:16];
     oneLabel.textColor = [WCHColorManager mainTextColor];
     [nicknameBackground addSubview: oneLabel];
     
     _nicknameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_screenWidth-120-26, 12, 120, 20)];
     _nicknameLabel.textAlignment = NSTextAlignmentRight;
     _nicknameLabel.text = loginInfo[@"nickname"];
-    _nicknameLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
+    _nicknameLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
     _nicknameLabel.textColor = [WCHColorManager lightTextColor];
     [nicknameBackground addSubview:_nicknameLabel];
     
@@ -139,7 +140,7 @@
     
     UILabel *loginoutLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 11, _screenWidth-60, 22)];
     loginoutLabel.text = @"退出登录";
-    loginoutLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+    loginoutLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size:16];
     loginoutLabel.textColor = [UIColor redColor];
     loginoutLabel.textAlignment = NSTextAlignmentCenter;
     [loginoutBackground addSubview: loginoutLabel];
@@ -155,7 +156,17 @@
 
 - (void)clickNickname
 {
-    
+    WCHNicknameVC *nicknamePage = [[WCHNicknameVC alloc] init];
+    // block回调
+    nicknamePage.sendSuccess = ^(NSString *text, NSString *newNickname){
+        // 显示toast
+        [WCHToastView showToastWith:text isErr:YES duration:3.0 superView:self.view];
+        // 修改本地loginInfo
+        [WCHUserDefault changeNickname: newNickname];
+        // 更改UI
+        _nicknameLabel.text = newNickname;
+    };
+    [self.navigationController pushViewController:nicknamePage animated:YES];
 }
 
 - (void)clickLogout

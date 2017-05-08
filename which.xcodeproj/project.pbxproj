@@ -47,6 +47,7 @@
 		BB6C97851EB74E5E00381467 /* WCHToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6C97841EB74E5E00381467 /* WCHToastView.m */; };
 		BB6C97881EB8C2CA00381467 /* uploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6C97871EB8C2CA00381467 /* uploadManager.m */; };
 		BBC64BB01EBEFEDF00D4C712 /* my_vote.png in Resources */ = {isa = PBXBuildFile; fileRef = BBC64BAF1EBEFEDF00D4C712 /* my_vote.png */; };
+		BBC64BB31EC0B45200D4C712 /* WCHNicknameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC64BB21EC0B45200D4C712 /* WCHNicknameVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +136,8 @@
 		BB6C97861EB8C2CA00381467 /* uploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uploadManager.h; sourceTree = "<group>"; };
 		BB6C97871EB8C2CA00381467 /* uploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uploadManager.m; sourceTree = "<group>"; };
 		BBC64BAF1EBEFEDF00D4C712 /* my_vote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = my_vote.png; path = "../../../coding/salt-App效果图/my_vote.png"; sourceTree = "<group>"; };
+		BBC64BB11EC0B45200D4C712 /* WCHNicknameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHNicknameVC.h; sourceTree = "<group>"; };
+		BBC64BB21EC0B45200D4C712 /* WCHNicknameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHNicknameVC.m; sourceTree = "<group>"; };
 		DD78C9D0906585AE40E73FDD /* Pods-which.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-which.release.xcconfig"; path = "Pods/Target Support Files/Pods-which/Pods-which.release.xcconfig"; sourceTree = "<group>"; };
 		F89ADBF6F9572E9159A789C0 /* libPods-which.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-which.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -373,6 +376,8 @@
 			children = (
 				BB6C97711EB6CC1500381467 /* WCHPersonalCenterViewController.h */,
 				BB6C97721EB6CC1500381467 /* WCHPersonalCenterViewController.m */,
+				BBC64BB11EC0B45200D4C712 /* WCHNicknameVC.h */,
+				BBC64BB21EC0B45200D4C712 /* WCHNicknameVC.m */,
 			);
 			name = "personal center";
 			sourceTree = "<group>";
@@ -616,6 +621,7 @@
 			files = (
 				BB6867D01EB4D35100AB1D98 /* WCHCommentViewController.m in Sources */,
 				BB6867D31EB4D36D00AB1D98 /* WCHWriteCommentViewController.m in Sources */,
+				BBC64BB31EC0B45200D4C712 /* WCHNicknameVC.m in Sources */,
 				BB6C97881EB8C2CA00381467 /* uploadManager.m in Sources */,
 				BB6867D91EB4D54600AB1D98 /* WCHVoteListCell.m in Sources */,
 				BB68677F1EB40CA200AB1D98 /* which.xcdatamodeld in Sources */,

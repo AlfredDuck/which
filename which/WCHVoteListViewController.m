@@ -103,7 +103,7 @@
     [_oneTableView setDataSource:self];
     
     [_oneTableView registerClass:[WCHVoteListCell class] forCellReuseIdentifier:CellWithIdentifier];
-    _oneTableView.backgroundColor = [WCHColorManager commonBackground];
+    _oneTableView.backgroundColor = [UIColor whiteColor];
     _oneTableView.separatorStyle = UITableViewCellSeparatorStyleNone; // 去掉分割线
     // _oneTableView.contentInset = UIEdgeInsetsMake(15, 0, 0, 0); // 设置距离顶部的一段偏移，继承自scrollview
     // 响应点击状态栏的事件

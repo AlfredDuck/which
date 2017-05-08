@@ -63,7 +63,7 @@
     
         
         // 背景、分割线
-        _partLine = [[UIView alloc] initWithFrame:CGRectMake(50, 0, _screenWidth, 0.5)];
+        _partLine = [[UIView alloc] initWithFrame:CGRectMake(50, 48-0.5, _screenWidth, 0.5)];
         _partLine.backgroundColor = [UIColor colorWithRed:236/255.0 green:236/255.0 blue:236/255.0 alpha:1];
         [self.contentView addSubview:_partLine];
         self.contentView.backgroundColor = [UIColor whiteColor];
