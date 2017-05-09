@@ -10,6 +10,7 @@
 #import "WCHColorManager.h"
 #import "WCHVoteCell.h"
 #import "WCHVoteListViewController.h"
+#import "WCHCommentViewController.h"
 #import "WCHWelcomeVC.h"
 #import "MJRefresh.h"
 #import "AFNetworking.h"
@@ -204,10 +205,18 @@
     }
 }
 
+
 - (void)clickCommentButtonWithIndex:(unsigned long)index
 {
-    
+    WCHCommentViewController *commentPage = [[WCHCommentViewController alloc] init];
+    commentPage.publishID = _voteData[index][@"_id"];
+    [self.navigationController pushViewController:commentPage animated:YES];
+    //开启iOS7的滑动返回效果
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
 }
+
 
 - (void)clickPicWithIndex:(unsigned long)index withWhichPic:(unsigned long)which
 {
