@@ -111,9 +111,9 @@
     [titleBarBackground addSubview:titleLabel];
     
     // back button pic
-    UIImage *oneImage = [UIImage imageNamed:@"back.png"]; // 使用ImageView通过name找到图片
+    UIImage *oneImage = [UIImage imageNamed:@"back_black.png"]; // 使用ImageView通过name找到图片
     UIImageView *oneImageView = [[UIImageView alloc] initWithImage:oneImage]; // 把oneImage添加到oneImageView上
-    oneImageView.frame = CGRectMake(10, 14.5, 10, 15); // 设置图片位置和大小
+    oneImageView.frame = CGRectMake(11, 13.2, 22, 17.6); // 设置图片位置和大小
     // [oneImageView setContentMode:UIViewContentModeCenter];
     
     UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, 44, 44)];
@@ -266,19 +266,35 @@
     _commentTableView.scrollsToTop = YES;
     
     // 下拉刷新 MJRefresh
-    _commentTableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
-        //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        //            // 结束刷新
-        //            [contentTableView.mj_header endRefreshing];
-        //        });
+//    _commentTableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
+//        //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        //            // 结束刷新
+//        //            [contentTableView.mj_header endRefreshing];
+//        //        });
+//        [self connectForRefreshWith: _publishID];
+//    }];
+    
+    MJRefreshNormalHeader *hh = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self connectForRefreshWith: _publishID];
     }];
+    [hh setTitle:@"hello" forState:MJRefreshStateIdle];
+    [hh.stateLabel setTextColor:[WCHColorManager lightTextColor]];
+    [hh.stateLabel setFont:[UIFont fontWithName:@"PingFangSC-Light" size:12]];
+    [hh.lastUpdatedTimeLabel setTextColor:[WCHColorManager lightTextColor]];
+    [hh.lastUpdatedTimeLabel setFont:[UIFont fontWithName:@"PingFangSC-Light" size:12]];
+    _commentTableView.mj_header = hh;
+    
     
     // 上拉加载更多
-    _commentTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+    MJRefreshAutoNormalFooter * ff = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [self connectForLoadMoreWith: _publishID];
     }];
+    [ff setTitle:@"· end ·" forState: MJRefreshStateNoMoreData];
+    [ff.stateLabel setFont:[UIFont fontWithName:@"PingFangSC-Light" size:12]];
+    [ff.stateLabel setTextColor:[WCHColorManager lightTextColor]];
+    _commentTableView.mj_footer = ff;
+    
     
     [_contentFatherView addSubview:_commentTableView];
 }
@@ -333,31 +349,11 @@
 // 改变 cell 高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    // 根据cell设置高度
-    //    NSUInteger row = [indexPath row];
-    //    NSNumber *h = [_cellHeightArray objectAtIndex:row];
-    //    NSLog(@";;;;;;;;;;%@", h);
-    //    return h.floatValue;
-    
-    NSUInteger row = [indexPath row];
-    
-    // ===================设置UIlabel文本折行====================
-    NSString *str = [[_commentDataSource objectAtIndex:row] objectForKey:@"text"];
-    CGSize maxSize = {_screenWidth-50-15, 5000};  // 设置文本区域最大宽高
-    CGSize labelSize = [str sizeWithFont:[UIFont fontWithName:@"Helvetica" size:13]
-                       constrainedToSize:maxSize
-                           lineBreakMode:[[UILabel alloc] init].lineBreakMode];   // str是要显示的字符串
-    //_commentLabel.frame = CGRectMake(50,42,labelSize.width,labelSize.height/13*16);  // 因为行距增加了，所以要用参数修正height
-    // _commentLabel.numberOfLines = 0;  // 不可少Label属性之一
-    //_postTextLabel.lineBreakMode = UILineBreakModeCharacterWrap;  // 不可少Label属性之二
-    // ========================================================
-    // 使用uitextview也可以，可以研究下。。。
-    
-    // 设置cellHeight (所有高度和间距加起来)
-    CGFloat height = 42 + labelSize.height/13*16 + 10 + 15 +15;
-    return height;
-    
+    WCHCommentCell *cell = (WCHCommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+    return cell.cellHeight;
 }
+
+
 
 
 

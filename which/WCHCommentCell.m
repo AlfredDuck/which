@@ -52,21 +52,21 @@
         // 昵称
         _nicknameLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 15, _screenWidth-50, 15)];
         _nicknameLabel.text = _nickname;
-        _nicknameLabel.font = [UIFont fontWithName:@"Helvetica" size: 13];
+        _nicknameLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size: 13];
         _nicknameLabel.textColor = [WCHColorManager commentTextColor];
         [self.contentView addSubview:_nicknameLabel];
         
         // 评论内容
         _commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 41, _screenWidth-50, 30)];
         _commentLabel.text = _comment;
-        _commentLabel.font = [UIFont fontWithName:@"Helvetica" size: 13];
+        _commentLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size: 13];
         _commentLabel.textColor = [WCHColorManager commentTextColor];
         [self.contentView addSubview:_commentLabel];
         
         // 创建时间
         _createTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 100, _screenWidth-50, 15)];
         _createTimeLabel.text = _createTime;
-        _createTimeLabel.font = [UIFont fontWithName:@"Helvetica" size: 11];
+        _createTimeLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size: 11];
         _createTimeLabel.textColor = [WCHColorManager lightTextColor];
         [self.contentView addSubview:_createTimeLabel];
         
@@ -137,7 +137,7 @@
     // ===================设置UIlabel文本折行====================
     NSString *str = _comment;
     CGSize maxSize = {_screenWidth-50-15, 5000};  // 设置文本区域最大宽高
-    CGSize labelSize = [str sizeWithFont:[UIFont fontWithName:@"Helvetica" size:13]
+    CGSize labelSize = [str sizeWithFont:[UIFont fontWithName:@"PingFangSC-Light" size:13]
                        constrainedToSize:maxSize
                            lineBreakMode:_commentLabel.lineBreakMode];   // str是要显示的字符串
     _commentLabel.frame = CGRectMake(50,42,labelSize.width,labelSize.height/13*16);  // 因为行距增加了，所以要用参数修正height
