@@ -52,7 +52,7 @@
         // 昵称
         _nicknameLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 15, _screenWidth-50, 15)];
         _nicknameLabel.text = _nickname;
-        _nicknameLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size: 13];
+        _nicknameLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size: 13];
         _nicknameLabel.textColor = [WCHColorManager commentTextColor];
         [self.contentView addSubview:_nicknameLabel];
         
@@ -60,7 +60,7 @@
         _commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 41, _screenWidth-50, 30)];
         _commentLabel.text = _comment;
         _commentLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size: 13];
-        _commentLabel.textColor = [WCHColorManager commentTextColor];
+        _commentLabel.textColor = [WCHColorManager mainTextColor];
         [self.contentView addSubview:_commentLabel];
         
         // 创建时间

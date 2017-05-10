@@ -278,7 +278,7 @@
     MJRefreshNormalHeader *hh = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self connectForRefreshWith: _publishID];
     }];
-    [hh setTitle:@"hello" forState:MJRefreshStateIdle];
+    [hh setTitle:@"下拉刷新页面" forState:MJRefreshStateIdle];
     [hh.stateLabel setTextColor:[WCHColorManager lightTextColor]];
     [hh.stateLabel setFont:[UIFont fontWithName:@"PingFangSC-Light" size:12]];
     [hh.lastUpdatedTimeLabel setTextColor:[WCHColorManager lightTextColor]];
@@ -287,10 +287,12 @@
     
     
     // 上拉加载更多
-    MJRefreshAutoNormalFooter * ff = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+    MJRefreshAutoNormalFooter *ff = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [self connectForLoadMoreWith: _publishID];
     }];
     [ff setTitle:@"· end ·" forState: MJRefreshStateNoMoreData];
+    [ff setTitle:@"滑动加载更多" forState: MJRefreshStateIdle];
+    [ff setTitle:@"加载中···" forState: MJRefreshStateRefreshing];
     [ff.stateLabel setFont:[UIFont fontWithName:@"PingFangSC-Light" size:12]];
     [ff.stateLabel setTextColor:[WCHColorManager lightTextColor]];
     _commentTableView.mj_footer = ff;
@@ -502,7 +504,7 @@
     NSString *lastid = [[_commentDataSource lastObject] objectForKey:@"_id"];
     NSDictionary *parameters = @{
                                  @"publish_id": _publishID,
-                                 @"type": @"loadmore",
+                                 @"type": @"more",
                                  @"last_id": lastid
                                  };
     

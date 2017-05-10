@@ -101,27 +101,33 @@
     _oneTableView.scrollsToTop = YES;
     [self.view addSubview:_oneTableView];
     
+    
     // 下拉刷新 MJRefresh
-    _oneTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
-        //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        //            // 结束刷新动作
-        //            [_oneTableView.mj_header endRefreshing];
-        //            NSLog(@"下拉刷新成功，结束刷新");
-        //        });
+    MJRefreshNormalHeader *hh = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self connectForPublishList];
     }];
+    [hh setTitle:@"下拉刷新页面" forState:MJRefreshStateIdle];
+    [hh.stateLabel setTextColor:[WCHColorManager lightTextColor]];
+    [hh.stateLabel setFont:[UIFont fontWithName:@"PingFangSC-Light" size:12]];
+    [hh.lastUpdatedTimeLabel setTextColor:[WCHColorManager lightTextColor]];
+    [hh.lastUpdatedTimeLabel setFont:[UIFont fontWithName:@"PingFangSC-Light" size:12]];
+    _oneTableView.mj_header = hh;
     
-    // 上拉刷新 MJRefresh (等到页面有数据后再使用)
-    //    _oneTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-    //        [self connectForMoreFollowedArticles:_oneTableView];
-    //    }];
+    
+    // 上拉加载更多
+    MJRefreshAutoNormalFooter *ff = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        
+    }];
+    [ff setTitle:@"· end ·" forState: MJRefreshStateNoMoreData];
+    [ff setTitle:@"滑动加载更多" forState: MJRefreshStateIdle];
+    [ff setTitle:@"加载中···" forState: MJRefreshStateRefreshing];
+    [ff.stateLabel setFont:[UIFont fontWithName:@"PingFangSC-Light" size:12]];
+    [ff.stateLabel setTextColor:[WCHColorManager lightTextColor]];
+    _oneTableView.mj_footer = ff;
+    
     
     // 这个碉堡了，要珍藏！！
     _oneTableView.mj_header.ignoredScrollViewContentInsetTop = 15.0;
-    
-    // 禁用 mjRefresh
-    // contentTableView.mj_footer = nil;
 }
 
 

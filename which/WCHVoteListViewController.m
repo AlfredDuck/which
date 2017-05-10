@@ -13,6 +13,7 @@
 #import "WCHUrlManager.h"
 #import "WCHToastView.h"
 #import "WCHUserDefault.h"
+#import "MJRefresh.h"
 
 @interface WCHVoteListViewController ()
 
@@ -32,7 +33,8 @@
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     _screenHeight = [UIScreen mainScreen].bounds.size.height;
     _screenWidth = [UIScreen mainScreen].bounds.size.width;
@@ -42,7 +44,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self connectForVoteRecordList];
+    [self connectForVoteRecordList:@"refresh"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -127,6 +129,17 @@
     //        [self connectForMoreFollowedArticles:_oneTableView];
     //    }];
     
+    // 上拉加载更多
+    MJRefreshAutoNormalFooter *ff = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [self connectForVoteRecordList:@"more"];
+    }];
+    [ff setTitle:@"· end ·" forState: MJRefreshStateNoMoreData];
+    [ff setTitle:@"滑动加载更多" forState: MJRefreshStateIdle];
+    [ff setTitle:@"加载中···" forState: MJRefreshStateRefreshing];
+    [ff.stateLabel setFont:[UIFont fontWithName:@"PingFangSC-Light" size:12]];
+    [ff.stateLabel setTextColor:[WCHColorManager lightTextColor]];
+    _oneTableView.mj_footer = ff;
+    
     // 这个碉堡了，要珍藏！！
     // _oneTableView.mj_header.ignoredScrollViewContentInsetTop = 100.0;
     
@@ -193,24 +206,27 @@
 
 
 #pragma mark - 网络请求
-- (void)connectForVoteRecordList
+/** 请求第一页数据 */
+- (void)connectForVoteRecordList:(NSString *)type
 {
     // prepare request parameters
     NSString *host = [WCHUrlManager urlHost];
     NSString *urlString = [host stringByAppendingString:@"/vote_record_list"];
     
-    NSDictionary *parameters = @{@"publish_id": _publishID};
+    NSDictionary *parameters = @{@"publish_id": _publishID,
+                                 @"type": type};
     
     // 创建 GET 请求（AF 3.0）
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.requestSerializer.timeoutInterval = 20.0;  // 设置超时时间
     [session GET:urlString parameters: parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         // GET请求成功
-        NSDictionary *data = responseObject[@"data"];
+        NSArray *data = responseObject[@"data"];
         unsigned long errcode = [responseObject[@"errcode"] intValue];
         NSLog(@"errcode：%lu", errcode);
         NSLog(@"data:%@", data);
-        // 返回值报错s
+        
+        // 返回值报错
         if (errcode == 1001 || errcode == 1002) {
             NSString *txt;
             if (errcode == 1001) {
@@ -221,14 +237,26 @@
             [WCHToastView showToastWith:txt isErr:NO duration:3.0f superView:self.view];
             return;
         }
+        
         // 返回值正常
-        _voteData = [data mutableCopy];
+        if ([type isEqualToString:@"more"]) {
+            [_voteData addObjectsFromArray:data];
+        } else if ([type isEqualToString:@"refresh"]) {
+            _voteData = [data mutableCopy];
+        }
         [_oneTableView reloadData];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Error: %@", error);
         [WCHToastView showToastWith:@"请检查网络" isErr:NO duration:3.0f superView:self.view];
     }];
+}
+
+
+/** 分页请求 */
+- (void)connectForMoreVoteRecord
+{
+    
 }
 
 @end
