@@ -44,7 +44,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self connectForVoteRecordList:@"refresh"];
+    [self connectForVoteRecordList];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -131,7 +131,7 @@
     
     // 上拉加载更多
     MJRefreshAutoNormalFooter *ff = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        [self connectForVoteRecordList:@"more"];
+        [self connectForMoreVoteRecord];
     }];
     [ff setTitle:@"· end ·" forState: MJRefreshStateNoMoreData];
     [ff setTitle:@"滑动加载更多" forState: MJRefreshStateIdle];
@@ -206,15 +206,15 @@
 
 
 #pragma mark - 网络请求
-/** 请求第一页数据 */
-- (void)connectForVoteRecordList:(NSString *)type
+/** 请求数据：refresh*/
+- (void)connectForVoteRecordList
 {
     // prepare request parameters
     NSString *host = [WCHUrlManager urlHost];
     NSString *urlString = [host stringByAppendingString:@"/vote_record_list"];
     
     NSDictionary *parameters = @{@"publish_id": _publishID,
-                                 @"type": type};
+                                 @"type": @"refresh"};
     
     // 创建 GET 请求（AF 3.0）
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
@@ -236,14 +236,70 @@
             }
             [WCHToastView showToastWith:txt isErr:NO duration:3.0f superView:self.view];
             return;
+        } else if (errcode == 1003) {  // 没有更多数据了
+            [_oneTableView.mj_footer endRefreshingWithNoMoreData];
+            return;
         }
         
         // 返回值正常
-        if ([type isEqualToString:@"more"]) {
-            [_voteData addObjectsFromArray:data];
-        } else if ([type isEqualToString:@"refresh"]) {
-            _voteData = [data mutableCopy];
+        _voteData = [data mutableCopy];
+        [_oneTableView reloadData];
+        
+        if ([_voteData count] < 15) {
+            [_oneTableView.mj_footer endRefreshingWithNoMoreData];
         }
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [WCHToastView showToastWith:@"请检查网络" isErr:NO duration:3.0f superView:self.view];
+    }];
+}
+
+
+
+/** 请求数据：more */
+- (void)connectForMoreVoteRecord
+{
+    // prepare request parameters
+    NSString *host = [WCHUrlManager urlHost];
+    NSString *urlString = [host stringByAppendingString:@"/vote_record_list"];
+    
+//    NSDictionary *parameters = @{@"publish_id": _publishID,
+//                                 @"type": @"more",
+//                                 @"last_id": [[_voteData lastObject] objectForKey:@"_id"]};
+    NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:
+        _publishID, @"publish_id",
+        @"more", @"type",
+        [_voteData lastObject][@"_id"], @"last_id",
+        nil];
+    
+    // 创建 GET 请求（AF 3.0）
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    session.requestSerializer.timeoutInterval = 20.0;  // 设置超时时间
+    [session GET:urlString parameters: dic success:^(NSURLSessionDataTask *task, id responseObject) {
+        // GET请求成功
+        NSArray *data = responseObject[@"data"];
+        unsigned long errcode = [responseObject[@"errcode"] intValue];
+        NSLog(@"errcode：%lu", errcode);
+        NSLog(@"data:%@", data);
+        
+        // 返回值报错
+        if (errcode == 1001 || errcode == 1002) {
+            NSString *txt;
+            if (errcode == 1001) {
+                txt = @"数据库君这会儿有点晕，请稍后再试";
+            } else {
+                txt = @"操作出错，请火速联系管理员";
+            }
+            [WCHToastView showToastWith:txt isErr:NO duration:3.0f superView:self.view];
+            return;
+        } else if (errcode == 1003) {  // 没有更多数据了
+            [_oneTableView.mj_footer endRefreshingWithNoMoreData];
+            return;
+        }
+        
+        // 返回值正常
+        [_voteData addObjectsFromArray:data];
         [_oneTableView reloadData];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -253,10 +309,6 @@
 }
 
 
-/** 分页请求 */
-- (void)connectForMoreVoteRecord
-{
-    
-}
+
 
 @end

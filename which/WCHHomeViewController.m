@@ -186,13 +186,7 @@
 // tableView 点击事件
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSUInteger row = [indexPath row];
-    if (row == 0){
-        WCHWelcomeVC *welcome = [[WCHWelcomeVC alloc] init];
-        [self.navigationController presentViewController:welcome animated:YES completion:^{
-            // code
-        }];
-    }
+    
 }
 
 
