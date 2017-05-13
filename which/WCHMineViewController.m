@@ -133,7 +133,7 @@
     if ([WCHUserDefault isLogin]) {
         url = [[WCHUserDefault readLoginInfo] objectForKey:@"portrait"];
     } else {
-        url = @"";
+        url = @"https://img3.doubanio.com/mpic/o493916.jpg";
     }
     
     /* 头像 */

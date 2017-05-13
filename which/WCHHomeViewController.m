@@ -232,6 +232,7 @@
 
 - (void)clickPicWithIndex:(unsigned long)index withWhichPic:(unsigned long)which
 {
+    // 引导登录
     if (![WCHUserDefault isLogin]){
         WCHWelcomeVC *welcome = [[WCHWelcomeVC alloc] init];
         [self.navigationController presentViewController:welcome animated:YES completion:^{
@@ -244,6 +245,19 @@
     NSDictionary *loginInfo = [WCHUserDefault readLoginInfo];
     NSLog(@"%@", loginInfo);
     
+    // 检查是否是投给自己
+    if ([loginInfo[@"uid"] isEqualToString:_voteData[index][@"uid"]]){
+        NSLog(@"不要给自己投票");
+        [WCHToastView showToastWith:@"不要给自己投票啦😝" isErr:NO duration:1.8 superView:self.view];
+        return;
+    }
+    
+    // 检查是否已投过
+    if ([_voteData[index][@"votedStatus"] isEqualToString:@"yes"]){
+        NSLog(@"已投过");
+        return;
+    }
+
     NSNumber *whichPic = [NSNumber numberWithInt:(int)which];
     
     // prepare request parameters
