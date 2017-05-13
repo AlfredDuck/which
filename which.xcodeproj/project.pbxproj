@@ -48,6 +48,7 @@
 		BB6C97881EB8C2CA00381467 /* uploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6C97871EB8C2CA00381467 /* uploadManager.m */; };
 		BBC64BB01EBEFEDF00D4C712 /* my_vote.png in Resources */ = {isa = PBXBuildFile; fileRef = BBC64BAF1EBEFEDF00D4C712 /* my_vote.png */; };
 		BBC64BB31EC0B45200D4C712 /* WCHNicknameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC64BB21EC0B45200D4C712 /* WCHNicknameVC.m */; };
+		BBC64BB61EC6B3B000D4C712 /* WCHMyPublishVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC64BB51EC6B3B000D4C712 /* WCHMyPublishVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +139,8 @@
 		BBC64BAF1EBEFEDF00D4C712 /* my_vote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = my_vote.png; path = "../../../coding/salt-App效果图/my_vote.png"; sourceTree = "<group>"; };
 		BBC64BB11EC0B45200D4C712 /* WCHNicknameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHNicknameVC.h; sourceTree = "<group>"; };
 		BBC64BB21EC0B45200D4C712 /* WCHNicknameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHNicknameVC.m; sourceTree = "<group>"; };
+		BBC64BB41EC6B3B000D4C712 /* WCHMyPublishVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHMyPublishVC.h; sourceTree = "<group>"; };
+		BBC64BB51EC6B3B000D4C712 /* WCHMyPublishVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHMyPublishVC.m; sourceTree = "<group>"; };
 		DD78C9D0906585AE40E73FDD /* Pods-which.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-which.release.xcconfig"; path = "Pods/Target Support Files/Pods-which/Pods-which.release.xcconfig"; sourceTree = "<group>"; };
 		F89ADBF6F9572E9159A789C0 /* libPods-which.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-which.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -211,8 +214,9 @@
 				BB6867C51EB429C000AB1D98 /* cells */,
 				BB6867CA1EB4D21800AB1D98 /* comment list */,
 				BB6867C91EB4D21000AB1D98 /* vote list */,
-				BB6C975D1EB5752400381467 /* publish page */,
+				BB6C975D1EB5752400381467 /* 发布页面 */,
 				BB6C97701EB6CBE700381467 /* personal center */,
+				BBC64BB71EC6B3B800D4C712 /* 我发起的投票 */,
 				BB6867AF1EB4107100AB1D98 /* first layer */,
 				BB6867A71EB40E6300AB1D98 /* root */,
 				BB6867741EB40CA200AB1D98 /* AppDelegate.h */,
@@ -342,7 +346,7 @@
 			name = "comment list";
 			sourceTree = "<group>";
 		};
-		BB6C975D1EB5752400381467 /* publish page */ = {
+		BB6C975D1EB5752400381467 /* 发布页面 */ = {
 			isa = PBXGroup;
 			children = (
 				BB6C975E1EB5758E00381467 /* WCHPublishViewController.h */,
@@ -350,7 +354,7 @@
 				BB6C97861EB8C2CA00381467 /* uploadManager.h */,
 				BB6C97871EB8C2CA00381467 /* uploadManager.m */,
 			);
-			name = "publish page";
+			name = "发布页面";
 			sourceTree = "<group>";
 		};
 		BB6C97611EB5F64800381467 /* 图片裁切工具-第三方 */ = {
@@ -411,6 +415,15 @@
 				BB6C97841EB74E5E00381467 /* WCHToastView.m */,
 			);
 			name = toast;
+			sourceTree = "<group>";
+		};
+		BBC64BB71EC6B3B800D4C712 /* 我发起的投票 */ = {
+			isa = PBXGroup;
+			children = (
+				BBC64BB41EC6B3B000D4C712 /* WCHMyPublishVC.h */,
+				BBC64BB51EC6B3B000D4C712 /* WCHMyPublishVC.m */,
+			);
+			name = "我发起的投票";
 			sourceTree = "<group>";
 		};
 		DEA6B097A396543B2F0FA6B6 /* Pods */ = {
@@ -634,6 +647,7 @@
 				BB6C977A1EB7460300381467 /* WCHMobilLoginVC.m in Sources */,
 				BB6867D61EB4D52500AB1D98 /* WCHCommentCell.m in Sources */,
 				BB6C97851EB74E5E00381467 /* WCHToastView.m in Sources */,
+				BBC64BB61EC6B3B000D4C712 /* WCHMyPublishVC.m in Sources */,
 				BB6867C21EB4162900AB1D98 /* WCHMineViewController.m in Sources */,
 				BB6C97731EB6CC1500381467 /* WCHPersonalCenterViewController.m in Sources */,
 				BB6C97811EB74D9100381467 /* WCHUrlManager.m in Sources */,

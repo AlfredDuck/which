@@ -116,7 +116,7 @@
     
     // 上拉加载更多
     MJRefreshAutoNormalFooter *ff = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
+        [self connectForMorePublish];
     }];
     [ff setTitle:@"· end ·" forState: MJRefreshStateNoMoreData];
     [ff setTitle:@"滑动加载更多" forState: MJRefreshStateIdle];
@@ -307,9 +307,10 @@
         // 获取登录信息
         NSDictionary *loginInfo = [WCHUserDefault readLoginInfo];
         NSLog(@"%@", loginInfo);
-        parameters = @{@"uid": loginInfo[@"uid"]};
+        parameters = @{@"uid": loginInfo[@"uid"],
+                       @"type": @"refresh"};
     } else {
-        parameters = @{};
+        parameters = @{@"type": @"refresh"};
     }
     
     // 创建 GET 请求（AF 3.0）
@@ -317,7 +318,7 @@
     session.requestSerializer.timeoutInterval = 20.0;  // 设置超时时间
     [session GET:urlString parameters: parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         // GET请求成功
-        NSDictionary *data = responseObject[@"data"];
+        NSArray *data = responseObject[@"data"];
         unsigned long errcode = [responseObject[@"errcode"] intValue];
         NSLog(@"errcode：%lu", errcode);
         NSLog(@"data:%@", data);
@@ -341,6 +342,57 @@
         NSLog(@"Error: %@", error);
         [WCHToastView showToastWith:@"请检查网络" isErr:NO duration:3.0f superView:self.view];
         [_oneTableView.mj_header endRefreshing];
+    }];
+}
+
+
+
+/** 请求 publish list 更多数据 */
+- (void)connectForMorePublish
+{
+    // prepare request parameters
+    NSString *host = [WCHUrlManager urlHost];
+    NSString *urlString = [host stringByAppendingString:@"/publish_list"];
+    
+    NSDictionary *parameters;
+    if ([WCHUserDefault isLogin]) {
+        // 获取登录信息
+        NSDictionary *loginInfo = [WCHUserDefault readLoginInfo];
+        NSLog(@"%@", loginInfo);
+        parameters = @{@"uid": loginInfo[@"uid"],
+                       @"type": @"more",
+                       @"last_id": [_voteData lastObject][@"_id"]};
+    } else {
+        parameters = @{@"type": @"more",
+                       @"last_id": [_voteData lastObject][@"_id"]};
+    }
+    
+    // 创建 GET 请求（AF 3.0）
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    session.requestSerializer.timeoutInterval = 20.0;  // 设置超时时间
+    [session GET:urlString parameters: parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        // GET请求成功
+        NSArray *data = responseObject[@"data"];
+        unsigned long errcode = [responseObject[@"errcode"] intValue];
+        NSLog(@"errcode：%lu", errcode);
+        NSLog(@"data:%@", data);
+        // 返回值报错
+        if (errcode == 1001){
+            [WCHToastView showToastWith:@"数据库君这会儿有点晕，请稍后再试" isErr:NO duration:3.0f superView:self.view];
+            return;
+        } else if (errcode == 1003){ // 没有更多数据
+            [_oneTableView.mj_footer endRefreshingWithNoMoreData];
+            return;
+        }
+        // 返回值正常
+        [_voteData addObjectsFromArray:data];
+        [_oneTableView reloadData];
+        [_oneTableView.mj_footer endRefreshing];
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [WCHToastView showToastWith:@"请检查网络" isErr:NO duration:3.0f superView:self.view];
+        [_oneTableView.mj_footer endRefreshing];
     }];
 }
 
