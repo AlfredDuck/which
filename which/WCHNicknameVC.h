@@ -24,7 +24,6 @@
 /**
  *  定义了一个changeColor的Block。这个changeColor必须带一个参数，这个参数的类型必须为id类型的
  *  无返回值
- *  @param id
  */
 typedef void(^callbackDoSomething)(id,id);
 /**

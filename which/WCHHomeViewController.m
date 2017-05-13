@@ -162,13 +162,13 @@
     [voteCell rewriteTitle:_voteData[row][@"text"]];
     [voteCell rewritePics:_voteData[row][@"pics"]];
     [voteCell rewritePortrait:_voteData[row][@"user"][@"portrait"]];
-    [voteCell rewriteIfVoted:_voteData[row][@"votedStatus"]];
     
     NSInteger commentNum = [_voteData[row][@"commentNum"] intValue];
     NSInteger avote = [_voteData[row][@"voteNum"][0] intValue];
     NSInteger bvote = [_voteData[row][@"voteNum"][1] intValue];
     [voteCell rewriteNumWithVote:(avote+bvote) withComment:commentNum];
-    // [voteCell rewriteVoteA:avote voteB:bvote];
+    [voteCell rewriteIfVoted:_voteData[row][@"votedStatus"] voteWhich:_voteData[row][@"which"] ifOwner:_voteData[row][@"isOwner"]];
+    [voteCell rewriteVoteA:avote voteB:bvote];
     
     voteCell.selectionStyle = UITableViewCellSelectionStyleNone;  // 取消选中的背景色
     return voteCell;
@@ -255,17 +255,27 @@
             [WCHToastView showToastWith:txt isErr:NO duration:3.0f superView:self.view];
             return;
         }
+        if (errcode == 1003){
+            NSLog(@"已投票，不哟啊重复投");
+            return;
+        } else if (errcode == 1004){
+            NSLog(@"发布者不能投票");
+            return;
+        }
         // 返回值正常
-        
-//        NSLog(@"%@", [[_followedArticlesData objectAtIndex:index] objectForKey:@"title"]);
-//        NSMutableDictionary *cellData = [[_followedArticlesData objectAtIndex:index] mutableCopy];
-//        [cellData setValue:[data objectForKey:@"status"] forKey:@"likeStatus"];
-//        [cellData setValue:[data objectForKey:@"likeNum"] forKey:@"likeNum"];
-//        [_followedArticlesData replaceObjectAtIndex:index withObject:cellData];
-//
         // 1.修改内存中的数据
         NSMutableDictionary *cellData = [[_voteData objectAtIndex:index] mutableCopy];
         [cellData setValue:@"yes" forKey:@"votedStatus"];
+        [cellData setValue:data[@"which"] forKey:@"which"];
+        int aVote = [cellData[@"voteNum"][0] intValue];
+        int bVote = [cellData[@"voteNum"][1] intValue];
+        if ([data[@"which"] isEqualToString:@"1"]){
+            bVote ++;
+        } else if ([data[@"which"] isEqualToString:@"0"]){
+            aVote ++;
+        }
+        NSArray *v = @[[NSString stringWithFormat:@"%d",aVote], [NSString stringWithFormat:@"%d",bVote]];
+        [cellData setValue:v forKey:@"voteNum"];
         [_voteData replaceObjectAtIndex:index withObject:cellData];
         
         // 2.刷新特定的cell

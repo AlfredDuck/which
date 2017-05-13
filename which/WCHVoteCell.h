@@ -37,10 +37,12 @@
 /** 图片A */
 @property (nonatomic, copy) NSString *picURLA;
 @property (nonatomic, copy) UIImageView *picAImageView;
+@property (nonatomic, copy) UIView *blackA;
 @property (nonatomic, copy) UILabel *voteLabelA;
 /** 图片B */
 @property (nonatomic, copy) NSString *picURLB;
 @property (nonatomic, copy) UIImageView *picBImageView;
+@property (nonatomic, copy) UIView *blackB;
 @property (nonatomic, copy) UILabel *voteLabelB;
 /** “我”投的标志 */
 @property (nonatomic, copy) UIImageView *myVoteA;
@@ -61,6 +63,6 @@
 - (void)rewritePics:(NSArray *)newPics;
 - (void)rewritePortrait:(NSString *)newPortraitURL;
 - (void)rewriteNumWithVote:(NSInteger)newVoteNum withComment:(NSInteger)newCommentNum;
-- (void)rewriteIfVoted:(NSString *)votedStatus;
+- (void)rewriteIfVoted:(NSString *)votedStatus voteWhich:(NSString *)which ifOwner:(NSString *)isOwner;
 - (void)rewriteVoteA:(NSInteger)voteA voteB:(NSInteger)voteB;
 @end

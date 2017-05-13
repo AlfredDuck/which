@@ -67,7 +67,7 @@
         
         /******************************* 图片组 ************************************/
         
-        unsigned long ww = _screenWidth/2.0 - 1;
+        unsigned long ww = ceil(_screenWidth/2.0 - 1);
         unsigned long hh = ceil(ww/3.0*4.0);
         
         // A
@@ -85,10 +85,10 @@
         [self.contentView addSubview:_picAImageView];
         
         // A 的遮黑
-        UIView *blackA = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ww, hh)];
-        blackA.backgroundColor = [UIColor blackColor];
-        blackA.alpha = 0.20f;
-        [_picAImageView addSubview:blackA];
+        _blackA = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ww, hh)];
+        _blackA.backgroundColor = [UIColor blackColor];
+        _blackA.alpha = 0.28f;
+        [_picAImageView addSubview:_blackA];
         
         // A 的myvote
         _myVoteA = [[UIImageView alloc] initWithFrame:CGRectMake((ww-31)/2.0, hh-31-15, 31, 31)];
@@ -105,7 +105,7 @@
         
         
         // B
-        _picBImageView = [[UIImageView alloc] initWithFrame:CGRectMake(ww+2, 0, ww, hh)];
+        _picBImageView = [[UIImageView alloc] initWithFrame:CGRectMake(_screenWidth-ww, 0, ww, hh)];
         _picBImageView.backgroundColor = [WCHColorManager lightGrayBackground];
         // uiimageview居中裁剪
         _picBImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -119,10 +119,15 @@
         [self.contentView addSubview:_picBImageView];
         
         // B 的遮黑
-        UIView *blackB = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ww, hh)];
-        blackB.backgroundColor = [UIColor blackColor];
-        blackB.alpha = 0.20f;
-        [_picBImageView addSubview:blackB];
+        _blackB = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ww, hh)];
+        _blackB.backgroundColor = [UIColor blackColor];
+        _blackB.alpha = 0.28f;
+        [_picBImageView addSubview:_blackB];
+        
+        // B 的myvote
+        _myVoteB = [[UIImageView alloc] initWithFrame:CGRectMake((ww-31)/2.0, hh-31-15, 31, 31)];
+        _myVoteB.image = [UIImage imageNamed:@"my_vote.png"];
+        [_picBImageView addSubview:_myVoteB];
         
         // B 的投票人数
         _voteLabelB = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ww, hh)];
@@ -269,15 +274,41 @@
 }
 
 
-/** 重写是否已投票 */
-- (void)rewriteIfVoted:(NSString *)votedStatus
+/** 重写是否已投票，投了哪一项；是否是自己发布的 */
+- (void)rewriteIfVoted:(NSString *)votedStatus voteWhich:(NSString *)which ifOwner:(NSString *)isOwner
 {
+    // 是否是自己发布的
+    if ([isOwner isEqualToString:@"yes"]) {
+        _voteLabelA.hidden = NO;
+        _voteLabelB.hidden = NO;
+        _blackA.hidden = NO;
+        _blackB.hidden = NO;
+        _myVoteA.hidden = YES;
+        _myVoteB.hidden = YES;
+        return;
+    }
+    
+    // 是否已投票
     if ([votedStatus isEqualToString:@"yes"]) {
         _voteLabelA.hidden = NO;
         _voteLabelB.hidden = NO;
+        _blackA.hidden = NO;
+        _blackB.hidden = NO;
+        // 投了哪一项
+        if ([which isEqualToString:@"1"]) {
+            _myVoteA.hidden = YES;
+            _myVoteB.hidden = NO;
+        } else {  // "0"
+            _myVoteA.hidden = NO;
+            _myVoteB.hidden = YES;
+        }
     } else {
         _voteLabelA.hidden = YES;
         _voteLabelB.hidden = YES;
+        _blackA.hidden = YES;
+        _blackB.hidden = YES;
+        _myVoteA.hidden = YES;
+        _myVoteB.hidden = YES;
     }
 }
 
