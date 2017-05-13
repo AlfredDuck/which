@@ -18,7 +18,7 @@
 
 + (BOOL)printToken
 {
-    //    return YES;
-    return NO;
+    return YES;
+//    return NO;
 }
 @end

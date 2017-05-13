@@ -49,6 +49,7 @@
 		BBC64BB01EBEFEDF00D4C712 /* my_vote.png in Resources */ = {isa = PBXBuildFile; fileRef = BBC64BAF1EBEFEDF00D4C712 /* my_vote.png */; };
 		BBC64BB31EC0B45200D4C712 /* WCHNicknameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC64BB21EC0B45200D4C712 /* WCHNicknameVC.m */; };
 		BBC64BB61EC6B3B000D4C712 /* WCHMyPublishVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC64BB51EC6B3B000D4C712 /* WCHMyPublishVC.m */; };
+		BBC64BBD1EC7538A00D4C712 /* WCHShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC64BBC1EC7538A00D4C712 /* WCHShareManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +142,8 @@
 		BBC64BB21EC0B45200D4C712 /* WCHNicknameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHNicknameVC.m; sourceTree = "<group>"; };
 		BBC64BB41EC6B3B000D4C712 /* WCHMyPublishVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHMyPublishVC.h; sourceTree = "<group>"; };
 		BBC64BB51EC6B3B000D4C712 /* WCHMyPublishVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHMyPublishVC.m; sourceTree = "<group>"; };
+		BBC64BBB1EC7538A00D4C712 /* WCHShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHShareManager.h; sourceTree = "<group>"; };
+		BBC64BBC1EC7538A00D4C712 /* WCHShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHShareManager.m; sourceTree = "<group>"; };
 		DD78C9D0906585AE40E73FDD /* Pods-which.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-which.release.xcconfig"; path = "Pods/Target Support Files/Pods-which/Pods-which.release.xcconfig"; sourceTree = "<group>"; };
 		F89ADBF6F9572E9159A789C0 /* libPods-which.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-which.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -204,6 +207,7 @@
 		BB6867701EB40CA200AB1D98 /* which */ = {
 			isa = PBXGroup;
 			children = (
+				BBC64BBA1EC7535C00D4C712 /* 分享 */,
 				BB6C97821EB74E2F00381467 /* toast */,
 				BB6C977E1EB74D6C00381467 /* url manager */,
 				BB6C97741EB744F200381467 /* 登录/注册 */,
@@ -426,6 +430,15 @@
 			name = "我发起的投票";
 			sourceTree = "<group>";
 		};
+		BBC64BBA1EC7535C00D4C712 /* 分享 */ = {
+			isa = PBXGroup;
+			children = (
+				BBC64BBB1EC7538A00D4C712 /* WCHShareManager.h */,
+				BBC64BBC1EC7538A00D4C712 /* WCHShareManager.m */,
+			);
+			name = "分享";
+			sourceTree = "<group>";
+		};
 		DEA6B097A396543B2F0FA6B6 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -639,6 +652,7 @@
 				BB6867D91EB4D54600AB1D98 /* WCHVoteListCell.m in Sources */,
 				BB68677F1EB40CA200AB1D98 /* which.xcdatamodeld in Sources */,
 				BB6867AE1EB4102100AB1D98 /* WCHColorManager.m in Sources */,
+				BBC64BBD1EC7538A00D4C712 /* WCHShareManager.m in Sources */,
 				BB6C97771EB745C100381467 /* WCHWelcomeVC.m in Sources */,
 				BB6867C81EB42A0F00AB1D98 /* WCHVoteCell.m in Sources */,
 				BB6867761EB40CA200AB1D98 /* AppDelegate.m in Sources */,
