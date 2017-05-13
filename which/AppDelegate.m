@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import "WeiboSDK.h"
+#import "WXApi.h"
+#import "Growing.h"
 #import "WCHRootViewController.h"
 
 @interface AppDelegate ()
@@ -23,6 +26,9 @@
     
     //    [NSThread sleepForTimeInterval:1.0];  //   启动等待时间
     // [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;  // 状态栏小菊花
+    
+    // 启动GrowingIO
+    [Growing startWithAccountId:@"9491a71dbf459795"];  // which项目
     
 //    // weibo SDK
 //    [WeiboSDK enableDebugMode:YES];

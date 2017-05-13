@@ -59,8 +59,8 @@
         // 评论内容
         _commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 41, _screenWidth-50, 30)];
         _commentLabel.text = _comment;
-        _commentLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size: 13];
-        _commentLabel.textColor = [WCHColorManager mainTextColor];
+        _commentLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size: 13];
+        _commentLabel.textColor = [WCHColorManager commentTextColor];
         [self.contentView addSubview:_commentLabel];
         
         // 创建时间

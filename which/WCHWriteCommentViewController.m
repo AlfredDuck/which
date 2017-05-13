@@ -75,7 +75,7 @@
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((_screenWidth-200)/2, 20, 200, 44)];
     titleLabel.text = _pageTitle;
     titleLabel.textColor = [WCHColorManager mainTextColor];
-    titleLabel.font = [UIFont fontWithName:@"Helvetica" size: 16];
+    titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size: 18];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [titleBarBackground addSubview:titleLabel];
     

@@ -106,7 +106,7 @@
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((_screenWidth-200)/2, 20, 200, 44)];
     titleLabel.text = @"留言板";
     titleLabel.textColor = [WCHColorManager mainTextColor];
-    titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size: 16];
+    titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size: 18];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [titleBarBackground addSubview:titleLabel];
     
@@ -147,7 +147,7 @@
     UIColor *buttonColor = [UIColor colorWithRed:74/255.0 green:144/255.0 blue:226/255.0 alpha:1];
     [writeCommentButton setTitleColor:buttonColor forState:UIControlStateNormal];
     writeCommentButton.backgroundColor = [UIColor whiteColor];
-    writeCommentButton.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size:15];
+    writeCommentButton.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size:17];
     [writeCommentButton addTarget:self action:@selector(clickWriteCommentButton) forControlEvents:UIControlEventTouchUpInside];
     [basedBottomBarBackground addSubview:writeCommentButton];
 }
@@ -372,7 +372,7 @@
     NSLog(@"点击写评论button");
     if ([WCHUserDefault isLogin]) {
         WCHWriteCommentViewController *writeCommentPage = [[WCHWriteCommentViewController alloc] init];
-        writeCommentPage.pageTitle = @"写评论";
+        writeCommentPage.pageTitle = @"写留言";
         writeCommentPage.publishID = _publishID;
         // 定义block
         writeCommentPage.writeCommentSuccess = ^(NSString *t){
