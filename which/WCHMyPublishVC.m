@@ -98,6 +98,18 @@
 }
 
 
+/* 没有投票的提示文字 */
+- (void)thereNoComment
+{
+    UILabel *noComment = [[UILabel alloc] initWithFrame:CGRectMake(_screenWidth/2.0 - 150, 25+64, 300, 20)];
+    noComment.font = [UIFont fontWithName:@"PingFangSC-Light" size: 13];
+    noComment.textAlignment = NSTextAlignmentCenter;
+    noComment.textColor = [WCHColorManager lightTextColor];
+    noComment.text = @"~还没有发起过投票~";
+    [self.view addSubview:noComment];
+    
+}
+
 
 /** 创建 uitableview */
 - (void)createTableView
@@ -278,14 +290,11 @@
         NSLog(@"errcode：%lu", errcode);
         NSLog(@"data:%@", data);
         // 返回值报错s
-        if (errcode == 1001 || errcode == 1002) {
-            NSString *txt;
-            if (errcode == 1001) {
-                txt = @"数据库君这会儿有点晕，请稍后再试";
-            } else {
-                txt = @"操作出错，请火速联系管理员";
-            }
-            [WCHToastView showToastWith:txt isErr:NO duration:3.0f superView:self.view];
+        if (errcode == 1001) {
+            [WCHToastView showToastWith:@"数据库君这会儿有点晕，请稍后再试" isErr:NO duration:3.0f superView:self.view];
+            return;
+        } else if (errcode == 1002){
+            [self thereNoComment];
             return;
         }
         // 返回值正常

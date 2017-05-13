@@ -138,7 +138,6 @@
 {
     // NSLog(@"%ld", sender.view.tag);
     /* 移动tab焦点 */
-    NSLog(@"%@", sender);
     self.tabBarController.selectedIndex = sender.view.tag - 1;
 }
 
