@@ -13,6 +13,7 @@
 #import "WCHPersonalCenterViewController.h"
 #import "WCHWelcomeVC.h"
 #import "WCHMyPublishVC.h"
+#import "WCHShareManager.h"
 
 @interface WCHMineViewController ()
 @property (nonatomic, strong) UIScrollView *basedScrollView;
@@ -293,7 +294,7 @@
 /** 点击AppStore */
 - (void)clickAppStore
 {
-    NSString *iTunesLink = @"https://itunes.apple.com/us/app/id1208037554";
+    NSString *iTunesLink = @"https://itunes.apple.com/us/app/id1236414057";
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:iTunesLink]];
 }
 
@@ -323,6 +324,24 @@
     //开启iOS7的滑动返回效果
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
+}
+
+
+
+#pragma mark - UIActionSheet 代理
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    WCHShareManager *shareManager = [[WCHShareManager alloc] init];
+    if (buttonIndex == 0) {
+        NSLog(@"weibo");
+        [shareManager shareToWeibo];
+    } else if (buttonIndex == 1) {
+        NSLog(@"weixin");
+        [shareManager shareToWeixinWithTimeLine:NO];
+    } else if (buttonIndex == 2) {
+        NSLog(@"timeline");
+        [shareManager shareToWeixinWithTimeLine:YES];
     }
 }
 

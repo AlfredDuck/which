@@ -15,7 +15,7 @@
 
 #define iOS8 [[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 ? 1 : 0
 #define kAPPKey        @"4247685982"
-#define kRedirectURI   @"http://www.sina.com.cn/"
+#define kRedirectURI   @"https://api.weibo.com/oauth2/default.html"
 #define WXKey          @"wxd53fa52039cea997"
 
 @interface AppDelegate () <WXApiDelegate, WeiboSDKDelegate>
