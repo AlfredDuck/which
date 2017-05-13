@@ -12,6 +12,7 @@
 #import "WCHUserDefault.h"
 #import "WCHPersonalCenterViewController.h"
 #import "WCHWelcomeVC.h"
+#import "WCHMyPublishVC.h"
 
 @interface WCHMineViewController ()
 @property (nonatomic, strong) UIScrollView *basedScrollView;
@@ -42,6 +43,8 @@
     /* 构建页面元素 */
     [self createUIParts];
     [super createTabBarWith:1];  // 调用父类方法，构建tabbar
+    
+    [self waitForNotification];
 }
 
 
@@ -52,7 +55,8 @@
     
     if (!_basedScrollView) {
         [self createScrollView];  // 创建scrollview容器(内容ui都在容器内)
-        [self createScrollUI];  // 创建内容部分的ui
+        [self createFuncList];
+        [self createLoginInfo];
     }
 }
 
@@ -115,8 +119,9 @@
     _basedScrollView.scrollsToTop = YES;
 }
 
-/** 创建滚动部分 */
-- (void)createScrollUI
+
+/** 创建个人信息（头像、账号等） */
+- (void)createLoginInfo
 {
     UIView *portraitBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 15, _screenWidth, 168)];
     portraitBackground.backgroundColor = [UIColor whiteColor];
@@ -176,8 +181,11 @@
     
     
     // ======================================================================
-    
-    
+}
+
+/** 创建功能入口 */
+- (void)createFuncList
+{
     /* 我发起的投票 */
     UIView *myPublishedVoteView = [[UIView alloc] initWithFrame:CGRectMake(0, 15+168, _screenWidth, 44)];
     myPublishedVoteView.backgroundColor = [UIColor whiteColor];
@@ -266,7 +274,20 @@
 /** 点击myPublishedVote */
 - (void)clickMyPublishedVote
 {
+    if (![WCHUserDefault isLogin]) {
+        WCHWelcomeVC *welcome = [[WCHWelcomeVC alloc] init];
+        [self.navigationController presentViewController:welcome animated:YES completion:^{
+
+        }];
+        return;
+    }
     
+    WCHMyPublishVC *myPublish = [[WCHMyPublishVC alloc] init];
+    [self.navigationController pushViewController:myPublish animated:YES];
+    //开启iOS7的滑动返回效果
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
 }
 
 /** 点击AppStore */
@@ -292,7 +313,7 @@
     if (![WCHUserDefault isLogin]) {
         WCHWelcomeVC *welcome = [[WCHWelcomeVC alloc] init];
         [self.navigationController presentViewController:welcome animated:YES completion:^{
-            // code
+
         }];
         return;
     }
@@ -303,6 +324,24 @@
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
+}
+
+
+
+#pragma mark - 接收广播
+/** 注册广播观察者 **/
+- (void)waitForNotification
+{
+    // 广播内容：登录状态变化
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"loginInfoChange" object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        NSLog(@"%@", note.name);
+        NSLog(@"%@", note.object);
+        
+        [_basedScrollView removeFromSuperview];
+        _basedScrollView = nil;
+    }];
+    
+    // 其他广播...
 }
 
 

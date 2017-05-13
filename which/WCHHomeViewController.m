@@ -46,18 +46,30 @@
     [super createTabBarWith:0];  // 调用父类方法，构建tabbar
     [self createUIParts];
     [self createTableView];
+    
+    [self waitForNotification];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    [_oneTableView.mj_header beginRefreshing];  // 触发下拉刷新
+    if (!_voteData) {
+        [_oneTableView.mj_header beginRefreshing];  // 触发下拉刷新
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)dealloc {
+    // uiviewcontroller 释放前会调用
+    [[NSNotificationCenter defaultCenter] removeObserver:self];  // 注销观察者
+}
+
+
+
 
 
 #pragma mark - 构建UI
@@ -220,7 +232,14 @@
 
 - (void)clickPicWithIndex:(unsigned long)index withWhichPic:(unsigned long)which
 {
-    NSLog(@"?????");
+    if (![WCHUserDefault isLogin]){
+        WCHWelcomeVC *welcome = [[WCHWelcomeVC alloc] init];
+        [self.navigationController presentViewController:welcome animated:YES completion:^{
+            //
+        }];
+        return;
+    }
+    
     // 获取登录信息
     NSDictionary *loginInfo = [WCHUserDefault readLoginInfo];
     NSLog(@"%@", loginInfo);
@@ -337,6 +356,7 @@
         _voteData = [data mutableCopy];
         [_oneTableView reloadData];
         [_oneTableView.mj_header endRefreshing];
+        [_oneTableView.mj_footer resetNoMoreData];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -396,6 +416,31 @@
     }];
 }
 
+
+
+
+#pragma mark - 接收广播
+/** 注册广播观察者 **/
+- (void)waitForNotification
+{
+    // 广播内容：登录状态变化
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"loginInfoChange" object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        NSLog(@"%@", note.name);
+        NSLog(@"%@", note.object);
+        
+        [_oneTableView.mj_header beginRefreshing];
+    }];
+    
+    // 广播内容：发布了新投票
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"newPublish" object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        NSLog(@"%@", note.name);
+        NSLog(@"%@", note.object);
+        
+        [_oneTableView.mj_header beginRefreshing];
+    }];
+    
+    // 其他广播...
+}
 
 
 @end

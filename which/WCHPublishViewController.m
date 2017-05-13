@@ -117,7 +117,7 @@
     [_sendButton setTitle:@"发送" forState:UIControlStateNormal];
     _sendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [_sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _sendButton.backgroundColor = [WCHColorManager purple];
+    _sendButton.backgroundColor = [WCHColorManager commonPink];
     _sendButton.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
     _sendButton.layer.cornerRadius = 3;
     [_sendButton addTarget:self action:@selector(clickSendButton) forControlEvents:UIControlEventTouchUpInside];
@@ -320,6 +320,10 @@
             return;
         }
         // 返回值正常
+        // 创建一个广播(登录状态变化)
+        NSDictionary *info = @{@"message": @"ok"};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"newPublish" object:info];
+        // 退出页面
         [self dismissViewControllerAnimated:YES completion:^{
             [WCHToastView showToastWith:@"发送成功 Bingo!" isErr:YES duration:2.5f superView:_previousPage.view];
         }];

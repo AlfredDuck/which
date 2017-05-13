@@ -171,7 +171,7 @@
 
 - (void)clickLogout
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"退出登录后将收不到朋友的消息" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"退出登录", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确定退出当前帐号吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"退出登录", nil];
     alert.tag = 11;
     [alert show];
 }
@@ -226,6 +226,12 @@
         // 返回值正常
         // 清理登录信息
         [WCHUserDefault cleanLoginInfo];
+        // 发出广播
+        // 创建一个广播(登录状态变化)
+        NSDictionary *info = @{@"message": @"ok"};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"loginInfoChange" object:info];
+        // 退出个人中心页面
+        [self.navigationController popViewControllerAnimated:YES];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Error: %@", error);
