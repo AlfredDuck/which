@@ -87,7 +87,7 @@
     
     /* title */
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((_screenWidth-200)/2, 20, 200, 44)];
-    titleLabel.text = @"· 选对 ·";
+    titleLabel.text = @"· 阿伯点点 ·";
     titleLabel.textColor = [WCHColorManager mainTextColor];
     titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size: 18.0];
     titleLabel.textAlignment = NSTextAlignmentCenter;

@@ -84,7 +84,7 @@
     UISegmentedControl *segControl = [[UISegmentedControl alloc]initWithItems:segmentedArray];
     segControl.frame = CGRectMake(45.0, 60, _screenWidth-90, 26.0);
     segControl.selectedSegmentIndex = 0;  //设置默认选择项索引
-    segControl.tintColor = [WCHColorManager yellowBackground];
+    segControl.tintColor = [WCHColorManager commonPink];
     [self.view addSubview: segControl];
     [segControl addTarget:self action:@selector(changeSegmentWith:) forControlEvents:UIControlEventValueChanged];  // 点击事件
     
@@ -137,7 +137,7 @@
     
     /* 登录按钮 */
     _loginButton = [[UIView alloc] initWithFrame:CGRectMake(45, hh+(44+8)+(44+12), _screenWidth-90, 40)];
-    _loginButton.backgroundColor = [WCHColorManager yellowBackground];
+    _loginButton.backgroundColor = [WCHColorManager commonPink];
     _loginButton.layer.masksToBounds = YES;  // 没这句话它圆不起来
     _loginButton.layer.cornerRadius = 5.0;  // 设置图片圆角的尺度
     _loginButton.hidden = YES;
@@ -157,7 +157,7 @@
     
     /* 注册按钮 */
     _signupButton = [[UIView alloc] initWithFrame:CGRectMake(45, hh+(44+8)*2+(44+12), _screenWidth-90, 40)];
-    _signupButton.backgroundColor = [WCHColorManager yellowBackground];
+    _signupButton.backgroundColor = [WCHColorManager commonPink];
     _signupButton.layer.masksToBounds = YES;  // 没这句话它圆不起来
     _signupButton.layer.cornerRadius = 5.0;  // 设置图片圆角的尺度
     _signupButton.hidden = NO;
@@ -201,7 +201,7 @@
         _loginButton.hidden = NO;
         _signupButton.hidden = YES;
         _nicknameView.hidden = YES;
-        _mobilTextField.placeholder = @"手机号或邮箱";
+        _mobilTextField.placeholder = @"手机号";
         // 从0.0.3开始不再支持邮箱注册，但以往邮箱用户还可以登录
     } else if (index == 0) {
         // 切到注册
@@ -309,14 +309,14 @@
         if (errcode == 1001) {  // 数据库出错
             NSLog(@"登录时出错");
             _loginLabel.text = @"登录";
-            _loginButton.backgroundColor = [WCHColorManager yellowBackground];
+            _loginButton.backgroundColor = [WCHColorManager commonPink];
             [WCHToastView showToastWith:@"服务器出错，请重试" isErr:NO duration:2.0 superView:self.view];
             return;
         }
         if (errcode == 1002) {  // 用户不存在，无法登陆
             NSLog(@"用户不存在，请先注册");
             _loginLabel.text = @"登录";
-            _loginButton.backgroundColor = [WCHColorManager yellowBackground];
+            _loginButton.backgroundColor = [WCHColorManager commonPink];
             [WCHToastView showToastWith:@"手机号或密码错误" isErr:NO duration:2.0 superView:self.view];
             return;
         }
@@ -328,7 +328,7 @@
         NSLog(@"失败");
         NSLog(@"Error: %@", error);
         _loginLabel.text = @"登录";
-        _loginButton.backgroundColor = [WCHColorManager yellowBackground];
+        _loginButton.backgroundColor = [WCHColorManager commonPink];
         [WCHToastView showToastWith:@"网络有点问题" isErr:NO duration:2.0 superView:self.view];
     }];
 
@@ -364,13 +364,13 @@
         
         if (errcode == 1001) {  // 数据库出错
             _signupLabel.text = @"注册";
-            _signupButton.backgroundColor = [WCHColorManager yellowBackground];
+            _signupButton.backgroundColor = [WCHColorManager commonPink];
             [WCHToastView showToastWith:@"服务器出错，请重试" isErr:NO duration:2.0 superView:self.view];
             return;
         }
         if (errcode == 1002) {  // 用户已注册，无法完成注册
             _signupLabel.text = @"注册";
-            _signupButton.backgroundColor = [WCHColorManager yellowBackground];
+            _signupButton.backgroundColor = [WCHColorManager commonPink];
             [WCHToastView showToastWith:@"此手机号已注册过，请直接登录" isErr:NO duration:2.0 superView:self.view];
             return;
         }
@@ -381,7 +381,7 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Error: %@", error);
         _signupLabel.text = @"注册";
-        _signupButton.backgroundColor = [WCHColorManager yellowBackground];
+        _signupButton.backgroundColor = [WCHColorManager commonPink];
         [WCHToastView showToastWith:@"网络有点问题" isErr:NO duration:2.0 superView:self.view];
     }];
 }

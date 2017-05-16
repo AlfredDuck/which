@@ -37,7 +37,9 @@
     [self createUIPart];
 }
 
--(void)viewDidAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated
+{
+    NSLog(@"welcome appear");
     // 检查是否登录,如果已经登录则自动退出此页面
     if ([WCHUserDefault isLogin]) {
         
@@ -69,10 +71,9 @@
     [weiboLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     weiboLoginButton.frame = CGRectMake(15, _screenHeight-15-50*2-10, _screenWidth-30, 50);
     weiboLoginButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:20];
-    weiboLoginButton.tintColor = [UIColor whiteColor];
     weiboLoginButton.layer.masksToBounds = YES;
     weiboLoginButton.layer.cornerRadius = 8;
-    weiboLoginButton.backgroundColor = [WCHColorManager yellowBackground];
+    weiboLoginButton.backgroundColor = [WCHColorManager commonPink];
     [self.view addSubview:weiboLoginButton];
     
     /* 邮箱登录或注册 */
@@ -81,13 +82,12 @@
                      action:@selector(goToMailLogin)
            forControlEvents:UIControlEventTouchUpInside];
     [signupButton setTitle:@"手机号登录/注册" forState:UIControlStateNormal];
-    [signupButton setTitleColor:[WCHColorManager yellowText] forState:UIControlStateNormal];
+    [signupButton setTitleColor:[WCHColorManager commonPink] forState:UIControlStateNormal];
     signupButton.frame = CGRectMake(15, _screenHeight-15-50, _screenWidth-30, 50);
     signupButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:20];
-    signupButton.tintColor = [WCHColorManager yellowText];
     signupButton.layer.masksToBounds = YES;
     signupButton.layer.cornerRadius = 8;
-    signupButton.backgroundColor = [WCHColorManager lightYellowBackground];
+    signupButton.backgroundColor = [UIColor colorWithRed:255/255.0 green:228/255.0 blue:234/255.0 alpha:1.0];
     [self.view addSubview:signupButton];
     
     
@@ -96,44 +96,37 @@
     UIView *logoBackground = [[UIView alloc] initWithFrame:CGRectMake((_screenWidth-200)/2.0, hh, 200, 190)];
     [self.view addSubview:logoBackground];
     
-    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake((200-107)/2.0, 0, 107, 107)];
-    logoView.image = [UIImage imageNamed:@"coco_logo.png"];
+    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake((200-108)/2.0, 0, 108, 108)];
+    logoView.image = [UIImage imageNamed:@"which_icon_border_216.png"];
     [logoBackground addSubview: logoView];
     
-    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 107+25, 200, 20)];
-    label1.text = @"COCO";
-    label1.font = [UIFont fontWithName:@"Helvetica Bold" size:20];
-    label1.textColor = [WCHColorManager lightTextColor];
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 107+12, 200, 20)];
+    label1.text = @"· 阿伯点点 ·";
+    label1.font = [UIFont fontWithName:@"PingFangSC-Light" size:18];
+    label1.textColor = [WCHColorManager commentTextColor];
     label1.textAlignment = NSTextAlignmentCenter;
     [logoBackground addSubview:label1];
     
-    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(0, 107+25+20+3, 200, 20)];
-    label2.text = @"你的百变魔音";
-    label2.font = [UIFont fontWithName:@"Helvetica" size:14];
+    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(0, 107+25+12+3, 200, 20)];
+    label2.text = @"全民帮我挑好物";
+    label2.font = [UIFont fontWithName:@"PingFangSC-Thin" size:14];
     label2.textColor = [WCHColorManager lightTextColor];
     label2.textAlignment = NSTextAlignmentCenter;
     [logoBackground addSubview:label2];
     
     
-    /* 退出页面 */
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton addTarget:self
-    action:@selector(clickCancelButton)
-    forControlEvents:UIControlEventTouchUpInside];
-    [backButton setTitle:@"退出" forState:UIControlStateNormal];
-    [backButton setTitleColor:[UIColor colorWithRed:(44/255.0) green:(165/255.0) blue:(128/255.0) alpha:1] forState:UIControlStateNormal];
-    backButton.frame = CGRectMake(20, 500, _screenWidth-40, 40);
-    //button.frame = CGRectMake(0, 0, 40, 40);
-    backButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15];
-    backButton.tintColor = [UIColor colorWithRed:(44/255.0) green:(165/255.0) blue:(128/255.0) alpha:1];
-    backButton.backgroundColor = [UIColor colorWithRed:(207/255.0) green:(237/255.0) blue:(228/255.0) alpha:1];
-
-    [backButton.layer setMasksToBounds:YES];
-    [backButton.layer setCornerRadius:5.0]; //设置矩形四个圆角半径
-    [backButton.layer setBorderWidth:1.0];   //边框宽度
-    [backButton.layer setBorderColor:[UIColor colorWithRed:(44/255.0) green:(165/255.0) blue:(128/255.0) alpha:1].CGColor];
-
-    [self.view addSubview:backButton];
+    /* 关闭按钮 */
+    UIImage *oneImage = [UIImage imageNamed:@"close.png"]; // 使用ImageView通过name找到图片
+    UIImageView *oneImageView = [[UIImageView alloc] initWithImage:oneImage]; // 把oneImage添加到oneImageView上
+    oneImageView.frame = CGRectMake(14.5, 14.5, 15, 15); // 设置图片位置和大小
+    
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, 44, 44)];
+    [backView addSubview:oneImageView];
+    // 为UIView添加点击事件
+    backView.userInteractionEnabled = YES; // 设置图片可以交互
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickCloseButton)]; // 设置手势
+    [backView addGestureRecognizer:singleTap]; // 给图片添加手势
+    [self.view addSubview:backView];
 }
 
 
@@ -157,7 +150,7 @@
     [self presentViewController:thirdLoginPage animated:YES completion:nil];
 }
 
-- (void)clickCancelButton
+- (void)clickCloseButton
 {
     NSLog(@"移除welcome模态");
     [self dismissViewControllerAnimated:NO completion:nil];
@@ -173,11 +166,11 @@
  */
 
 - (void)loginCallBack {
-    [self clickCancelButton];
+    [self clickCloseButton];
 }
 
 - (void)signupCallBack {
-    [self clickCancelButton];
+    [self clickCloseButton];
 }
 
 

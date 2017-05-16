@@ -313,8 +313,12 @@
 {
     if (![WCHUserDefault isLogin]) {
         WCHWelcomeVC *welcome = [[WCHWelcomeVC alloc] init];
+        // 模态的半透明效果
+//        self.definesPresentationContext = YES; //self is presenting view controller
+//        welcome.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.4];
+//        welcome.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         [self.navigationController presentViewController:welcome animated:YES completion:^{
-
+            //
         }];
         return;
     }

@@ -50,6 +50,8 @@
 		BBC64BB31EC0B45200D4C712 /* WCHNicknameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC64BB21EC0B45200D4C712 /* WCHNicknameVC.m */; };
 		BBC64BB61EC6B3B000D4C712 /* WCHMyPublishVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC64BB51EC6B3B000D4C712 /* WCHMyPublishVC.m */; };
 		BBC64BBD1EC7538A00D4C712 /* WCHShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC64BBC1EC7538A00D4C712 /* WCHShareManager.m */; };
+		BBC64BBF1EC7ED8F00D4C712 /* which_icon_border_216.png in Resources */ = {isa = PBXBuildFile; fileRef = BBC64BBE1EC7ED8F00D4C712 /* which_icon_border_216.png */; };
+		BBC64BC11EC7F27A00D4C712 /* which_icon_180.png in Resources */ = {isa = PBXBuildFile; fileRef = BBC64BC01EC7F27A00D4C712 /* which_icon_180.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,6 +146,8 @@
 		BBC64BB51EC6B3B000D4C712 /* WCHMyPublishVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHMyPublishVC.m; sourceTree = "<group>"; };
 		BBC64BBB1EC7538A00D4C712 /* WCHShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHShareManager.h; sourceTree = "<group>"; };
 		BBC64BBC1EC7538A00D4C712 /* WCHShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHShareManager.m; sourceTree = "<group>"; };
+		BBC64BBE1EC7ED8F00D4C712 /* which_icon_border_216.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = which_icon_border_216.png; path = "../../../coding/salt-App效果图/which_icon_border_216.png"; sourceTree = "<group>"; };
+		BBC64BC01EC7F27A00D4C712 /* which_icon_180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = which_icon_180.png; path = "../../../coding/salt-App效果图/which_icon_180.png"; sourceTree = "<group>"; };
 		DD78C9D0906585AE40E73FDD /* Pods-which.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-which.release.xcconfig"; path = "Pods/Target Support Files/Pods-which/Pods-which.release.xcconfig"; sourceTree = "<group>"; };
 		F89ADBF6F9572E9159A789C0 /* libPods-which.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-which.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -313,6 +317,8 @@
 				BB6C97651EB6020700381467 /* b_icon.png */,
 				BB6C976D1EB6C9DA00381467 /* direct.png */,
 				BBC64BAF1EBEFEDF00D4C712 /* my_vote.png */,
+				BBC64BBE1EC7ED8F00D4C712 /* which_icon_border_216.png */,
+				BBC64BC01EC7F27A00D4C712 /* which_icon_180.png */,
 			);
 			name = "图片资源";
 			sourceTree = "<group>";
@@ -567,7 +573,9 @@
 				BB6867841EB40CA200AB1D98 /* LaunchScreen.storyboard in Resources */,
 				BB6C976E1EB6C9DA00381467 /* direct.png in Resources */,
 				BB6867811EB40CA200AB1D98 /* Assets.xcassets in Resources */,
+				BBC64BC11EC7F27A00D4C712 /* which_icon_180.png in Resources */,
 				BB6867BC1EB4155B00AB1D98 /* mine_focus.png in Resources */,
+				BBC64BBF1EC7ED8F00D4C712 /* which_icon_border_216.png in Resources */,
 				BB6867BA1EB4155400AB1D98 /* home_focus.png in Resources */,
 				BB6867C41EB423FC00AB1D98 /* publish.png in Resources */,
 				BB6C97661EB6020700381467 /* b_icon.png in Resources */,
@@ -786,7 +794,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -811,12 +820,15 @@
 			baseConfigurationReference = 3835FD5165073D1970508C5E /* Pods-which.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3HCQXUYMF8;
 				INFOPLIST_FILE = which/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Alfred.com.which;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -826,12 +838,15 @@
 			baseConfigurationReference = DD78C9D0906585AE40E73FDD /* Pods-which.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3HCQXUYMF8;
 				INFOPLIST_FILE = which/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Alfred.com.which;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

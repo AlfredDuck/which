@@ -39,12 +39,12 @@
     
     // 构建消息体
     WXMediaMessage *message = [[WXMediaMessage alloc] init];
-    NSString *ms = [NSString stringWithFormat:@"我的COCO昵称是：%@，快来跟我一起玩吧", nickname];
+    NSString *ms = [NSString stringWithFormat:@"%@我在“阿伯点点”APP，剁手纠结就用“阿伯点点”，全民帮我挑好货~", @""];
     message.title = ms;
-    message.description = @"COCO-你的百变通知音";
+    message.description = @"全民帮我挑，剁手不纠结";
     // [message setThumbImage:[UIImage imageNamed:@"share_button.png"]];  // 微信原方法
     // 微信要求分享的图片不超过32k，否则会出现未知错误。目前后台不能压缩图片，那么就从后台传默认图片吧
-    [message setThumbImage:[UIImage imageNamed:@"coco180.png"]];
+    [message setThumbImage:[UIImage imageNamed:@"which_icon_180.png"]];
     
     WXWebpageObject *webPageObject = [WXWebpageObject object];
     NSString *urlString = @"https://itunes.apple.com/us/app/id1236414057";
@@ -113,15 +113,15 @@
     }
     
     WBMessageObject *message = [WBMessageObject message];
-    NSString *urlString = @"https://itunes.apple.com/us/app/id1208037554";
-    NSString *ms = [NSString stringWithFormat:@"我的COCO昵称是：%@，快来跟我一起玩吧~ 点击并选择用Safari打开☞", nickname];
+    NSString *urlString = @"https://itunes.apple.com/us/app/id1236414057";
+    NSString *ms = [NSString stringWithFormat:@"%@我在“阿伯点点”APP，剁手纠结就用“阿伯点点”，全民帮我挑好货~ 点击并选择用Safari打开☞",@""];
     message.text = [ms stringByAppendingString:urlString];
     
     // 设置配图
     WBImageObject *image = [WBImageObject object];
     // image.imageData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"image_1" ofType:@"jpg"]]; // 微博的原方法
     
-    _shareImageForWeibo = [UIImage imageNamed:@"coco180.png"];
+    _shareImageForWeibo = [UIImage imageNamed:@"which_icon_180.png"];
     NSData *imageData;
     if (UIImagePNGRepresentation(_shareImageForWeibo)) {
         imageData = UIImagePNGRepresentation(_shareImageForWeibo);
