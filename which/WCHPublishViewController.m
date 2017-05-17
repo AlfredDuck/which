@@ -16,6 +16,7 @@
 #import "WCHUrlManager.h"
 #import "WCHToastView.h"
 #import "WCHUserDefault.h"
+#import "WCHTokenManager.h"
 
 #define ORIGINAL_MAX_WIDTH 640.0f
 
@@ -246,6 +247,15 @@
         return;
     }
     
+    // 检查通知权限（发布时强制开启通知权限）
+    if (![WCHUserDefault isPushAllowed]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"阿伯点点提示" message:@"请开启通知，及时获知投票结果" delegate:nil cancelButtonTitle:@"稍后再说" otherButtonTitles:@"去设置中开启", nil];
+        alert.delegate = self;
+        alert.tag = 11;
+        [alert show];
+        return;
+    }
+    
     // 显示“发送中...”状态
     _sendButton.hidden = YES;
     [_sendLoading startAnimating];
@@ -273,6 +283,23 @@
                          completion:^(void){
                              NSLog(@"Picker View Controller is presented");
                          }];
+    }
+}
+
+
+
+
+
+
+#pragma mark - UIAlertView 代理
+- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        NSLog(@"跳转设置");
+        // 跳转到设置-通知
+        // 教程 http://www.jianshu.com/p/8e354e684e8a
+        // http://www.jianshu.com/p/5b7571d7bb34
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
     }
 }
 

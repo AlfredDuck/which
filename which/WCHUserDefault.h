@@ -18,7 +18,7 @@
 + (BOOL)recordDeviceToken:(NSString *)deviceToken;
 
 /* push权限 */
-+ (BOOL)readPushAuthority;
++ (BOOL)isPushAllowed;
 + (void)pushAuthorityIsClose;
 + (void)pushAuthorityIsOpen;
 

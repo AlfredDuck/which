@@ -11,6 +11,7 @@
 #import "WCHColorManager.h"
 #import "WCHThirdLoginVC.h"
 #import "WCHMobilLoginVC.h"
+#import "WCHTokenManager.h"
 
 @interface WCHWelcomeVC ()
 
@@ -46,8 +47,11 @@
         // 创建一个广播(登录状态变化)
         NSDictionary *info = @{@"message": @"ok"};
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loginInfoChange" object:info];
-        
-        [self dismissViewControllerAnimated:YES completion:nil];
+
+        [self dismissViewControllerAnimated:YES completion:^{
+            // 登录成功后获取token
+            [WCHTokenManager requestDeviceToken];
+        }];
     }
 }
 

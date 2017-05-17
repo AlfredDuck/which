@@ -45,7 +45,7 @@
 
 
 /* push权限 */
-+ (BOOL)readPushAuthority {
++ (BOOL)isPushAllowed {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *pa = [ud stringForKey:@"pushAuthority"];
     if (pa) {

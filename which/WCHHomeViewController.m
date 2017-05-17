@@ -17,6 +17,7 @@
 #import "WCHUrlManager.h"
 #import "WCHUserDefault.h"
 #import "WCHToastView.h"
+#import "WCHTokenManager.h"
 
 @interface WCHHomeViewController ()
 
@@ -55,6 +56,13 @@
     [super viewWillAppear:YES];
     if (!_voteData) {
         [_oneTableView.mj_header beginRefreshing];  // 触发下拉刷新
+        
+        // 启动时默认推送权限是关闭的
+        [WCHUserDefault pushAuthorityIsClose];
+        // 获取token（时机要在登录后，这样体验好些）
+        if ([WCHUserDefault isLogin]) {
+            [WCHTokenManager requestDeviceToken];
+        }
     }
 }
 

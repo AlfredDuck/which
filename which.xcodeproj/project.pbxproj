@@ -46,6 +46,7 @@
 		BB6C97811EB74D9100381467 /* WCHUrlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6C97801EB74D9100381467 /* WCHUrlManager.m */; };
 		BB6C97851EB74E5E00381467 /* WCHToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6C97841EB74E5E00381467 /* WCHToastView.m */; };
 		BB6C97881EB8C2CA00381467 /* uploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6C97871EB8C2CA00381467 /* uploadManager.m */; };
+		BB935DFF1ECB403700322652 /* WCHTokenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB935DFE1ECB403700322652 /* WCHTokenManager.m */; };
 		BBC64BB01EBEFEDF00D4C712 /* my_vote.png in Resources */ = {isa = PBXBuildFile; fileRef = BBC64BAF1EBEFEDF00D4C712 /* my_vote.png */; };
 		BBC64BB31EC0B45200D4C712 /* WCHNicknameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC64BB21EC0B45200D4C712 /* WCHNicknameVC.m */; };
 		BBC64BB61EC6B3B000D4C712 /* WCHMyPublishVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC64BB51EC6B3B000D4C712 /* WCHMyPublishVC.m */; };
@@ -139,6 +140,8 @@
 		BB6C97841EB74E5E00381467 /* WCHToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHToastView.m; sourceTree = "<group>"; };
 		BB6C97861EB8C2CA00381467 /* uploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uploadManager.h; sourceTree = "<group>"; };
 		BB6C97871EB8C2CA00381467 /* uploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uploadManager.m; sourceTree = "<group>"; };
+		BB935DFD1ECB403700322652 /* WCHTokenManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHTokenManager.h; sourceTree = "<group>"; };
+		BB935DFE1ECB403700322652 /* WCHTokenManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHTokenManager.m; sourceTree = "<group>"; };
 		BBC64BAF1EBEFEDF00D4C712 /* my_vote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = my_vote.png; path = "../../../coding/salt-App效果图/my_vote.png"; sourceTree = "<group>"; };
 		BBC64BB11EC0B45200D4C712 /* WCHNicknameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHNicknameVC.h; sourceTree = "<group>"; };
 		BBC64BB21EC0B45200D4C712 /* WCHNicknameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHNicknameVC.m; sourceTree = "<group>"; };
@@ -148,6 +151,7 @@
 		BBC64BBC1EC7538A00D4C712 /* WCHShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHShareManager.m; sourceTree = "<group>"; };
 		BBC64BBE1EC7ED8F00D4C712 /* which_icon_border_216.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = which_icon_border_216.png; path = "../../../coding/salt-App效果图/which_icon_border_216.png"; sourceTree = "<group>"; };
 		BBC64BC01EC7F27A00D4C712 /* which_icon_180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = which_icon_180.png; path = "../../../coding/salt-App效果图/which_icon_180.png"; sourceTree = "<group>"; };
+		BBEFDA411ECCA62E00D38519 /* which.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = which.entitlements; sourceTree = "<group>"; };
 		DD78C9D0906585AE40E73FDD /* Pods-which.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-which.release.xcconfig"; path = "Pods/Target Support Files/Pods-which/Pods-which.release.xcconfig"; sourceTree = "<group>"; };
 		F89ADBF6F9572E9159A789C0 /* libPods-which.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-which.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -211,6 +215,8 @@
 		BB6867701EB40CA200AB1D98 /* which */ = {
 			isa = PBXGroup;
 			children = (
+				BBEFDA411ECCA62E00D38519 /* which.entitlements */,
+				BB935DFC1ECB400B00322652 /* device token */,
 				BBC64BBA1EC7535C00D4C712 /* 分享 */,
 				BB6C97821EB74E2F00381467 /* toast */,
 				BB6C977E1EB74D6C00381467 /* url manager */,
@@ -427,6 +433,15 @@
 			name = toast;
 			sourceTree = "<group>";
 		};
+		BB935DFC1ECB400B00322652 /* device token */ = {
+			isa = PBXGroup;
+			children = (
+				BB935DFD1ECB403700322652 /* WCHTokenManager.h */,
+				BB935DFE1ECB403700322652 /* WCHTokenManager.m */,
+			);
+			name = "device token";
+			sourceTree = "<group>";
+		};
 		BBC64BB71EC6B3B800D4C712 /* 我发起的投票 */ = {
 			isa = PBXGroup;
 			children = (
@@ -526,6 +541,11 @@
 						CreatedOnToolsVersion = 8.2;
 						DevelopmentTeam = 3HCQXUYMF8;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					BB6867891EB40CA200AB1D98 = {
 						CreatedOnToolsVersion = 8.2;
@@ -659,6 +679,7 @@
 				BB6C97881EB8C2CA00381467 /* uploadManager.m in Sources */,
 				BB6867D91EB4D54600AB1D98 /* WCHVoteListCell.m in Sources */,
 				BB68677F1EB40CA200AB1D98 /* which.xcdatamodeld in Sources */,
+				BB935DFF1ECB403700322652 /* WCHTokenManager.m in Sources */,
 				BB6867AE1EB4102100AB1D98 /* WCHColorManager.m in Sources */,
 				BBC64BBD1EC7538A00D4C712 /* WCHShareManager.m in Sources */,
 				BB6C97771EB745C100381467 /* WCHWelcomeVC.m in Sources */,
@@ -820,6 +841,7 @@
 			baseConfigurationReference = 3835FD5165073D1970508C5E /* Pods-which.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = which/which.entitlements;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3HCQXUYMF8;
@@ -838,6 +860,7 @@
 			baseConfigurationReference = DD78C9D0906585AE40E73FDD /* Pods-which.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = which/which.entitlements;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3HCQXUYMF8;

@@ -12,6 +12,7 @@
 #import "Growing.h"
 #import "YYWebImage.h"
 #import "WCHRootViewController.h"
+#import "WCHTokenManager.h"
 
 #define iOS8 [[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 ? 1 : 0
 #define kAPPKey        @"4247685982"
@@ -155,6 +156,105 @@
         
     }
 }
+
+
+
+
+
+
+
+/*
+ * 获取设备token
+ *
+ *
+ *
+ */
+
+#ifdef __IPHONE_8_0
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    //register to receive notifications
+    [application registerForRemoteNotifications];
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
+{
+    //handle the actions
+    if ([identifier isEqualToString:@"declineAction"]){
+    }
+    else if ([identifier isEqualToString:@"answerAction"]){
+    }
+}
+#endif
+
+
+/*
+ * 通知相关的设置，及token
+ *
+ *
+ */
+#pragma mark - token的代理
+/** 获取token成功的回调 */
+- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    NSString *tokenStr = [NSString stringWithFormat:@"%@",deviceToken];
+    NSLog(@"【device token】:%@", tokenStr);
+    
+    // 处理token格式
+    NSString *tokenStrWithoutBlankChar = [tokenStr stringByReplacingOccurrencesOfString:@" " withString:@""];
+    tokenStrWithoutBlankChar = [tokenStrWithoutBlankChar stringByReplacingOccurrencesOfString:@"<" withString:@""];
+    tokenStrWithoutBlankChar = [tokenStrWithoutBlankChar stringByReplacingOccurrencesOfString:@">" withString:@""];
+    NSLog(@"去掉空格的token：%@", tokenStrWithoutBlankChar);
+    
+    // 上传token到服务器，及保存token到本地
+    [WCHTokenManager uploadAndStoreToken:tokenStrWithoutBlankChar];
+}
+
+
+/** 获取token出错的回调 */
+- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err
+{
+    NSString *str = [NSString stringWithFormat: @"获取token时出错: %@", err];
+    NSLog(@"%@",str);
+    NSInteger code = err.code;
+    NSLog(@"%ld", (long)code);
+    /*
+     token出错的情况，根据错误码做响应
+     当用户拒绝授予应用程序发送推送通知的权限 code=
+     当没有网络连接和用户授予的权限发送推送通知时。
+     当用户禁用从应用程序的通知中心应用程序的推送通知。
+     */
+}
+
+
+/** 收到push时的处理 */
+- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    if(application.applicationState == UIApplicationStateActive){
+        // 程序在运行过程中受到推送通知(前台或后台）
+        NSLog(@"%@", userInfo);
+        NSString *audio = userInfo[@"audio"];
+        NSString *ms = userInfo[@"aps"][@"alert"];
+        // 播放提示音
+        // [FTMAudioPlayManager playAudioWithID:audio];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"新消息" message:ms delegate:self cancelButtonTitle:@"收到" otherButtonTitles: nil];
+        [alert show];
+        
+        // 创建一个广播(发送了一个message)，广播接收方是message list)
+        NSDictionary *info = @{@"message": @"ok"};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"recieveAPNS" object:info];
+        
+    } else {
+        // 程序未在运行状态受到推送通知
+    }
+}
+
+
+
+
+
+
 
 
 
