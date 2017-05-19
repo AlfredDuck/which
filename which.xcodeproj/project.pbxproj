@@ -215,7 +215,6 @@
 		BB6867701EB40CA200AB1D98 /* which */ = {
 			isa = PBXGroup;
 			children = (
-				BBEFDA411ECCA62E00D38519 /* which.entitlements */,
 				BB935DFC1ECB400B00322652 /* device token */,
 				BBC64BBA1EC7535C00D4C712 /* 分享 */,
 				BB6C97821EB74E2F00381467 /* toast */,
@@ -238,6 +237,7 @@
 				BB6867801EB40CA200AB1D98 /* Assets.xcassets */,
 				BB6867821EB40CA200AB1D98 /* LaunchScreen.storyboard */,
 				BB6867851EB40CA200AB1D98 /* Info.plist */,
+				BBEFDA411ECCA62E00D38519 /* which.entitlements */,
 				BB68677D1EB40CA200AB1D98 /* which.xcdatamodeld */,
 				BB6867711EB40CA200AB1D98 /* Supporting Files */,
 			);
