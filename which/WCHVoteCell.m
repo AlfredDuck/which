@@ -105,7 +105,7 @@
         
         
         // B
-        _picBImageView = [[UIImageView alloc] initWithFrame:CGRectMake(_screenWidth-ww, 0, ww, hh)];
+        _picBImageView = [[UIImageView alloc] initWithFrame:CGRectMake(ww+2, 0, _screenWidth-ww-2, hh)];
         _picBImageView.backgroundColor = [WCHColorManager lightGrayBackground];
         // uiimageview居中裁剪
         _picBImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -119,7 +119,7 @@
         [self.contentView addSubview:_picBImageView];
         
         // B 的遮黑
-        _blackB = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ww, hh)];
+        _blackB = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ww+1, hh)];
         _blackB.backgroundColor = [UIColor blackColor];
         _blackB.alpha = 0.28f;
         [_picBImageView addSubview:_blackB];
@@ -234,7 +234,7 @@
     unsigned long ww = _screenWidth/2.0 - 1;
     unsigned long hh = ceil(ww/3.0*4.0);
     _picAImageView.frame = CGRectMake(0, _cellHeight, ww, hh);
-    _picBImageView.frame = CGRectMake(ww+2, _cellHeight, ww, hh);
+    _picBImageView.frame = CGRectMake(ww+2, _cellHeight, _screenWidth-ww-2, hh);
     // 修改partline位置
     _partLine.frame = CGRectMake(0, _cellHeight+hh, _screenWidth, 15);
     

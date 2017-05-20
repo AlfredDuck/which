@@ -238,8 +238,8 @@
         // 播放提示音
         // [FTMAudioPlayManager playAudioWithID:audio];
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"新消息" message:ms delegate:self cancelButtonTitle:@"收到" otherButtonTitles: nil];
-        [alert show];
+        // UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"新消息" message:ms delegate:self cancelButtonTitle:@"收到" otherButtonTitles: nil];
+        // [alert show];
         
         // 创建一个广播(发送了一个message)，广播接收方是message list)
         NSDictionary *info = @{@"message": @"ok"};

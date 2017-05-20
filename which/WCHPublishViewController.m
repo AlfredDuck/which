@@ -62,8 +62,13 @@
     _twoPicURL = [[NSMutableArray alloc] initWithObjects:@"",@"", nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [self keepCenter:_contentTextView];
+    // 如果未授权推送，则获取
+    if (![WCHUserDefault isPushAllowed]) {
+        [WCHTokenManager requestDeviceToken];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -374,11 +379,11 @@
 /** 两张图片容器 */
 - (void)createPicHolder
 {
-    unsigned long ww = _screenWidth/2.0 - 1;
-    unsigned long hh = ww/3.0*4.0;
+    unsigned long ww = ceil(_screenWidth/2.0 - 1);
+    unsigned long hh = ceil(ww/3.0*4.0);
     
     _picAView = [[UIView alloc] initWithFrame:CGRectMake(0, 200+64, ww, hh)];
-    _picBView = [[UIView alloc] initWithFrame:CGRectMake(ww+2, 200+64, ww, hh)];
+    _picBView = [[UIView alloc] initWithFrame:CGRectMake(ww+2, 200+64, _screenWidth-ww-2, hh)];
     _picAView.backgroundColor = [WCHColorManager lightGrayBackground];
     _picBView.backgroundColor = [WCHColorManager lightGrayBackground];
     [self.view addSubview: _picAView];
@@ -406,8 +411,8 @@
 /** 展示裁切后的图片，并上传图片 */
 - (void)showCutPic:(UIImage *)img
 {
-    unsigned long ww = _screenWidth/2.0 - 1;
-    unsigned long hh = ww/3.0*4.0;
+    unsigned long ww = ceil(_screenWidth/2.0 - 1);
+    unsigned long hh = ceil(ww/3.0*4.0);
     
     // loading
     UIActivityIndicatorView *loadingFlowerA = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -443,7 +448,7 @@
         [_picAView addSubview:_loadingViewA];
 
     } else {
-        _imgViewB = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ww, hh)];
+        _imgViewB = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ww+1, hh)];
         // uiimageview居中裁剪
         _imgViewB.contentMode = UIViewContentModeScaleAspectFill;
         _imgViewB.clipsToBounds  = YES;
