@@ -111,7 +111,6 @@
     [ud removeObjectForKey:@"nickname"];
     [ud removeObjectForKey:@"portrait"];
     [ud removeObjectForKey:@"phone"];
-    //
     [ud removeObjectForKey:@"deviceToken"];  // token也需要清理
     return YES;
 }

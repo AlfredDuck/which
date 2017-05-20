@@ -362,7 +362,7 @@
         NSArray *data = responseObject[@"data"];
         unsigned long errcode = [responseObject[@"errcode"] intValue];
         NSLog(@"errcode：%lu", errcode);
-        NSLog(@"data:%@", data);
+        // NSLog(@"data:%@", data);
         // 返回值报错s
         if (errcode == 1001 || errcode == 1002) {
             NSString *txt;
@@ -417,7 +417,7 @@
         NSArray *data = responseObject[@"data"];
         unsigned long errcode = [responseObject[@"errcode"] intValue];
         NSLog(@"errcode：%lu", errcode);
-        NSLog(@"data:%@", data);
+        // NSLog(@"data:%@", data);
         // 返回值报错
         if (errcode == 1001){
             [WCHToastView showToastWith:@"数据库君这会儿有点晕，请稍后再试" isErr:NO duration:3.0f superView:self.view];

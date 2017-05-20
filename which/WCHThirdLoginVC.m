@@ -30,20 +30,22 @@
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     _screenHeight = [UIScreen mainScreen].bounds.size.height;
     _screenWidth = [UIScreen mainScreen].bounds.size.width;
     [self createUIParts];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    // 设置状态栏颜色的强力方法
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     
     // 发起微博登录流程
     [self requestForWeiboAuthorize];
     [self waitForWeiboAuthorizeResult];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    // 设置状态栏颜色的强力方法
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 }
 
 - (void)didReceiveMemoryWarning {
