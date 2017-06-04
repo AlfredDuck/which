@@ -12,7 +12,7 @@
 + (NSString *)urlHost
 {
 //    return @"http://127.0.0.1:3000";  // 本地测试
-    return @"http://cocochat.online:3000";  // 阿里云测试
+    return @"http://cocochat.cn:3000";  // 阿里云测试
 //    return @"http://cocochat.online:2020";  // 阿里云正式
 }
 
