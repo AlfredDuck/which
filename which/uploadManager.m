@@ -7,6 +7,7 @@
 //
 
 #import "uploadManager.h"
+#import "WCHUserDefault.h"
 #import "WCHUrlManager.h"
 #import "AFNetworking.h"
 #import <QiniuSDK.h>
@@ -21,6 +22,12 @@
     NSString *urlString = [host stringByAppendingString:@"/upload"];
 
     NSDictionary *parameters = @{@"filename": @"..."};
+    if ([WCHUserDefault isLogin]){
+        NSDictionary *userInfo = [WCHUserDefault readLoginInfo];
+        parameters = @{@"filename": @"...",
+                    @"uid": userInfo[@"uid"],
+                    @"user_type": userInfo[@"user_type"]};
+    }
     // 创建 GET 请求（AF 3.0）
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.requestSerializer.timeoutInterval = 20.0;  // 设置超时时间
