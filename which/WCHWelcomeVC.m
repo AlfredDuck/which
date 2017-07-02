@@ -12,6 +12,7 @@
 #import "WCHThirdLoginVC.h"
 #import "WCHMobilLoginVC.h"
 #import "WCHTokenManager.h"
+#import "WCHUrlManager.h"
 
 @interface WCHWelcomeVC ()
 
@@ -66,6 +67,17 @@
 #pragma mark - 构建UI
 - (void)createUIPart
 {
+    /* 用户条款 */
+    UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, _screenHeight-40, _screenWidth-30, 40)];
+    userLabel.text = @"登录即为同意《用户条款》";
+    userLabel.textColor = [WCHColorManager lightTextColor];
+    userLabel.textAlignment = NSTextAlignmentCenter;
+    userLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size:12];
+    userLabel.userInteractionEnabled = YES; // 设置图片可以交互
+    UITapGestureRecognizer *singleTapB = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickUserLabel)]; // 设置手势
+    [userLabel addGestureRecognizer:singleTapB]; // 给图片添加手势
+    [self.view addSubview:userLabel];
+    
     /* 新浪微博登录 */
     UIButton *weiboLoginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [weiboLoginButton addTarget:self
@@ -73,7 +85,7 @@
                forControlEvents:UIControlEventTouchUpInside];
     [weiboLoginButton setTitle:@"新浪微博登录" forState:UIControlStateNormal];
     [weiboLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    weiboLoginButton.frame = CGRectMake(15, _screenHeight-15-50*2-10, _screenWidth-30, 50);
+    weiboLoginButton.frame = CGRectMake(15, _screenHeight-15-50*2-10-30, _screenWidth-30, 50);
     weiboLoginButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:20];
     weiboLoginButton.layer.masksToBounds = YES;
     weiboLoginButton.layer.cornerRadius = 8;
@@ -87,7 +99,7 @@
            forControlEvents:UIControlEventTouchUpInside];
     [signupButton setTitle:@"手机号登录/注册" forState:UIControlStateNormal];
     [signupButton setTitleColor:[WCHColorManager commonPink] forState:UIControlStateNormal];
-    signupButton.frame = CGRectMake(15, _screenHeight-15-50, _screenWidth-30, 50);
+    signupButton.frame = CGRectMake(15, _screenHeight-15-50-30, _screenWidth-30, 50);
     signupButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:20];
     signupButton.layer.masksToBounds = YES;
     signupButton.layer.cornerRadius = 8;
@@ -160,6 +172,12 @@
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
+- (void)clickUserLabel
+{
+    NSString *host = [WCHUrlManager urlHost];
+    NSURL* url = [[ NSURL alloc ] initWithString:[host stringByAppendingString:@"/user_terms"]];
+    [[UIApplication sharedApplication ] openURL: url];
+}
 
 
 

@@ -238,6 +238,14 @@
 }
 
 
+- (void)clickMoreButtonWithIndex:(unsigned long)index
+{
+    UIActionSheet *shareSheet = [[UIActionSheet alloc] initWithTitle:@"更多操作" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"举报不良内容", nil];
+    [shareSheet showInView:self.view];
+
+}
+
+
 - (void)clickPicWithIndex:(unsigned long)index withWhichPic:(unsigned long)which
 {
     // 引导登录
@@ -437,6 +445,19 @@
         [_oneTableView.mj_footer endRefreshing];
     }];
 }
+
+
+
+
+
+#pragma mark - UIActionSheet代理
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [WCHToastView showToastWith:@"已收到举报，谢谢！" isErr:YES duration:2.5 superView:self.view];
+    }
+}
+
 
 
 

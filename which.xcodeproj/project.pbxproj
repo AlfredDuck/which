@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		543894A4C0923AC7E801DEB4 /* libPods-which.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F89ADBF6F9572E9159A789C0 /* libPods-which.a */; };
+		BB271B0E1F08B6CD00D7FB69 /* more.png in Resources */ = {isa = PBXBuildFile; fileRef = BB271B0D1F08B6CD00D7FB69 /* more.png */; };
 		BB6867731EB40CA200AB1D98 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6867721EB40CA200AB1D98 /* main.m */; };
 		BB6867761EB40CA200AB1D98 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6867751EB40CA200AB1D98 /* AppDelegate.m */; };
 		BB68677F1EB40CA200AB1D98 /* which.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB68677D1EB40CA200AB1D98 /* which.xcdatamodeld */; };
@@ -74,6 +75,7 @@
 
 /* Begin PBXFileReference section */
 		3835FD5165073D1970508C5E /* Pods-which.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-which.debug.xcconfig"; path = "Pods/Target Support Files/Pods-which/Pods-which.debug.xcconfig"; sourceTree = "<group>"; };
+		BB271B0D1F08B6CD00D7FB69 /* more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = more.png; path = "../../../coding/salt-App效果图/more.png"; sourceTree = "<group>"; };
 		BB68676E1EB40CA200AB1D98 /* which.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = which.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB6867721EB40CA200AB1D98 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BB6867741EB40CA200AB1D98 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 		BB6867B41EB414A700AB1D98 /* 图片资源 */ = {
 			isa = PBXGroup;
 			children = (
+				BB271B0D1F08B6CD00D7FB69 /* more.png */,
 				BB6867B51EB4151000AB1D98 /* home.png */,
 				BB6867B91EB4155400AB1D98 /* home_focus.png */,
 				BB6867B71EB4151C00AB1D98 /* mine.png */,
@@ -600,6 +603,7 @@
 				BB6867C41EB423FC00AB1D98 /* publish.png in Resources */,
 				BB6C97661EB6020700381467 /* b_icon.png in Resources */,
 				BB6867DB1EB4DD1700AB1D98 /* back_black.png in Resources */,
+				BB271B0E1F08B6CD00D7FB69 /* more.png in Resources */,
 				BB6867B61EB4151000AB1D98 /* home.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

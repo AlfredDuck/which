@@ -14,7 +14,7 @@
 - (void)clickVoteButtonWithIndex:(unsigned long)index;
 - (void)clickCommentButtonWithIndex:(unsigned long)index;
 - (void)clickPicWithIndex:(unsigned long)index withWhichPic:(unsigned long)which;
-
+- (void)clickMoreButtonWithIndex:(unsigned long)index;
 @end
 
 

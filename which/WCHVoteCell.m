@@ -55,6 +55,19 @@
         [self.contentView addSubview:_portraitImageView];
         
         
+        /* 更多按钮 */
+        UIImage *moreImage = [UIImage imageNamed:@"more.png"]; // 使用ImageView通过name找到图片
+        UIImageView *moreImageView = [[UIImageView alloc] initWithImage:moreImage]; // 把oneImage添加到oneImageView上
+        moreImageView.frame = CGRectMake(11, 20, 22, 4); // 设置图片位置和大小
+        UIView *moreView = [[UIView alloc] initWithFrame:CGRectMake(_screenWidth-47, 0, 44, 44)];
+        [moreView addSubview:moreImageView];
+        // 为UIView添加点击事件
+        moreView.userInteractionEnabled = YES; // 设置图片可以交互
+        UITapGestureRecognizer *singleTapMore = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickMoreButton)]; // 设置手势
+        [moreView addGestureRecognizer:singleTapMore]; // 给图片添加手势
+        [self.contentView addSubview:moreView];
+        
+        
         /* 标题 */
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 78, _screenWidth-60, 25)];
         _titleLabel.text = _title;
@@ -339,6 +352,12 @@
 {
     NSLog(@"clickCommentNumButton:%lu,%lu", _cellIndex, sender.view.tag-1);
     [self.delegate clickPicWithIndex:_cellIndex withWhichPic:sender.view.tag - 1];
+}
+
+- (void)clickMoreButton
+{
+    NSLog(@"clickMoreButton:%lu", _cellIndex);
+    [self.delegate clickMoreButtonWithIndex:_cellIndex];
 }
 
 
